@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { enableScreens } from "react-native-screens";
-
+import ReduxThunk from "redux-thunk";
 import navigationReducer from "./store/reducers/navigation";
+import newsReducer from "./store/reducers/news";
 
 import AppNavigator from "./navigation/AppNavigator";
 
@@ -19,9 +20,10 @@ const fetchFonts = () => {
 
 const rootReducer = combineReducers({
   navigation: navigationReducer,
+  news: newsReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   navitem: {
     flex: 1,
     margin: 15,
-    height: 150,
+    minHeight: 150,
     borderColor: Colors.primary,
     borderWidth: 1,
   },
