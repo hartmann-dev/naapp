@@ -1,23 +1,23 @@
-import News from "../../models/news";
+import News from "../../models/artist";
 
-export const SET_NEWS = "SET_NEWS";
-export const SET_NEWS_DETAILS = "SET_NEWS_DETAILS";
+export const SET_NEWS = "SET_MEMBER";
+export const SET_NEWS_DETAILS = "SET_MEMBER";
 
-export const fetchNews = () => {
+export const fetchMember = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/news");
+      const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/team");
 
       if (!response.ok) {
         throw new Error("Something went wrong!!");
       }
 
       const resData = await response.json();
-      const loadedNews = [];
+      const loadedMember = [];
 
       for (const key in resData) {
-        loadedNews.push(
-          new News(
+        loadedMember.push(
+          new Artist(
             resData[key].id,
             resData[key].title,
             resData[key].image,
@@ -25,7 +25,7 @@ export const fetchNews = () => {
         );
       }
 
-      dispatch({ type: SET_NEWS, news: loadedNews });
+      dispatch({ type: SET_MEMBER, member: loadedMember });
     } catch (err) {
       //
       throw err;
@@ -33,28 +33,25 @@ export const fetchNews = () => {
   };
 };
 
-export const fetchNewsDetails = (postId) => {
-  console.log(postId);
+export const fetchMemberDetails = (postId) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/news/" + postId);
+      const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/team/" + postId);
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
       const resData = await response.json();
-      loadedNews = new News(
+      loadedMember = new News(
         resData.id,
         resData.title,
         resData.image,
         resData.image_width,
         resData.image_height,
-        resData.content,
-        resData.date,
-        resData.aaa
+        resData.content
       );
 
-      dispatch({ type: SET_NEWS_DETAILS, details: loadedNews });
+      dispatch({ type: SET_MEMBER_DETAILS, details: loadedMember });
     } catch (err) {
       //
       throw err;

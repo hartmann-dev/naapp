@@ -44,12 +44,14 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontFamily: "alien",
-    color: Colors.accent,
+    //color: Colors.accent,
+    color: "black",
     fontSize: 28,
     padding: 10,
-    textShadowColor: "rgba(0, 0, 0, 0.95)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
+    // textShadowColor: "rgba(0, 0, 0, 0.95)",
+    // textShadowOffset: { width: -1, height: 1 },
+    // textShadowRadius: 10,
+
   },
   itemCard: {
     flex: 1,

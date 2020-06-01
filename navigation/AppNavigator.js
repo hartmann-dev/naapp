@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "../screens/HomeScreen";
 import NewsScreen from "../screens/NewsScreen";
-import NewsDetailsScreen from "../screens/NewsDetailsScreen";
+import NewsDetailsScreen, { screenOptions as NewsDetailsScreenOptions } from "../screens/NewsDetailsScreen";
 import TeamScreen from "../screens/TeamScreen";
 import GuestsScreem from "../screens/GuestsScreen";
 import AppointmentScreen from "../screens/AppointmentScreen";
@@ -33,7 +33,7 @@ const AppNavigator = () => {
       >
         <StackNav.Screen name="Home" component={HomeScreen} options={{ title: "NoArts! App" }} />
         <StackNav.Screen name="News" component={NewsScreen} />
-        <StackNav.Screen name="NewsDetails" component={NewsDetailsScreen} />
+        <StackNav.Screen name="NewsDetails" component={NewsDetailsScreen} options={NewsDetailsScreenOptions} />
         <StackNav.Screen name="Team" component={TeamScreen} />
         <StackNav.Screen name="Guests" component={GuestsScreem} options={{ title: "Gäste" }} />
         <StackNav.Screen name="Appointments" component={AppointmentScreen} options={{ title: "Termine" }} />

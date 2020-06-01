@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react
 
 import Colors from "../../constants/Colors";
 
-const NewsItem = (props) => {
+const MemberItem = (props) => {
   return (
     <TouchableOpacity style={{ flex: 1 }} onPress={props.onViewDetail}>
       <View style={styles.newsitem}>
@@ -12,7 +12,7 @@ const NewsItem = (props) => {
           style={styles.image}
           imageStyle={{ width: "100%", height: "auto", position: "absolute", bottom: 0 }}
         >
-          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.title}>{props.name}</Text>
         </ImageBackground>
       </View>
     </TouchableOpacity>
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsItem;
+export default MemberItem;

@@ -9,24 +9,28 @@ import Colors from "../constants/Colors";
 
 const NewsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const [error, setError] = useState();
   const news = useSelector((state) => state.news.availableNews);
   const dispatch = useDispatch();
 
   const loadNews = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
-    console.log("aaaaaaa");
+    setIsRefreshing(true);
     try {
       await dispatch(newsActions.fetchNews());
     } catch (err) {
       setError(err.message);
     }
-    setIsLoading(false);
+    setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    loadNews();
+    setIsLoading(true);
+    loadNews().then(() => {
+      setIsLoading(false);
+    });
   }, [dispatch, loadNews]);
 
   const selectItemHandler = (id, title) => {
@@ -37,6 +41,7 @@ const NewsScreen = (props) => {
   };
 
   if (error) {
+    console.log(error);
     return (
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
@@ -64,6 +69,8 @@ const NewsScreen = (props) => {
   return (
     <View style={styles.news}>
       <FlatList
+        onRefresh={loadNews}
+        refreshing={isRefreshing}
         data={news}
         keyExtractor={(item, index) => index.toString()}
         renderItem={(itemData) => (

@@ -1,17 +1,24 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, Button, Image } from "react-native";
+import { StyleSheet, Text, ScrollView, View, ActivityIndicator, Button, Image, Dimensions, Linking } from "react-native";
 import { WebView } from "react-native-webview";
+import MyWebView from 'react-native-webview-autoheight';
 
 import * as newsActions from "../store/actions/news";
 
-import NewsItem from "../components/news/NewsItem";
 import Colors from "../constants/Colors";
 
 const NewsDetailsScreen = (props) => {
   const newsId = props.route.params.newsId;
+  const newsTitle = props.route.params.newsId;
+
+  const winDim = Dimensions.get('window');
+
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+
+
   const news = useSelector((state) => state.news.newsDetails);
   const dispatch = useDispatch();
   const loadNews = useCallback(async () => {
@@ -55,15 +62,65 @@ const NewsDetailsScreen = (props) => {
       </View>
     );
   }
-  return <WebView originWhitelist={["*"]} source={{ html: news.body }} />;
+  let content = news.content.split('<br />').map((item, i) => {
+    return item != "" ? <Text style={styles.newsContentText} key={i}>{item}</Text> : null;
+  });
+  const ratio = winDim.width / news.image_width;
+  const imageStyle = {
+    width: winDim.width,
+    height: news.image_height * ratio,
+  }
+  const customStyle = "<style type=\"text/css\"> "
+    + "body {font-family: sans-serif; background-color: " + Colors.background + "} "
+    + "p {font-size: 18px} "
+    + "a {color: " + Colors.primary + "  }"
+    + "h1,h2,h3,h4 {font-family: alien, sans-serif !important; }"
+
+    + "</style>";
+  let webview;
+  const handleNavigationStateChange = (event) => {
+    if (event.url != 'about:blank') {
+      webview.stopLoading();
+      Linking.openURL(event.url);
+    }
+  };
+  return <ScrollView style={styles.newsDetails} >
+    <Image resizeMode={'cover'} style={imageStyle} source={{ uri: news.image }} />
+    <Text style={styles.newsDate}>{news.date}</Text>
+    <MyWebView scrollEnabled={true} originWhitelist={['*']}
+      ref={(ref) => { webview = ref; }}
+      onNavigationStateChange={handleNavigationStateChange}
+      containerStyle={styles.newsContent} source={{ html: '<html><head>' + customStyle + '<meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>' + news.tmp + '</body></html>' }} />
+  </ScrollView>;
 };
 
 const styles = StyleSheet.create({
-  news: {
+  newsDetails: {
     flex: 1,
     backgroundColor: Colors.background,
   },
+  newsDate: {
+    fontSize: 20,
+    padding: 15,
+    backgroundColor: Colors.primary,
+    color: Colors.accent
+  },
+  newsContent: {
+
+
+  },
+  newsContentText: {
+    paddingTop: 15,
+
+  },
+
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
+
+export const screenOptions = navData => {
+  return {
+    headerTitle: navData.route.params.newsTitle
+  };
+};
 
 export default NewsDetailsScreen;
