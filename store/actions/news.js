@@ -16,13 +16,7 @@ export const fetchNews = () => {
       const loadedNews = [];
 
       for (const key in resData) {
-        loadedNews.push(
-          new News(
-            resData[key].id,
-            resData[key].title,
-            resData[key].image,
-          )
-        );
+        loadedNews.push(new News(resData[key].id, resData[key].title, resData[key].image));
       }
 
       dispatch({ type: SET_NEWS, news: loadedNews });
@@ -34,7 +28,6 @@ export const fetchNews = () => {
 };
 
 export const fetchNewsDetails = (postId) => {
-  console.log(postId);
   return async (dispatch) => {
     try {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/news/" + postId);

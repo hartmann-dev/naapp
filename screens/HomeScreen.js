@@ -4,17 +4,15 @@ import { useSelector } from "react-redux";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Colors from "../constants/Colors";
 
-
 const HomeScreen = (props) => {
   const nav = useSelector((state) => state.navigation.availableNav);
   const [orientation, setOrientation] = useState();
 
   useEffect(() => {
-    ScreenOrientation.getOrientationAsync()
-      .then((info) => {
-        console.log(info);
-        setOrientation(info);
-      });
+    ScreenOrientation.getOrientationAsync().then((info) => {
+      console.log(info);
+      setOrientation(info);
+    });
 
     const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
       console.log(evt.orientationInfo);
@@ -23,9 +21,8 @@ const HomeScreen = (props) => {
 
     return () => {
       ScreenOrientation.removeOrientationChangeListener(subscription);
-    }
+    };
   }, []);
-
 
   const renderGridItem = (itemData) => {
     return (
@@ -40,19 +37,23 @@ const HomeScreen = (props) => {
             <Image
               style={styles.itemIcon}
               // imageStyle={{ resizeMode: "contain" }}
-              source={{ uri: 'https://www.noarts.de/wp-content/uploads/2020/06/' + itemData.item.icon }}
+              source={{ uri: "https://www.noarts.de/wp-content/uploads/2020/06/" + itemData.item.icon }}
             />
           </View>
-          <Text style={styles.itemText}>{itemData.item.title}</Text>
-
+          {/* <Text style={styles.itemText}>{itemData.item.title}</Text> */}
         </TouchableOpacity>
-      </View >
+      </View>
     );
   };
 
   return (
     <View style={styles.home}>
-      <FlatList key={orientation === 1 ? 2 : 3} numColumns={orientation === 1 ? 2 : 3} data={nav} renderItem={renderGridItem} />
+      <FlatList
+        key={orientation === 1 ? 2 : 3}
+        numColumns={orientation === 1 ? 2 : 3}
+        data={nav}
+        renderItem={renderGridItem}
+      />
     </View>
   );
 };
@@ -64,20 +65,18 @@ const styles = StyleSheet.create({
   },
   navitem: {
     flex: 1,
-    margin: 15,
+    //margin: 15,
     marginBottom: 0,
     minHeight: 180,
     borderColor: Colors.primary,
     borderWidth: 1,
-
   },
   itemIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-
   },
   itemText: {
     fontFamily: "alien",
@@ -88,7 +87,6 @@ const styles = StyleSheet.create({
     // textShadowColor: "rgba(0, 0, 0, 0.95)",
     // textShadowOffset: { width: -1, height: 1 },
     // textShadowRadius: 10,
-
   },
   itemCard: {
     flex: 1,
