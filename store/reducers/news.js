@@ -1,4 +1,3 @@
-import News from "../../models/news";
 import { SET_NEWS, SET_NEWS_DETAILS } from "../actions/news";
 
 const initialState = {

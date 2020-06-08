@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, FlatList, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Colors from "../constants/Colors";
@@ -10,12 +10,10 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     ScreenOrientation.getOrientationAsync().then((info) => {
-      console.log(info);
       setOrientation(info);
     });
 
     const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
-      console.log(evt.orientationInfo);
       setOrientation(evt.orientationInfo.orientation);
     });
 
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
   },
   navitem: {
     flex: 1,
-    //margin: 15,
+    margin: 15,
     marginBottom: 0,
     minHeight: 180,
     borderColor: Colors.primary,

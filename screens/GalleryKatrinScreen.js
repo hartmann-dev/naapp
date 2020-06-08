@@ -1,8 +1,7 @@
-import React from 'react';
-import { Text } from 'react-native'
+import React from "react";
+import GalleryOverview from "../components/gallery/GalleryOverview";
 
-const galleryKatrinScreen = props => {
-    return <Text>Katrin</Text>
-}
-
-export default galleryKatrinScreen;
+const GalleryKatrinScreen = (props) => {
+  return <GalleryOverview galleryId={2} />;
+};
+export default GalleryKatrinScreen;
