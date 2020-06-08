@@ -9,10 +9,10 @@ import ThumbnailItem from "../../components/gallery/ThumbnailItem";
 import Colors from "../../constants/Colors";
 
 const GalleryOverview = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [orientation, setOrientation] = useState(1);
-  const [numCols, setNumCols] = useState(2);
+  const [numCols, setNumCols] = useState(3);
 
   const [error, setError] = useState();
   const thumbnails = useSelector((state) => state.gallery.thumbnails);
@@ -20,13 +20,13 @@ const GalleryOverview = (props) => {
 
   useEffect(() => {
     ScreenOrientation.getOrientationAsync().then((info) => {
-      console.log("a" + info);
+      console.log("useEffect " + info);
       setOrientation(info);
       calcNumCols();
     });
 
     const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
-      console.log("b" + evt.orientationInfo.orientation);
+      console.log("subscription " + evt.orientationInfo.orientation);
       setOrientation(evt.orientationInfo.orientation);
       calcNumCols();
     });
@@ -39,7 +39,7 @@ const GalleryOverview = (props) => {
   const calcNumCols = useCallback(() => {
     const { width } = Dimensions.get("window");
     const itemWidth = 130;
-    console.log("c" + width);
+    console.log("calcNumCols " + width);
 
     setNumCols(Math.floor(width / itemWidth));
   }, [orientation]);
@@ -47,6 +47,7 @@ const GalleryOverview = (props) => {
   const loadThumbnails = useCallback(async () => {
     setError(null);
     setIsRefreshing(true);
+    console.log("loadThumbnails");
     try {
       await dispatch(galleryActions.fetchThumbnails(props.galleryId));
     } catch (err) {
@@ -93,8 +94,8 @@ const GalleryOverview = (props) => {
       </View>
     );
   }
-  console.log("..." + orientation, numCols, isLoading, thumbnails.length);
   if (!isLoading || orientation !== "undefined") {
+    console.log("render");
     return (
       <View style={styles.thumbnails}>
         <FlatList
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
   thumbnails: {
     backgroundColor: Colors.background,
     flexDirection: "row",
+    height: "100%",
   },
   list: { flex: 1, justifyContent: "space-around" },
 

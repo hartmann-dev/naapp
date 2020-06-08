@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
   tnItem: {
     marginTop: 15,
     marginBottom: 0,
-    borderColor: Colors.primary,
-    borderWidth: 1,
     height: 80,
     width: 120,
   },
   thumbnail: {
     height: 80,
     width: 120,
+    borderWidth: 1,
+    borderColor: Colors.primary,
   },
   tnCard: {
     flex: 1,
