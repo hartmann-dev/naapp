@@ -1,4 +1,3 @@
-import News from "../../models/artist";
 import { SET_MEMBER, SET_MEMBER_DETAILS } from "../actions/artist";
 
 const initialState = {
@@ -7,6 +6,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case SET_MEMBER:
       return {

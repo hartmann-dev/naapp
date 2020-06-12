@@ -3,7 +3,7 @@ import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import GalleryRalfScreen from "../screens/GalleryRalfScreen";
+import GalleryRalfScreen, { screenOptions as RalfsScreenOptions } from "../screens/GalleryRalfScreen";
 import GalleryKatrinScreen from "../screens/GalleryKatrinScreen";
 import GalleryPatrickScreen from "../screens/GalleryPatrickScreen";
 import GalleryLilliScreen from "../screens/GalleryLilliScreen";
@@ -13,6 +13,7 @@ import Colors from "../constants/Colors";
 const TabNav = createMaterialTopTabNavigator();
 
 const GalleryTabNavigator = () => {
+  console.log(RalfsScreenOptions);
   return (
     <TabNav.Navigator
       tabBarPosition={"bottom"}
@@ -41,7 +42,7 @@ const GalleryTabNavigator = () => {
         showIcon: false,
       }}
     >
-      <TabNav.Screen name="Ralf" component={GalleryRalfScreen} />
+      <TabNav.Screen name="Ralf" component={GalleryRalfScreen} options={RalfsScreenOptions} />
       <TabNav.Screen name="Katrin" component={GalleryKatrinScreen} />
       <TabNav.Screen name="Patrick" component={GalleryPatrickScreen} />
       <TabNav.Screen name="Lilli" component={GalleryLilliScreen} />

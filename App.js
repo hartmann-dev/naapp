@@ -8,6 +8,7 @@ import ReduxThunk from "redux-thunk";
 import navigationReducer from "./store/reducers/navigation";
 import newsReducer from "./store/reducers/news";
 import galleryReducer from "./store/reducers/gallery";
+import artistReducer from "./store/reducers/artist";
 
 import AppNavigator from "./navigation/AppNavigator";
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   navigation: navigationReducer,
   news: newsReducer,
   gallery: galleryReducer,
+  artist: artistReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

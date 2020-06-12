@@ -13,43 +13,46 @@ import {
 } from "react-native";
 import AutoHeightWebView from "react-native-autoheight-webview";
 
-import * as newsActions from "../store/actions/news";
+import * as artistActions from "../store/actions/artist";
 
 import Colors from "../constants/Colors";
 
-const NewsDetailsScreen = (props) => {
-  const newsId = props.route.params.newsId;
-  const newsTitle = props.route.params.newsId;
+const Entities = require("html-entities").AllHtmlEntities;
+
+const TeamDetailsScreen = (props) => {
+  const memberId = props.route.params.memberId;
+  const memberName = props.route.params.memberName;
 
   const winDim = Dimensions.get("window");
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
-  const news = useSelector((state) => state.news.newsDetails);
+  const member = useSelector((state) => state.artist.memberDetails);
   const dispatch = useDispatch();
-  const loadNews = useCallback(async () => {
+  const loadMember = useCallback(async () => {
     setError(null);
     setIsLoading(true);
 
     try {
-      console.log(newsId);
-      await dispatch(newsActions.fetchNewsDetails(newsId));
+      await dispatch(artistActions.fetchMemberDetails(memberId));
     } catch (err) {
       setError(err.message);
     }
+    console.log(member);
+
     setIsLoading(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    loadNews();
-  }, [dispatch, loadNews]);
+    loadMember();
+  }, [dispatch, loadMember]);
 
   if (error) {
     return (
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadNews} color={Colors.primary} />
+        <Button title="Try again" onPress={loadMember} color={Colors.primary} />
       </View>
     );
   }
@@ -62,18 +65,18 @@ const NewsDetailsScreen = (props) => {
     );
   }
 
-  if (!isLoading && news.length === 0) {
+  if (!isLoading && member.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>No news found.</Text>
+        <Text>No details found.</Text>
       </View>
     );
   }
 
-  const ratio = winDim.width / news.image_width;
+  const ratio = winDim.width / member.image_width;
   const imageStyle = {
     width: winDim.width,
-    height: news.image_height * ratio,
+    height: member.image_height * ratio,
   };
 
   let webview;
@@ -83,10 +86,11 @@ const NewsDetailsScreen = (props) => {
       Linking.openURL(event.url);
     }
   };
+  const entities = new Entities();
+
   return (
-    <ScrollView style={styles.newsDetails}>
-      <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />
-      <Text style={styles.newsDate}>{news.date}</Text>
+    <ScrollView style={styles.memberDetails}>
+      <Image resizeMode={"cover"} style={imageStyle} source={{ uri: member.image }} />
       <AutoHeightWebView
         style={{ width: Dimensions.get("window").width - 30, margin: 15 }}
         customStyle={` 
@@ -107,7 +111,7 @@ const NewsDetailsScreen = (props) => {
             rel: "stylesheet",
           },
         ]}
-        source={{ html: news.tmp }}
+        source={{ html: entities.decode(member.content) }}
         scalesPageToFit={true}
         viewportContent={"width=device-width, user-scalable=no"}
         ref={(ref) => {
@@ -120,19 +124,9 @@ const NewsDetailsScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  newsDetails: {
+  memberDetails: {
     flex: 1,
     backgroundColor: Colors.background,
-  },
-  newsDate: {
-    fontSize: 20,
-    padding: 15,
-    backgroundColor: Colors.primary,
-    color: Colors.accent,
-  },
-  newsContent: {},
-  newsContentText: {
-    paddingTop: 15,
   },
 
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
@@ -140,8 +134,8 @@ const styles = StyleSheet.create({
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: navData.route.params.newsTitle,
+    headerTitle: navData.route.params.memberName,
   };
 };
 
-export default NewsDetailsScreen;
+export default TeamDetailsScreen;

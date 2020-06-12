@@ -36,7 +36,7 @@ export const fetchNewsDetails = (postId) => {
         throw new Error("Something went wrong!");
       }
       const resData = await response.json();
-      loadedNews = new News(
+      let loadedNews = new News(
         resData.id,
         resData.title,
         resData.image,
@@ -46,10 +46,10 @@ export const fetchNewsDetails = (postId) => {
         resData.date,
         resData.aaa
       );
-
+      // console.log(loadedNews);
       dispatch({ type: SET_NEWS_DETAILS, details: loadedNews });
     } catch (err) {
-      //
+      console.log(err);
       throw err;
     }
   };

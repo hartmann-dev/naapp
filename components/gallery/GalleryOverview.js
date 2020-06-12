@@ -8,6 +8,8 @@ import * as galleryActions from "../../store/actions/gallery";
 import ThumbnailItem from "../../components/gallery/ThumbnailItem";
 import Colors from "../../constants/Colors";
 
+let name;
+
 const GalleryOverview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -17,6 +19,8 @@ const GalleryOverview = (props) => {
   const [error, setError] = useState();
   const thumbnails = useSelector((state) => state.gallery.thumbnails);
   const dispatch = useDispatch();
+
+  name = props.name;
 
   useEffect(() => {
     ScreenOrientation.getOrientationAsync().then((info) => {
@@ -66,6 +70,7 @@ const GalleryOverview = (props) => {
   const selectItemHandler = (id, title) => {
     props.navigation.navigate("GalleryDetails", {
       imageId: id,
+      galleryId: props.galleryId,
     });
   };
 
@@ -129,5 +134,11 @@ const styles = StyleSheet.create({
 
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
+
+export const screenOptions = (navData) => {
+  return {
+    title: "name",
+  };
+};
 
 export default GalleryOverview;

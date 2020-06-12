@@ -9,9 +9,11 @@ import Colors from "../constants/Colors";
 
 const GalleryDetailsScreen = (props) => {
   const imageId = props.route.params.imageId;
+  const galleryId = props.route.params.galleryId;
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+  const [position, setPostion] = useState(0);
 
   const images = useSelector((state) => state.gallery.images);
   const dispatch = useDispatch();
@@ -20,15 +22,22 @@ const GalleryDetailsScreen = (props) => {
     setIsLoading(true);
 
     try {
-      await dispatch(galleryActions.fetchImages());
+      await dispatch(galleryActions.fetchImages(galleryId));
     } catch (err) {
       setError(err.message);
     }
+
     setIsLoading(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
     loadImages();
+    const index = images.findIndex((image) => image.id === imageId);
+    console.log("index");
+    setPostion(index);
+    console.log(index);
+
+    console.log("index");
   }, [dispatch, loadImages]);
 
   if (error) {
@@ -55,8 +64,9 @@ const GalleryDetailsScreen = (props) => {
       </View>
     );
   }
-  console.log(images);
-  return <GallerySwiper images={images} />;
+  return (
+    <GallerySwiper images={images} sensitiveScroll={false} initialNumToRender={position + 1} initialPage={position} />
+  );
 };
 
 const styles = StyleSheet.create({

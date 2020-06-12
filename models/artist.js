@@ -6,7 +6,6 @@ class Artist {
     this.image_width = image_width;
     this.image_height = image_height;
     this.content = content;
-
   }
 }
 

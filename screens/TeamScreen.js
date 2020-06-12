@@ -8,18 +8,18 @@ import MemberItem from "../components/team/MemberItem";
 import Colors from "../constants/Colors";
 
 const TeamScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const [error, setError] = useState();
-  const news = useSelector((state) => state.team.availableMember);
+  const member = useSelector((state) => state.artist.availableMembers);
   const dispatch = useDispatch();
 
   const loadMember = useCallback(async () => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(memberActions.fetchMember());
+      await dispatch(artistActions.fetchMember());
     } catch (err) {
       setError(err.message);
     }
@@ -31,21 +31,20 @@ const TeamScreen = (props) => {
     loadMember().then(() => {
       setIsLoading(false);
     });
-  }, [dispatch, loadNews]);
+  }, [dispatch, loadMember]);
 
-  const selectItemHandler = (id, title) => {
+  const selectItemHandler = (id, name) => {
     props.navigation.navigate("TeamDetails", {
-      newsId: id,
-      newsTitle: title,
+      memberId: id,
+      memberName: name,
     });
   };
 
   if (error) {
-    console.log(error);
     return (
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadNews} color={Colors.primary} />
+        <Button title="Try again" onPress={loadMember} color={Colors.primary} />
       </View>
     );
   }
@@ -58,27 +57,27 @@ const TeamScreen = (props) => {
     );
   }
 
-  if (!isLoading && news.length === 0) {
+  if (!isLoading && member.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>No news found.</Text>
+        <Text>No artist found.</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.news}>
+    <View style={styles.member}>
       <FlatList
-        onRefresh={loadNews}
+        onRefresh={loadMember}
         refreshing={isRefreshing}
-        data={news}
+        data={member}
         keyExtractor={(item, index) => index.toString()}
         renderItem={(itemData) => (
-          <NewsItem
+          <MemberItem
             image={itemData.item.image}
-            title={itemData.item.title}
+            name={itemData.item.name}
             onViewDetail={() => {
-              selectItemHandler(itemData.item.id, itemData.item.title);
+              selectItemHandler(itemData.item.id, itemData.item.name);
             }}
           />
         )}
@@ -88,7 +87,7 @@ const TeamScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  news: {
+  member: {
     flex: 1,
     backgroundColor: Colors.background,
   },
