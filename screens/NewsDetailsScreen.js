@@ -33,7 +33,6 @@ const NewsDetailsScreen = (props) => {
     setIsLoading(true);
 
     try {
-      console.log(newsId);
       await dispatch(newsActions.fetchNewsDetails(newsId));
     } catch (err) {
       setError(err.message);

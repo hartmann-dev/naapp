@@ -39,7 +39,6 @@ const TeamDetailsScreen = (props) => {
     } catch (err) {
       setError(err.message);
     }
-    console.log(member);
 
     setIsLoading(false);
   }, [dispatch, setIsLoading, setError]);

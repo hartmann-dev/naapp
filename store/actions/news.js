@@ -49,7 +49,6 @@ export const fetchNewsDetails = (postId) => {
       // console.log(loadedNews);
       dispatch({ type: SET_NEWS_DETAILS, details: loadedNews });
     } catch (err) {
-      console.log(err);
       throw err;
     }
   };

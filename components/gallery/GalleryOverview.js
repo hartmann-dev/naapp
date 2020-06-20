@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button, Dimensions } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 
+import { useIsMountedRef } from "../../utils/hooks"
 import * as galleryActions from "../../store/actions/gallery";
 
 import ThumbnailItem from "../../components/gallery/ThumbnailItem";
 import Colors from "../../constants/Colors";
 
-let name;
 
 const GalleryOverview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,52 +19,61 @@ const GalleryOverview = (props) => {
   const [error, setError] = useState();
   const thumbnails = useSelector((state) => state.gallery.thumbnails);
   const dispatch = useDispatch();
+  const isMountedRef = useIsMountedRef();
 
-  name = props.name;
+
 
   useEffect(() => {
-    ScreenOrientation.getOrientationAsync().then((info) => {
-      console.log("useEffect " + info);
-      setOrientation(info);
-      calcNumCols();
-    });
+    if (isMountedRef.current) {
+      ScreenOrientation.getOrientationAsync().then((info) => {
+        setOrientation(info);
+        calcNumCols();
+      });
 
-    const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
-      console.log("subscription " + evt.orientationInfo.orientation);
-      setOrientation(evt.orientationInfo.orientation);
-      calcNumCols();
-    });
+      const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
+        setOrientation(evt.orientationInfo.orientation);
+        calcNumCols();
+      });
 
-    return () => {
-      ScreenOrientation.removeOrientationChangeListener(subscription);
-    };
+      return () => {
+        ScreenOrientation.removeOrientationChangeListener(subscription);
+      };
+    }
   }, []);
 
   const calcNumCols = useCallback(() => {
     const { width } = Dimensions.get("window");
     const itemWidth = 130;
-    console.log("calcNumCols " + width);
-
-    setNumCols(Math.floor(width / itemWidth));
+    console.log(width);
+    if (isMountedRef.current) {
+      setNumCols(Math.floor(width / itemWidth));
+    }
   }, [orientation]);
 
   const loadThumbnails = useCallback(async () => {
-    setError(null);
-    setIsRefreshing(true);
-    console.log("loadThumbnails");
-    try {
-      await dispatch(galleryActions.fetchThumbnails(props.galleryId));
-    } catch (err) {
-      setError(err.message);
+    if (isMountedRef.current) {
+
+      setError(null);
+      setIsRefreshing(true);
+
+      try {
+        await dispatch(galleryActions.fetchThumbnails(props.galleryId));
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsRefreshing(false);
     }
-    setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    setIsLoading(true);
-    loadThumbnails().then(() => {
-      setIsLoading(false);
-    });
+    if (isMountedRef.current) {
+
+      setIsLoading(true);
+      loadThumbnails().then(() => {
+        setIsLoading(false);
+      });
+    }
+
   }, [dispatch, loadThumbnails]);
 
   const selectItemHandler = (id, title) => {
@@ -100,7 +109,6 @@ const GalleryOverview = (props) => {
     );
   }
   if (!isLoading || orientation !== "undefined") {
-    console.log("render");
     return (
       <View style={styles.thumbnails}>
         <FlatList
@@ -135,10 +143,6 @@ const styles = StyleSheet.create({
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
 
-export const screenOptions = (navData) => {
-  return {
-    title: "name",
-  };
-};
+
 
 export default GalleryOverview;

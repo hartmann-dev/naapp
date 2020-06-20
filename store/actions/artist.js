@@ -46,7 +46,6 @@ export const fetchMemberDetails = (postId) => {
 
       dispatch({ type: SET_MEMBER_DETAILS, details: loadedMember });
     } catch (err) {
-      console.log(err);
       throw err;
     }
   };

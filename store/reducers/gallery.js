@@ -1,4 +1,3 @@
-import GalleryItem from "../../models/galleryitem";
 import { SET_THUMBNAILS, SET_IMAGES } from "../actions/gallery";
 
 const initialState = {

@@ -33,11 +33,8 @@ const GalleryDetailsScreen = (props) => {
   useEffect(() => {
     loadImages();
     const index = images.findIndex((image) => image.id === imageId);
-    console.log("index");
-    setPostion(index);
-    console.log(index);
-
-    console.log("index");
+    if (index >= 0)
+      setPostion(index);
   }, [dispatch, loadImages]);
 
   if (error) {

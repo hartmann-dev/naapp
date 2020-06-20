@@ -41,7 +41,6 @@ const NewsScreen = (props) => {
   };
 
   if (error) {
-    console.log(error);
     return (
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
