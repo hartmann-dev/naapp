@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button, Dimensions } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 
-import { useIsMountedRef } from "../../utils/hooks"
+import { useIsMountedRef } from "../../utils/hooks";
 import * as galleryActions from "../../store/actions/gallery";
 
 import ThumbnailItem from "../../components/gallery/ThumbnailItem";
 import Colors from "../../constants/Colors";
-
 
 const GalleryOverview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,8 +19,6 @@ const GalleryOverview = (props) => {
   const thumbnails = useSelector((state) => state.gallery.thumbnails);
   const dispatch = useDispatch();
   const isMountedRef = useIsMountedRef();
-
-
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -43,8 +40,8 @@ const GalleryOverview = (props) => {
 
   const calcNumCols = useCallback(() => {
     const { width } = Dimensions.get("window");
-    const itemWidth = 130;
     console.log(width);
+    const itemWidth = 110;
     if (isMountedRef.current) {
       setNumCols(Math.floor(width / itemWidth));
     }
@@ -52,7 +49,6 @@ const GalleryOverview = (props) => {
 
   const loadThumbnails = useCallback(async () => {
     if (isMountedRef.current) {
-
       setError(null);
       setIsRefreshing(true);
 
@@ -67,13 +63,11 @@ const GalleryOverview = (props) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-
       setIsLoading(true);
       loadThumbnails().then(() => {
         setIsLoading(false);
       });
     }
-
   }, [dispatch, loadThumbnails]);
 
   const selectItemHandler = (id, title) => {
@@ -84,7 +78,6 @@ const GalleryOverview = (props) => {
   };
 
   if (error) {
-    console.log(error);
     return (
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
@@ -142,7 +135,5 @@ const styles = StyleSheet.create({
 
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
-
-
 
 export default GalleryOverview;

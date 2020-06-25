@@ -1,18 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  ActivityIndicator,
-  Button,
-  Image,
-  Dimensions,
-  Linking,
-} from "react-native";
+import { StyleSheet, Text, ScrollView, View, ActivityIndicator, Button, Image, Dimensions } from "react-native";
 import AutoHeightWebView from "react-native-autoheight-webview";
-
+import * as Linking from "expo-linking";
+import { FontAwesome5 } from "@expo/vector-icons";
 import * as artistActions from "../store/actions/artist";
 
 import Colors from "../constants/Colors";
@@ -87,9 +78,44 @@ const TeamDetailsScreen = (props) => {
   };
   const entities = new Entities();
 
+  const handlSocialClick = (url) => {
+    if (url != "about:blank") {
+      webview.stopLoading();
+      Linking.openURL(url);
+    }
+  };
+
   return (
     <ScrollView style={styles.memberDetails}>
       <Image resizeMode={"cover"} style={imageStyle} source={{ uri: member.image }} />
+      {(member.links.instagram || member.links.facebook || member.links.mailto) && (
+        <View style={styles.socialwall}>
+          {member.links.instagram && (
+            <FontAwesome5
+              name="instagram"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick(member.links.instagram)}
+            />
+          )}
+          {member.links.facebook && (
+            <FontAwesome5
+              name="facebook"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick(member.links.facebook)}
+            />
+          )}
+          {member.links.mailto && (
+            <FontAwesome5
+              name="envelope"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick("mailto://" + member.links.mailto)}
+            />
+          )}
+        </View>
+      )}
       <AutoHeightWebView
         style={{ width: Dimensions.get("window").width - 30, margin: 15 }}
         customStyle={` 
@@ -127,7 +153,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-
+  button: {
+    marginVertical: 10,
+  },
+  socialwall: {
+    flex: 1,
+    backgroundColor: Colors.primary,
+    color: Colors.accent,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 5,
+  },
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
 

@@ -16,6 +16,7 @@ import AutoHeightWebView from "react-native-autoheight-webview";
 import * as newsActions from "../store/actions/news";
 
 import Colors from "../constants/Colors";
+import { WebView } from "react-native-webview";
 
 const NewsDetailsScreen = (props) => {
   const newsId = props.route.params.newsId;
@@ -82,9 +83,26 @@ const NewsDetailsScreen = (props) => {
       Linking.openURL(event.url);
     }
   };
+
+  let imageOrVideo = <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />;
+  console.log(news.video);
+  if (news.video) {
+    imageOrVideo = (
+      <WebView
+        style={{ flex: 1, height: 300 }}
+        javaScriptEnabled={true}
+        allowsFullscreenVideo={true}
+        source={{
+          uri: "https://www.youtube.com/embed/" + news.video + "?rel=0&autoplay=0&showinfo=0&controls=1&fullscreen=1",
+        }}
+      />
+    );
+  }
+
   return (
     <ScrollView style={styles.newsDetails}>
-      <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />
+      {imageOrVideo}
+
       <Text style={styles.newsDate}>{news.date}</Text>
       <AutoHeightWebView
         style={{ width: Dimensions.get("window").width - 30, margin: 15 }}

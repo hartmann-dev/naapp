@@ -44,9 +44,9 @@ export const fetchNewsDetails = (postId) => {
         resData.image_height,
         resData.content,
         resData.date,
-        resData.aaa
+        resData.aaa,
+        resData.video
       );
-      // console.log(loadedNews);
       dispatch({ type: SET_NEWS_DETAILS, details: loadedNews });
     } catch (err) {
       throw err;

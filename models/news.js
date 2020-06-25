@@ -1,5 +1,5 @@
 class News {
-  constructor(id, title, image, image_width, image_height, content, date, tmp) {
+  constructor(id, title, image, image_width, image_height, content, date, tmp, video) {
     this.id = id;
     this.title = title;
     this.image = image;
@@ -8,6 +8,7 @@ class News {
     this.content = content;
     this.date = date;
     this.tmp = tmp;
+    this.video = video;
   }
 }
 

@@ -11,7 +11,7 @@ import TeamDetailsScreen, { screenOptions as TeamDetailsScreenOptions } from "..
 import GuestsScreem from "../screens/GuestsScreen";
 import AppointmentScreen from "../screens/AppointmentScreen";
 import FAQScreen from "../screens/FAQScreen";
-import ShopScreen from "../screens/FAQScreen";
+import ShopScreen from "../screens/ShopScreen";
 
 import GalleryTabNavigator from "./GalleryTabNavigator";
 

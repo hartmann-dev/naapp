@@ -1,8 +1,9 @@
-import { SET_MEMBER, SET_MEMBER_DETAILS } from "../actions/artist";
+import { SET_MEMBER, SET_MEMBER_DETAILS, SET_GUESTS } from "../actions/artist";
 
 const initialState = {
   availableMembers: [], //ggf cachen
   memberDetails: null,
+  availableGuests: [],
 };
 
 export default (state = initialState, action) => {
@@ -16,6 +17,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         memberDetails: action.details,
+      };
+    case SET_GUESTS:
+      return {
+        ...state,
+        availableGuests: action.guests,
       };
   }
 

@@ -13,7 +13,6 @@ import Colors from "../constants/Colors";
 const TabNav = createMaterialTopTabNavigator();
 
 const GalleryTabNavigator = () => {
-  console.log(RalfsScreenOptions);
   return (
     <TabNav.Navigator
       tabBarPosition={"bottom"}
@@ -34,7 +33,7 @@ const GalleryTabNavigator = () => {
           backgroundColor: Colors.primary,
         },
         labelStyle: {
-          fontSize: 24,
+          fontSize: 22,
           fontFamily: "alienbold",
 
           //fontWeight: "bold",

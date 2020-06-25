@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList, TouchableOpacity, Image } from "react-nativ
 import { useSelector } from "react-redux";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Colors from "../constants/Colors";
+import * as Linking from "expo-linking";
 
 const HomeScreen = (props) => {
   const nav = useSelector((state) => state.navigation.availableNav);
@@ -28,7 +29,11 @@ const HomeScreen = (props) => {
         <TouchableOpacity
           style={{ flex: 1 }}
           onPress={() => {
-            props.navigation.navigate(itemData.item.target);
+            if (itemData.item.extern) {
+              Linking.openURL(itemData.item.target);
+            } else {
+              props.navigation.navigate(itemData.item.target);
+            }
           }}
         >
           <View style={styles.itemCard}>

@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 0,
     height: 80,
-    width: 120,
+    width: 110,
   },
   thumbnail: {
     height: 80,
-    width: 120,
+    width: 110,
     borderWidth: 1,
     borderColor: Colors.primary,
   },

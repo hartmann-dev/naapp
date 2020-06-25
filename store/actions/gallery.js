@@ -7,16 +7,12 @@ const galleryCache = {};
 
 export const fetchThumbnails = (galleryId) => {
   return async (dispatch) => {
-
     try {
       let loadedThumbnails = [];
       if (galleryCache.hasOwnProperty(galleryId)) {
-        console.log("schnell");
         loadedThumbnails = galleryCache[galleryId];
       } else {
         const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/gallery/" + galleryId);
-        console.log("langsam");
-
         if (!response.ok) {
           throw new Error("Something went wrong!!");
         }
