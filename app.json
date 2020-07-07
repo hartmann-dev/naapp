@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "naapp",
-    "slug": "naapp",
+    "name": "NoArts! App",
+    "slug": "noarts-app",
+    "sdkVersion": "38.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "default",
@@ -13,7 +13,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#4e6864"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,9 +23,13 @@
     ],
     "android": {
       "useNextNotificationsApi": true,
+      "package": "net.hartmann_dev.naapp",
+      "versionCode": 1
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "net.hartmann-dev.naapp",
+      "buildNumber": "1.0.0"
     },
     "description": ""
   }
