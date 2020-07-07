@@ -40,7 +40,7 @@ const HomeScreen = (props) => {
             <Image
               style={styles.itemIcon}
               // imageStyle={{ resizeMode: "contain" }}
-              source={{ uri: "https://www.noarts.de/wp-content/uploads/2020/06/" + itemData.item.icon }}
+              source={{ uri: "https://www.noarts.de/wp-content/uploads/" + itemData.item.icon }}
             />
           </View>
           {/* <Text style={styles.itemText}>{itemData.item.title}</Text> */}
