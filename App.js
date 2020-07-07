@@ -5,7 +5,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { enableScreens } from "react-native-screens";
 import ReduxThunk from "redux-thunk";
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 
 import { Vibration, Platform } from "react-native";
 
@@ -18,6 +18,14 @@ import AppNavigator from "./navigation/AppNavigator";
 import registerForPushNotifications from "./registerForPushNotifications";
 
 enableScreens();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const fetchFonts = () => {
   return Font.loadAsync({
