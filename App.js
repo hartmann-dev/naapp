@@ -7,8 +7,6 @@ import { enableScreens } from "react-native-screens";
 import ReduxThunk from "redux-thunk";
 import * as Notifications from "expo-notifications";
 
-import { Vibration, Platform } from "react-native";
-
 import navigationReducer from "./store/reducers/navigation";
 import newsReducer from "./store/reducers/news";
 import galleryReducer from "./store/reducers/gallery";
@@ -48,20 +46,32 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
 
+  /* Erstmal auf Eis gelegt
   useEffect(() => {
+    console.log("start");
+
     registerForPushNotifications().then((token) => setExpoPushToken(token));
     Notifications.addNotificationReceivedListener((notification) => {
+      console.log("start 1");
+
       setNotification(notification);
     });
+    console.log("start 3");
+
     Notifications.addNotificationResponseReceivedListener((response) => {
+      console.log("start 2");
+
       console.log(response);
     });
+    console.log("starrt 4");
 
     return () => {
+      console.log("end");
+
       Notifications.removeAllNotificationListeners();
     };
-  });
-
+  }, []);
+  /*
   if (!fontLoaded) {
     return <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />;
   }
