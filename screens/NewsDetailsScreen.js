@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
 
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+  centered: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: Colors.background},
 });
 
 export const screenOptions = (navData) => {

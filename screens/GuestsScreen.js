@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+  centered: { flex: 1, justifyContent: "center", alignItems: "center",  backgroundColor: Colors.background},
 });
 
 export default GuestsScreen;

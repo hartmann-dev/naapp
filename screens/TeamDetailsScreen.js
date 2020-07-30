@@ -164,7 +164,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     padding: 5,
   },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+  centered: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: Colors.background,
+},
 });
 
 export const screenOptions = (navData) => {
