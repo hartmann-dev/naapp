@@ -85,7 +85,6 @@ const NewsDetailsScreen = (props) => {
   };
 
   let imageOrVideo = <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />;
-  console.log(news.video);
   if (news.video) {
     imageOrVideo = (
       <WebView
@@ -100,38 +99,40 @@ const NewsDetailsScreen = (props) => {
   }
 
   return (
-    <ScrollView style={styles.newsDetails}>
-      {imageOrVideo}
+    <ScrollView style={styles.newsDetails} >
+      <View style={{ flex: 1, flexDirection: "column" }} pointerEvents={"none"} >
+        {imageOrVideo}
+        <Text style={styles.newsDate}>{news.date}</Text>
+        <AutoHeightWebView
+          style={{ width: Dimensions.get("window").width - 30, margin: 15 }}
 
-      <Text style={styles.newsDate}>{news.date}</Text>
-      <AutoHeightWebView
-        style={{ width: Dimensions.get("window").width - 30, margin: 15 }}
-        customStyle={` 
-          p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: black;
+          customStyle={` 
+            p {
+              font-size: 18px;
+              line-height: 1.6;
+              color: black;
 
-          }
-          a {
-            color: ${Colors.primary};
-          }
-        `}
-        files={[
-          {
-            href: "cssfileaddress",
-            type: "text/css",
-            rel: "stylesheet",
-          },
-        ]}
-        source={{ html: news.tmp }}
-        scalesPageToFit={true}
-        viewportContent={"width=device-width, user-scalable=no"}
-        ref={(ref) => {
-          webview = ref;
-        }}
-        onNavigationStateChange={handleNavigationStateChange}
-      />
+            }
+            a {
+              color: ${Colors.primary};
+            }
+          `}
+          files={[
+            {
+              href: "cssfileaddress",
+              type: "text/css",
+              rel: "stylesheet",
+            },
+          ]}
+          source={{ html: news.tmp }}
+          scalesPageToFit={true}
+          viewportContent={"width=device-width, user-scalable=no"}
+          ref={(ref) => {
+            webview = ref;
+          }}
+          onNavigationStateChange={handleNavigationStateChange}
+        />
+      </View>
     </ScrollView>
   );
 };
