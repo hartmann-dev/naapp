@@ -71,7 +71,7 @@ export default function App() {
       Notifications.removeAllNotificationListeners();
     };
   }, []);
-  /*
+  */
   if (!fontLoaded) {
     return <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />;
   }
