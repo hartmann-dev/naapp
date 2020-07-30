@@ -14,7 +14,7 @@ export const fetchThumbnails = (galleryId) => {
       } else {
         const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/gallery/" + galleryId);
         if (!response.ok) {
-          throw new Error("Something went wrong!!");
+          throw new Error("Ein Fehler ist aufgetreten!");
         }
 
         const resData = await response.json();
@@ -41,7 +41,7 @@ export const fetchImages = (galleryId) => {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/gallery2/" + galleryId);
 
       if (!response.ok) {
-        throw new Error("Something went wrong!!");
+        throw new Error("Ein Fehler ist aufgetreten!");
       }
 
       const resData = await response.json();

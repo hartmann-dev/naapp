@@ -10,7 +10,7 @@ export const fetchMember = () => {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/team");
 
       if (!response.ok) {
-        throw new Error("Something went wrong!!");
+        throw new Error("Ein Fehler ist aufgetreten!");
       }
 
       const resData = await response.json();
@@ -32,7 +32,7 @@ export const fetchMemberDetails = (postId) => {
     try {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/team/" + postId);
       if (!response.ok) {
-        throw new Error("Something went wrong!");
+        throw new Error("Ein Fehler ist aufgetreten!");
       }
       const resData = await response.json();
       const loadedMember = new Artist(
@@ -58,7 +58,7 @@ export const fetchGuests = () => {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/guests");
 
       if (!response.ok) {
-        throw new Error("Something went wrong!!");
+        throw new Error("Ein Fehler ist aufgetreten!");
       }
 
       const resData = await response.json();

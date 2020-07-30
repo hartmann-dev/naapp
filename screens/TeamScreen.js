@@ -43,8 +43,8 @@ const TeamScreen = (props) => {
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadMember} color={Colors.primary} />
+        <Text>Ein Fehler ist aufgetreten!</Text>
+        <Button title="Versuch es erneut" onPress={loadMember} color={Colors.primary} />
       </View>
     );
   }
@@ -60,7 +60,7 @@ const TeamScreen = (props) => {
   if (!isLoading && member.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>No artist found.</Text>
+        <Text>Niemand hier.</Text>
       </View>
     );
   }

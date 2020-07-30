@@ -9,7 +9,7 @@ export const fetchNews = () => {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/news");
 
       if (!response.ok) {
-        throw new Error("Something went wrong!!");
+        throw new Error("Ein Fehler ist aufgetreten!");
       }
 
       const resData = await response.json();
@@ -33,7 +33,7 @@ export const fetchNewsDetails = (postId) => {
       const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/news/" + postId);
 
       if (!response.ok) {
-        throw new Error("Something went wrong!");
+        throw new Error("Ein Fehler ist aufgetreten!");
       }
       const resData = await response.json();
       let loadedNews = new News(

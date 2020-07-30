@@ -48,8 +48,8 @@ const NewsDetailsScreen = (props) => {
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadNews} color={Colors.primary} />
+        <Text>Ein Fehler ist aufgetreten!</Text>
+        <Button title="Versuch es erneut" onPress={loadNews} color={Colors.primary} />
       </View>
     );
   }
@@ -65,7 +65,7 @@ const NewsDetailsScreen = (props) => {
   if (!isLoading && news.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>No news found.</Text>
+        <Text>Es liegen keine News vor..</Text>
       </View>
     );
   }

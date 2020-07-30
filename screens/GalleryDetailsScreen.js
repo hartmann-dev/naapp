@@ -40,8 +40,8 @@ const GalleryDetailsScreen = (props) => {
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadImages} color={Colors.primary} />
+        <Text>Ein Fehler ist aufgetreten!</Text>
+        <Button title="Versuch es erneut" onPress={loadImages} color={Colors.primary} />
       </View>
     );
   }
@@ -57,7 +57,7 @@ const GalleryDetailsScreen = (props) => {
   if (!isLoading && images.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>No images found.</Text>
+        <Text>Kein Bild gefunden.</Text>
       </View>
     );
   }

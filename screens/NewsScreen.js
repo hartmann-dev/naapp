@@ -43,8 +43,8 @@ const NewsScreen = (props) => {
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadNews} color={Colors.primary} />
+        <Text>Ein Fehler ist aufgetreten!</Text>
+        <Button title="Versuch es erneut" onPress={loadNews} color={Colors.primary} />
       </View>
     );
   }
