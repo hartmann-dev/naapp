@@ -92,7 +92,7 @@ const NewsDetailsScreen = (props) => {
         javaScriptEnabled={true}
         allowsFullscreenVideo={true}
         source={{
-          uri: "https://www.youtube.com/embed/" + news.video + "?rel=0&autoplay=0&showinfo=0&controls=1&fullscreen=1",
+          uri: "https://www.youtube.com/embed/" + news.video + "?rel=0&autoplay=0&showinfo=0&controls=1&fullscreen=1&modestbranding=1",
         }}
       />
     );
@@ -100,7 +100,7 @@ const NewsDetailsScreen = (props) => {
 
   return (
     <ScrollView style={styles.newsDetails} >
-      <View style={{ flex: 1, flexDirection: "column" }} pointerEvents={"none"} >
+      {/* <View style={{ flex: 1, flexDirection: "column" }} pointerEvents={"auto"} > */}
         {imageOrVideo}
         <Text style={styles.newsDate}>{news.date}</Text>
         <AutoHeightWebView
@@ -123,16 +123,16 @@ const NewsDetailsScreen = (props) => {
               type: "text/css",
               rel: "stylesheet",
             },
-          ]}
+          ]} 
           source={{ html: news.tmp }}
           scalesPageToFit={true}
           viewportContent={"width=device-width, user-scalable=no"}
           ref={(ref) => {
             webview = ref;
-          }}
+          }} 
           onNavigationStateChange={handleNavigationStateChange}
-        />
-      </View>
+        />    
+      {/* </View> */}
     </ScrollView>
   );
 };

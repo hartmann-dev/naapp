@@ -87,47 +87,49 @@ const TeamDetailsScreen = (props) => {
 
   return (
     <ScrollView style={styles.memberDetails}>
+      {/* <View style={{ flex: 1, flexDirection: "column" }} pointerEvents={"none"} > */}
+
       <Image resizeMode={"cover"} style={imageStyle} source={{ uri: member.image }} />
       {(member.links.instagram || member.links.facebook || member.links.mailto) && (
         <View style={styles.socialwall}>
           {member.links.instagram && (
             <FontAwesome5
-              name="instagram"
-              size={48}
-              color={Colors.accent}
-              onPress={() => handlSocialClick(member.links.instagram)}
+            name="instagram"
+            size={48}
+            color={Colors.accent}
+            onPress={() => handlSocialClick(member.links.instagram)}
             />
-          )}
+            )}
           {member.links.facebook && (
             <FontAwesome5
-              name="facebook"
-              size={48}
-              color={Colors.accent}
-              onPress={() => handlSocialClick(member.links.facebook)}
+            name="facebook"
+            size={48}
+            color={Colors.accent}
+            onPress={() => handlSocialClick(member.links.facebook)}
             />
-          )}
+            )}
           {member.links.mailto && (
             <FontAwesome5
-              name="envelope"
-              size={48}
-              color={Colors.accent}
-              onPress={() => handlSocialClick("mailto://" + member.links.mailto)}
+            name="envelope"
+            size={48}
+            color={Colors.accent}
+            onPress={() => handlSocialClick("mailto://" + member.links.mailto)}
             />
-          )}
+            )}
         </View>
       )}
       <AutoHeightWebView
         style={{ width: Dimensions.get("window").width - 30, margin: 15 }}
         customStyle={` 
-          p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: black;
-
-          }
-          a {
-            color: ${Colors.primary};
-          }
+        p {
+          font-size: 18px;
+          line-height: 1.6;
+          color: black;
+          
+        }
+        a {
+          color: ${Colors.primary};
+        }
         `}
         files={[
           {
@@ -143,7 +145,8 @@ const TeamDetailsScreen = (props) => {
           webview = ref;
         }}
         onNavigationStateChange={handleNavigationStateChange}
-      />
+        />
+      {/* </View> */}
     </ScrollView>
   );
 };
