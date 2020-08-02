@@ -46,7 +46,7 @@ const AppStackNavigator = () => {
           headerRight: () => {
             return (
               <TouchableOpacity
-                style={{paddingRight: 10}}
+                style={{paddingRight: 20}}
                 onPress={() => navigation.toggleDrawer()}>
                 <FontAwesome5 name="bars" size={18} color={Colors.accent} />
               </TouchableOpacity>
@@ -54,7 +54,7 @@ const AppStackNavigator = () => {
           }
         })}>
 
-        <StackNav.Screen name="Home" component={HomeScreen} options={{ title: "NoArts! App" }} />
+        <StackNav.Screen name="Home" component={HomeScreen} options={{ title: "NoArts!" }} />
         <StackNav.Screen name="News" component={NewsScreen} />
         <StackNav.Screen name="NewsDetails" component={NewsDetailsScreen} options={NewsDetailsScreenOptions} />
         <StackNav.Screen name="Gallery" component={GalleryTabNavigator} options={{ title: "Bilder" }} />
@@ -79,9 +79,18 @@ const AppNavigator = () => {
       <Drawer.Navigator 
         drawerContent={props => {
           return (
-            <ScrollView contentContainerStyle={{flex: 1,  flexDirection: 'column', justifyContent: 'space-between', backgroundColor: Colors.background }}>
+            <ScrollView contentContainerStyle={{paddingTop: 50, flex: 1,  flexDirection: 'column', justifyContent: 'space-between', backgroundColor: Colors.background }}>
             <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-              <DrawerItemList {...props} />
+            <TouchableOpacity
+            onPress={() => props.navigation.navigate('NoArts!', {screen: 'Home'})} 
+            >
+              <View style={styles.item}>
+                <View style={styles.iconContainer}>
+                <FontAwesome5 name="home" size={24} color={Colors.primary}/>
+                </View>
+                <Text style={styles.label}>NoArts!</Text>
+              </View>
+            </TouchableOpacity>
             </SafeAreaView>
             <View>
  
@@ -92,7 +101,7 @@ const AppNavigator = () => {
             >
               <View style={styles.item}>
                 <View style={styles.iconContainer}>
-                <FontAwesome5 name="gavel" size={24} color={Colors.primary}/>
+                <FontAwesome5 name="shield-alt" size={24} color={Colors.primary}/>
                 </View>
                 <Text style={styles.label}>Datenschutz</Text>
               </View>
@@ -102,7 +111,7 @@ const AppNavigator = () => {
             >
               <View style={styles.item}>
                 <View style={styles.iconContainer}>
-                <FontAwesome5 name="shield-alt" size={24} color={Colors.primary}/>
+                <FontAwesome5 name="gavel" size={24} color={Colors.primary}/>
                 </View>
                 <Text style={styles.label}>Impressum</Text>
               </View>
