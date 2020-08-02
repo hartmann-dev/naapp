@@ -82,9 +82,16 @@ const NewsDetailsScreen = (props) => {
       webview.stopLoading();
       Linking.openURL(event.url);
     }
-  };
+  }; 
 
-  let imageOrVideo = <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />;
+  let imageOrVideo = 
+  <View style={{
+    justifyContent: 'center',
+    alignItems: 'center',
+  }}>
+    <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />
+  </View>
+  ;
   if (news.video) {
     imageOrVideo = (
       <WebView
