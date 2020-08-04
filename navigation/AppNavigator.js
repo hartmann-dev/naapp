@@ -116,6 +116,9 @@ const AppNavigator = () => {
                 <Text style={styles.label}>Impressum</Text>
               </View>
             </TouchableOpacity>
+            <View style={styles.item}>
+                <Text  style={styles.labelSmall}>v0.3.1</Text>
+              </View>
             </View>
 
           </ScrollView>
@@ -147,11 +150,18 @@ const styles = StyleSheet.create({
     margin: 16,
     color: Colors.primary,
   },
+  labelSmall: {
+    margin: 10,
+    color: Colors.primary,
+    fontSize: 10
+  },
   iconContainer: {
     marginHorizontal: 16,
     width: 24,
     alignItems: 'center',
   },
+  
+
   icon: {
     width: 24,
     height: 24,
