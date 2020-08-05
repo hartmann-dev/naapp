@@ -56,9 +56,7 @@ export default function App() {
    
 
     Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log("aaaa");
-
-      console.log(response);
+  //
     });
    
 
