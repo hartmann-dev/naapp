@@ -20,8 +20,7 @@ enableScreens();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: false
   }),
 });
 
@@ -46,32 +45,30 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
 
-  /* Erstmal auf Eis gelegt
   useEffect(() => {
-    console.log("start");
-
+   
     registerForPushNotifications().then((token) => setExpoPushToken(token));
     Notifications.addNotificationReceivedListener((notification) => {
-      console.log("start 1");
+     
 
       setNotification(notification);
     });
-    console.log("start 3");
+   
 
     Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log("start 2");
+      console.log("aaaa");
 
       console.log(response);
     });
-    console.log("starrt 4");
+   
 
     return () => {
-      console.log("end");
+     
 
       Notifications.removeAllNotificationListeners();
     };
   }, []);
-  */
+
   if (!fontLoaded) {
     return <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />;
   }

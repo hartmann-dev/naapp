@@ -2,7 +2,7 @@ import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 
-const PUSH_ENDPOINT = ""; //todo
+const PUSH_ENDPOINT = "https://www.noarts.de/wp-json/app_api/v1/push_token"; 
 
 const registerForPushNotifications = async () => {
   let token;
@@ -14,7 +14,7 @@ const registerForPushNotifications = async () => {
       finalStatus = status;
     }
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
+      //alert("Failed to get push token for push notification!");
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
@@ -31,20 +31,19 @@ const registerForPushNotifications = async () => {
     });
   }
   console.log("token: " + token);
-  return token;
-  //todo
-  // return fetch(PUSH_ENDPOINT, {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       token: {
-  //         value: token,
-  //       }
-  //     }),
-  //   });
+   fetch(PUSH_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        
+          token: token,
+        
+      }),
+    });
+    return token;
 };
 
 export default registerForPushNotifications;
