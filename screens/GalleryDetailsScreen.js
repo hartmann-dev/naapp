@@ -26,7 +26,6 @@ const GalleryDetailsScreen = (props) => {
     } catch (err) {
       setError(err.message);
     }
-
     setIsLoading(false);
   }, [dispatch, setIsLoading, setError]);
 
@@ -35,7 +34,7 @@ const GalleryDetailsScreen = (props) => {
     const index = images.findIndex((image) => image.id === imageId);
     if (index >= 0)
       setPostion(index);
-  }, [dispatch, loadImages]);
+  }, [dispatch, images]);
 
   if (error) {
     return (
