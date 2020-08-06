@@ -3,11 +3,12 @@
     "name": "NoArts! App",
     "slug": "noarts-app",
     "sdkVersion": "38.0.0",
+    "privacy": "unlisted",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "0.4.1",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
