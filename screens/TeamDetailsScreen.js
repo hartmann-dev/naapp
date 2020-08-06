@@ -113,7 +113,7 @@ const TeamDetailsScreen = (props) => {
             name="envelope"
             size={48}
             color={Colors.accent}
-            onPress={() => handlSocialClick("mailto://" + member.links.mailto)}
+            onPress={() => handlSocialClick("mailto:" + member.links.mailto)}
             />
             )}
         </View>
