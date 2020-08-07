@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "NoArts! App",
+    "name": "NoArts!",
     "slug": "noarts-app",
     "sdkVersion": "38.0.0",
     "privacy": "unlisted",
@@ -25,12 +25,12 @@
     "android": {
       "useNextNotificationsApi": true,
       "package": "net.hartmann_dev.naapp",
-      "versionCode": 421
+      "versionCode": 422
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.hartmann-dev.naapp",
-      "buildNumber": "421",
+      "buildNumber": "422",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": "No"
       }
