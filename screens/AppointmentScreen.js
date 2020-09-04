@@ -21,7 +21,7 @@ const AppointmentScreen = (props) => {
       </Text>
       <Text style={styles.header}>Termine bei Ralf</Text>
       <Text style={styles.bold}>
-        Die nächste Terminvergabe wird am 11. September 2020 um 20.00 Uhr auf noarts.de stattfinden.
+        Die nächste Terminvergabe wird an dieser Stelle bekannt gegeben.
       </Text>
       <Text>
         Das Formular wird nur eine begrenzte Zeit online sein. Das Ausfüllen und Abschicken des Formulars bedeutet keine
@@ -32,6 +32,8 @@ const AppointmentScreen = (props) => {
       <Text>
         Die Termine bei Katrin und Patrick könnt Ihr jeden ersten Freitag zwischen 10.00 h und 18.00 h im Studio
         vereinbaren, vorab könnt Ihr auch gerne per e-Mail oder telefonisch nachfragen.
+        {"\n"}
+
       </Text>
     </ScrollView>
   );
