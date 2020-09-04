@@ -25,12 +25,13 @@
     "android": {
       "useNextNotificationsApi": true,
       "package": "net.hartmann_dev.naapp",
-      "versionCode": 422
+      "versionCode": 423,
+      "permissions": ["NOTIFICATIONS"]
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.hartmann-dev.naapp",
-      "buildNumber": "422",
+      "buildNumber": "423",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": "No"
       }
