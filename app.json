@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "0.4.2",
+    "version": "0.5",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,13 +25,12 @@
     "android": {
       "useNextNotificationsApi": true,
       "package": "net.hartmann_dev.naapp",
-      "versionCode": 423,
-      "permissions": ["NOTIFICATIONS"]
+      "versionCode": 500
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.hartmann-dev.naapp",
-      "buildNumber": "423",
+      "buildNumber": "500",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": "No"
       }
