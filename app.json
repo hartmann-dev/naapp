@@ -25,12 +25,15 @@
     "android": {
       "useNextNotificationsApi": true,
       "package": "net.hartmann_dev.naapp",
-      "versionCode": 500
+      "versionCode": 501,
+      
+      "googleServicesFile": "./google-services.json",
+
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.hartmann-dev.naapp",
-      "buildNumber": "500",
+      "buildNumber": "501",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": "No"
       }

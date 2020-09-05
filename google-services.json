@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "922642710278",
+    "firebase_url": "https://noarts--app.firebaseio.com",
+    "project_id": "noarts--app",
+    "storage_bucket": "noarts--app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922642710278:android:cf70249b5f435d9e83a887",
+        "android_client_info": {
+          "package_name": "net.hartmann_dev.naapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922642710278-lkinuep23pgluhqjpr8ht8sn46v4m07d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjk3HsQv6qZzpAC82ThkBPUjH8XZzHNuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922642710278-lkinuep23pgluhqjpr8ht8sn46v4m07d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
