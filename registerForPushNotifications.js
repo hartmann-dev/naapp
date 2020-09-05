@@ -23,14 +23,14 @@ const registerForPushNotifications = async () => {
   }
 
   if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
-      name: "default",
+    Notifications.setNotificationChannelAsync("news", {
+      name: "Neuigkeiten",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
     });
   }
-  console.log("token: " + token);
+  //console.log("token: " + token);
    fetch(PUSH_ENDPOINT, {
       method: 'POST',
       headers: {
