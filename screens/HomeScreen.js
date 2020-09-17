@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, TouchableOpacity, Image } from "react-native";
+import React from "react";
+import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+
+import Cardlist from "../components/cardlist/cardlist"
 import { useSelector } from "react-redux";
-import * as ScreenOrientation from "expo-screen-orientation";
 import Colors from "../constants/Colors";
+import Calc from "../utils/calc";
+
 import * as Linking from "expo-linking";
 
 const HomeScreen = (props) => {
+  
   const nav = useSelector((state) => state.navigation.availableNav);
-  const [orientation, setOrientation] = useState();
-
-  useEffect(() => {
-    ScreenOrientation.getOrientationAsync().then((info) => {
-      setOrientation(info);
-    });
-
-    const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
-      setOrientation(evt.orientationInfo.orientation);
-    });
-
-    return () => {
-      ScreenOrientation.removeOrientationChangeListener(subscription);
-    };
-  }, []);
-
+   
   const renderGridItem = (itemData) => {
     return (
       <View style={{ ...styles.navitem, ...{ backgroundColor: itemData.item.bgColor } }}>
@@ -48,29 +37,23 @@ const HomeScreen = (props) => {
       </View>
     );
   };
-
   return (
-    <View style={styles.home}>
-      <FlatList
-        key={orientation === 1 ? 2 : 3}
-        numColumns={orientation === 1 ? 2 : 3}
-        data={nav}
-        renderItem={renderGridItem}
-      />
-    </View>
+    <Cardlist
+      type="home"
+      data={nav}
+      renderGridItem={renderGridItem}
+    />
   );
-};
+}
+
+const size = Calc.cardSize('home');
+ 
 
 const styles = StyleSheet.create({
-  home: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
   navitem: {
-    flex: 1,
-    margin: 15,
-    marginBottom: 0,
-    minHeight: 180,
+    margin: size.margin,
+    height: size.height,
+    width: size.width,
     borderColor: Colors.primary,
     borderWidth: 1,
   },
@@ -95,5 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
 
 export default HomeScreen;

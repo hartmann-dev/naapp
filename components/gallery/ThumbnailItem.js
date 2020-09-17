@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
 import Colors from "../../constants/Colors";
+import Calc from "../../utils/calc";
 
 const ThumbnailItem = (props) => {
   return (
@@ -15,16 +16,18 @@ const ThumbnailItem = (props) => {
   );
 };
 
+const size = Calc.cardSize('gallery');
+
+ 
 const styles = StyleSheet.create({
   tnItem: {
-    marginTop: 15,
-    marginBottom: 0,
-    height: 80,
-    width: 110,
+    margin: size.margin,
+    height: size.height, 
+    width: size.width,
   },
   thumbnail: {
-    height: 80,
-    width: 110,
+    height: size.height,
+    width: size.width,
     borderWidth: 1,
     borderColor: Colors.primary,
   },
