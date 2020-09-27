@@ -100,7 +100,7 @@ const Cardlist = (props) => {
         <View style={styles.wrapper}>
           <FlatList
             onRefresh={loadData}
-            columnWrapperStyle={styles.list}
+            columnWrapperStyle={numCols > 1 ? styles.list : null} 
             refreshing={isRefreshing}
             data={props.data}
             key={orientation * numCols}
@@ -119,8 +119,9 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.background,
       flexDirection: "row",
       height: "100%",
+     
     },
-    list: { flex: 1, justifyContent: "center" },
+    list: { flex: 1, display: "flex", justifyContent: "center"},
   
     centered: { flex: 1, justifyContent: "center", alignItems: "center" },
   });

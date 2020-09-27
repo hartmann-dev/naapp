@@ -25,11 +25,27 @@ if(space < 420)
 if(space < 350)
  factor = 1.2; 
 
+ console.log( "factor: "  + factor);
 
-export default {
+const stretchOneItem = (width, margin) => {
+    oneItem = (width+(margin*2)) * 2 > space;
+    if(oneItem){
+        return space - (margin*2);
+    }
+    return width;
+}
+
+
+const sizes = {
+
     home: {
         height: 100 * factor,
         width:  100 * factor,
+        margin: 15 
+    },
+    news: {
+        height: 200 * factor,
+        width: stretchOneItem(150 * factor, 15),
         margin: 15 
     },
     gallery: { 
@@ -37,5 +53,10 @@ export default {
         width: 60 * factor,
         margin: 15 
     } 
-}; 
+    
+}
+console.log("sizes.news:");
+console.log(sizes.news);
+console.log(" --- ")
+export default sizes; 
    

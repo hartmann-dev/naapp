@@ -91,7 +91,7 @@ const NewsDetailsScreen = (props) => {
   }}>
     <Image resizeMode={"cover"} style={imageStyle} source={{ uri: news.image }} />
   </View>
-  ;
+  
   if (news.video) {
     imageOrVideo = (
       <WebView
