@@ -117,7 +117,7 @@ const AppNavigator = () => {
               </View>
             </TouchableOpacity>
             <View style={styles.item}>
-                <Text  style={styles.labelSmall}>v0.5</Text>
+                <Text  style={styles.labelSmall}>v0.5.2</Text>
               </View>
             </View>
 

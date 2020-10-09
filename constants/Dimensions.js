@@ -19,7 +19,7 @@ if(space < 840)
 if(space < 420)
  factor = 1.7; 
  
- if(space < 380)
+ if(space < 400)
  factor = 1.5; 
 
 if(space < 350)
@@ -33,7 +33,7 @@ const stretchOneItem = (width, margin) => {
         return space - (margin*2);
     }
     return width;
-}
+} 
 
 
 const sizes = {
@@ -47,6 +47,11 @@ const sizes = {
         height: 200 * factor,
         width: stretchOneItem(150 * factor, 15),
         margin: 15 
+    },    
+    team: {
+        height: 200 * factor,
+        width: stretchOneItem(150 * factor, 15),
+        margin: 15 
     },
     gallery: { 
         height: 60 * factor,
@@ -55,8 +60,8 @@ const sizes = {
     } 
     
 }
-console.log("sizes.news:");
-console.log(sizes.news);
+console.log("sizes.home:");
+console.log(sizes.home);
 console.log(" --- ")
 export default sizes; 
    

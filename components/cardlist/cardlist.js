@@ -117,13 +117,12 @@ const Cardlist = (props) => {
 const styles = StyleSheet.create({
     wrapper: {
       backgroundColor: Colors.background,
-      flexDirection: "row",
       height: "100%",
      
     },
     list: { flex: 1, display: "flex", justifyContent: "center"},
   
-    centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+    centered: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: Colors.background, },
   });
 
 export default Cardlist;

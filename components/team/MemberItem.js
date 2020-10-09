@@ -2,10 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native";
 
 import Colors from "../../constants/Colors";
+import Calc from "../../utils/calc";
 
 const MemberItem = (props) => {
   return (
-    <TouchableOpacity style={{ flex: 1 }} onPress={props.onViewDetail}>
+    <TouchableOpacity onPress={props.onViewDetail}>
       <View style={styles.newsitem}>
         <ImageBackground
           source={{ uri: props.image }}
@@ -18,18 +19,21 @@ const MemberItem = (props) => {
     </TouchableOpacity>
   );
 };
+
+const size = Calc.cardSize('team');
+
+
 const styles = StyleSheet.create({
   newsitem: {
-    flex: 1,
-    margin: 15,
-    height: 250,
+    margin: size.margin,
+    height: size.height,
+    width: size.width,
     borderColor: Colors.primary,
     borderWidth: 1,
     backgroundColor: Colors.primary,
   },
   image: {
     flex: 1,
-    width: "100%",
     justifyContent: "flex-end",
   },
   title: {

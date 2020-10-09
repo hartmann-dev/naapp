@@ -3,36 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from "react-native";
 
 import * as artistActions from "../store/actions/artist";
+import Cardlist from "../components/cardlist/cardlist"
 
 import MemberItem from "../components/team/MemberItem";
-import Colors from "../constants/Colors";
 
 const TeamScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const [error, setError] = useState();
   const member = useSelector((state) => state.artist.availableMembers);
-  const dispatch = useDispatch();
-
-  const loadMember = useCallback(async () => {
-    setError(null);
-    setIsRefreshing(true);
-    try {
-      await dispatch(artistActions.fetchMember());
-    } catch (err) {
-      setError(err.message);
-    }
-    setIsRefreshing(false);
-  }, [dispatch, setIsLoading, setError]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    loadMember().then(() => {
-      setIsLoading(false);
-    });
-  }, [dispatch, loadMember]);
-
+ 
   const selectItemHandler = (id, name) => {
     props.navigation.navigate("TeamDetails", {
       memberId: id,
@@ -40,39 +17,12 @@ const TeamScreen = (props) => {
     });
   };
 
-  if (error) {
-    return (
-      <View style={styles.centered}>
-        <Text>Ein Fehler ist aufgetreten!</Text>
-        <Button title="Versuch es erneut" onPress={loadMember} color={Colors.primary} />
-      </View>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
-  }
-
-  if (!isLoading && member.length === 0) {
-    return (
-      <View style={styles.centered}>
-        <Text>Niemand hier.</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.member}>
-      <FlatList
-        onRefresh={loadMember}
-        refreshing={isRefreshing}
+    <Cardlist
+        type="team"
+        loadData={artistActions.fetchMember()}
         data={member}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={(itemData) => (
+        renderGridItem={(itemData) => (
           <MemberItem
             image={itemData.item.image}
             name={itemData.item.name}
@@ -82,16 +32,10 @@ const TeamScreen = (props) => {
           />
         )}
       />
-    </View>
   );
+
 };
 
-const styles = StyleSheet.create({
-  member: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center",  backgroundColor: Colors.background},
-});
+
 
 export default TeamScreen;
