@@ -13,7 +13,9 @@ export const fetchThumbnails = (galleryId) => {
       if (galleryTNCache.hasOwnProperty(galleryId)) {
         loadedThumbnails = galleryTNCache[galleryId];
       } else {
-        const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/gallery/" + galleryId);
+        const response = await fetch(
+          "https://www.noarts.de/wp-json/app_news_api/v1/gallery/" + galleryId
+        );
         if (!response.ok) {
           throw new Error("Ein Fehler ist aufgetreten!");
         }
@@ -22,7 +24,12 @@ export const fetchThumbnails = (galleryId) => {
 
         for (const key in resData) {
           loadedThumbnails.push(
-            new GalleryItem(resData[key].id, resData[key].uri, resData[key].width, resData[key].height)
+            new GalleryItem(
+              resData[key].id,
+              resData[key].uri,
+              resData[key].width,
+              resData[key].height
+            )
           );
         }
         galleryTNCache[galleryId] = loadedThumbnails;
@@ -41,26 +48,29 @@ export const fetchImages = (galleryId) => {
     try {
       let loadedThumbnails = [];
 
-      if(galleryCache.hasOwnProperty(galleryId)){
+      if (galleryCache.hasOwnProperty(galleryId)) {
         loadedThumbnails = galleryTNCache[galleryId];
-
       } else {
-        const response = await fetch("https://www.noarts.de/wp-json/app_news_api/v1/gallery2/" + galleryId);
+        const response = await fetch(
+          "https://www.noarts.de/wp-json/app_news_api/v1/gallery2/" + galleryId
+        );
 
         if (!response.ok) {
           throw new Error("Ein Fehler ist aufgetreten!");
         }
-  
+
         const resData = await response.json();
         for (const key in resData) {
           loadedThumbnails.push(
-            new GalleryItem(resData[key].id, resData[key].uri, resData[key].width, resData[key].height)
+            new GalleryItem(
+              resData[key].id,
+              resData[key].uri,
+              resData[key].width,
+              resData[key].height
+            )
           );
         }
         galleryCache[galleryId] = loadedThumbnails;
-
-  
-
       }
       dispatch({ type: SET_IMAGES, images: loadedThumbnails });
     } catch (err) {
