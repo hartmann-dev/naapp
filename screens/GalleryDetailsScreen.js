@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View, ActivityIndicator, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  Button,
+} from "react-native";
 import GallerySwiper from "react-native-gallery-swiper";
 
 import * as galleryActions from "../store/actions/gallery";
@@ -32,15 +38,18 @@ const GalleryDetailsScreen = (props) => {
   useEffect(() => {
     loadImages();
     const index = images.findIndex((image) => image.id === imageId);
-    if (index >= 0)
-      setPostion(index);
+    if (index >= 0) setPostion(index);
   }, [dispatch, images]);
 
   if (error) {
     return (
       <View style={styles.centered}>
         <Text>Ein Fehler ist aufgetreten!</Text>
-        <Button title="Versuch es erneut" onPress={loadImages} color={Colors.primary} />
+        <Button
+          title="Versuch es erneut"
+          onPress={loadImages}
+          color={Colors.primary}
+        />
       </View>
     );
   }
@@ -61,12 +70,22 @@ const GalleryDetailsScreen = (props) => {
     );
   }
   return (
-    <GallerySwiper images={images} sensitiveScroll={false} initialNumToRender={position + 1} initialPage={position} />
+    <GallerySwiper
+      images={images}
+      sensitiveScroll={false}
+      initialNumToRender={position + 1}
+      initialPage={position}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  centered: { flex: 1, justifyContent: "center", alignItems: "center",  backgroundColor: Colors.background },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.background,
+  },
 });
 
 export default GalleryDetailsScreen;
