@@ -49,7 +49,7 @@ export const fetchImages = (galleryId) => {
       let loadedThumbnails = [];
 
       if (galleryCache.hasOwnProperty(galleryId)) {
-        loadedThumbnails = galleryTNCache[galleryId];
+        loadedThumbnails = galleryCache[galleryId];
       } else {
         const response = await fetch(
           "https://www.noarts.de/wp-json/app_news_api/v1/gallery2/" + galleryId
