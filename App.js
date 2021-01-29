@@ -45,20 +45,20 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
 
-  useEffect(() => {
-    registerForPushNotifications().then((token) => setExpoPushToken(token));
-    Notifications.addNotificationReceivedListener((notification) => {
-      setNotification(notification);
-    });
+  // useEffect(() => {
+  //   registerForPushNotifications().then((token) => setExpoPushToken(token));
+  //   Notifications.addNotificationReceivedListener((notification) => {
+  //     setNotification(notification);
+  //   });
 
-    Notifications.addNotificationResponseReceivedListener((response) => {
-      //
-    });
+  //   Notifications.addNotificationResponseReceivedListener((response) => {
+  //     //
+  //   });
 
-    return () => {
-      Notifications.removeAllNotificationListeners();
-    };
-  }, []);
+  //   return () => {
+  //     Notifications.removeAllNotificationListeners();
+  //   };
+  // }, []);
 
   if (!fontLoaded) {
     return (
