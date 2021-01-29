@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Font from "expo-font";
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { enableScreens } from "react-native-screens";
@@ -20,7 +20,7 @@ enableScreens();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false
+    shouldPlaySound: false,
   }),
 });
 
@@ -46,29 +46,27 @@ export default function App() {
   const [notification, setNotification] = useState(false);
 
   useEffect(() => {
-   
     registerForPushNotifications().then((token) => setExpoPushToken(token));
     Notifications.addNotificationReceivedListener((notification) => {
-     
-
       setNotification(notification);
     });
-   
 
     Notifications.addNotificationResponseReceivedListener((response) => {
-  //
+      //
     });
-   
 
     return () => {
-     
-
       Notifications.removeAllNotificationListeners();
     };
   }, []);
 
   if (!fontLoaded) {
-    return <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />;
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+      />
+    );
   }
   return (
     <Provider store={store}>
