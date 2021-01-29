@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 
-import Cardlist from "../components/cardlist/cardlist"
+import Cardlist from "../components/cardlist/cardlist";
 import { useSelector } from "react-redux";
 import Colors from "../constants/Colors";
 import Calc from "../utils/calc";
@@ -9,12 +9,16 @@ import Calc from "../utils/calc";
 import * as Linking from "expo-linking";
 
 const HomeScreen = (props) => {
-  
   const nav = useSelector((state) => state.navigation.availableNav);
-   
+
   const renderGridItem = (itemData) => {
     return (
-      <View style={{ ...styles.navitem, ...{ backgroundColor: itemData.item.bgColor } }}>
+      <View
+        style={{
+          ...styles.navitem,
+          ...{ backgroundColor: itemData.item.bgColor },
+        }}
+      >
         <TouchableOpacity
           style={{ flex: 1 }}
           onPress={() => {
@@ -29,7 +33,11 @@ const HomeScreen = (props) => {
             <Image
               style={styles.itemIcon}
               // imageStyle={{ resizeMode: "contain" }}
-              source={{ uri: "https://www.noarts.de/wp-content/uploads/" + itemData.item.icon }}
+              source={{
+                uri:
+                  "https://www.noarts.de/wp-content/uploads/" +
+                  itemData.item.icon,
+              }}
             />
           </View>
           {/* <Text style={styles.itemText}>{itemData.item.title}</Text> */}
@@ -37,17 +45,10 @@ const HomeScreen = (props) => {
       </View>
     );
   };
-  return (
-    <Cardlist
-      type="home"
-      data={nav}
-      renderGridItem={renderGridItem}
-    />
-  );
-}
+  return <Cardlist type="home" data={nav} renderGridItem={renderGridItem} />;
+};
 
-const size = Calc.cardSize('home');
- 
+const size = Calc.cardSize("home");
 
 const styles = StyleSheet.create({
   navitem: {
@@ -78,6 +79,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
 
 export default HomeScreen;

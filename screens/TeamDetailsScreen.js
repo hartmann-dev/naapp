@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, ScrollView, View, ActivityIndicator, Button, Image, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  ActivityIndicator,
+  Button,
+  Image,
+  Dimensions,
+} from "react-native";
 import AutoHeightWebView from "react-native-autoheight-webview";
 import * as Linking from "expo-linking";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -42,7 +51,11 @@ const TeamDetailsScreen = (props) => {
     return (
       <View style={styles.centered}>
         <Text>Ein Fehler ist aufgetreten!</Text>
-        <Button title="Versuch es erneut." onPress={loadMember} color={Colors.primary} />
+        <Button
+          title="Versuch es erneut."
+          onPress={loadMember}
+          color={Colors.primary}
+        />
       </View>
     );
   }
@@ -89,37 +102,47 @@ const TeamDetailsScreen = (props) => {
     <ScrollView style={styles.memberDetails}>
       {/* <View style={{ flex: 1, flexDirection: "column" }} pointerEvents={"none"} > */}
 
-      <Image resizeMode={"cover"} style={imageStyle} source={{ uri: member.image }} />
-      {(member.links.instagram || member.links.facebook || member.links.mailto) && (
+      <Image
+        resizeMode={"cover"}
+        style={imageStyle}
+        source={{ uri: member.image }}
+      />
+      {(member.links.instagram ||
+        member.links.facebook ||
+        member.links.mailto) && (
         <View style={styles.socialwall}>
           {member.links.instagram && (
             <FontAwesome5
-            name="instagram"
-            size={48}
-            color={Colors.accent}
-            onPress={() => handlSocialClick(member.links.instagram)}
+              name="instagram"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick(member.links.instagram)}
             />
-            )}
+          )}
           {member.links.facebook && (
             <FontAwesome5
-            name="facebook"
-            size={48}
-            color={Colors.accent}
-            onPress={() => handlSocialClick(member.links.facebook)}
+              name="facebook"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick(member.links.facebook)}
             />
-            )}
+          )}
           {member.links.mailto && (
             <FontAwesome5
-            name="envelope"
-            size={48}
-            color={Colors.accent}
-            onPress={() => handlSocialClick("mailto:" + member.links.mailto)}
+              name="envelope"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick("mailto:" + member.links.mailto)}
             />
-            )}
+          )}
         </View>
       )}
       <AutoHeightWebView
-        style={{ width: Dimensions.get("window").width - 30, margin: 15 }}
+        style={{
+          width: Dimensions.get("window").width - 30,
+          margin: 15,
+          height: winDim.width + 200,
+        }}
         customStyle={` 
         p {
           font-size: 18px;
@@ -145,7 +168,7 @@ const TeamDetailsScreen = (props) => {
           webview = ref;
         }}
         onNavigationStateChange={handleNavigationStateChange}
-        />
+      />
       {/* </View> */}
     </ScrollView>
   );
@@ -167,8 +190,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     padding: 5,
   },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: Colors.background,
-},
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.background,
+  },
 });
 
 export const screenOptions = (navData) => {
