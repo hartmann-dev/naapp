@@ -13,6 +13,7 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import * as Linking from "expo-linking";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -151,6 +152,121 @@ const AppNavigator = () => {
                     <Text style={styles.label}>NoArts!</Text>
                   </View>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("NoArts!", { screen: "News" })
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="exclamation"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>News</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("NoArts!", { screen: "Gallery" })
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="camera-retro"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Bilder</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("NoArts!", { screen: "Team" })
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="users"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Team</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("NoArts!", { screen: "Guests" })
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="suitcase-rolling"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Gäste</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("NoArts!", {
+                      screen: "Appointments",
+                    })
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="calendar-check"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Termine</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    //props.navigation.navigate("NoArts!", { screen: "Home" })
+                    Linking.openURL("https://www.noarts.de/shop/")
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="tint"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Shop</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("NoArts!", { screen: "Gome" })
+                  }
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="envelope-open-text"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Kontakt</Text>
+                  </View>
+                </TouchableOpacity>
               </SafeAreaView>
               <View>
                 <TouchableOpacity
@@ -228,7 +344,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     marginHorizontal: 16,
-    width: 24,
+    width: 30,
     alignItems: "center",
   },
 
