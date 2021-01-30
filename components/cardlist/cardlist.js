@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ActivityIndicator,
+  Button,
+  ImageBackground,
+} from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
-
 
 import Colors from "../../constants/Colors";
 import Calc from "../../utils/calc";
@@ -17,17 +24,19 @@ const Cardlist = (props) => {
 
   const isMountedRef = useIsMountedRef();
   const dispatch = useDispatch();
+  const image = require("../../assets/bg/Background01.jpg");
 
-  
   useEffect(() => {
-     if (isMountedRef.current) {
+    if (isMountedRef.current) {
       ScreenOrientation.getOrientationAsync().then((info) => {
         setOrientation(info);
       });
 
-      const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
-        setOrientation(evt.orientationInfo.orientation);
-      });
+      const subscription = ScreenOrientation.addOrientationChangeListener(
+        (evt) => {
+          setOrientation(evt.orientationInfo.orientation);
+        }
+      );
 
       return () => {
         ScreenOrientation.removeOrientationChangeListener(subscription);
@@ -35,31 +44,30 @@ const Cardlist = (props) => {
     }
   }, []);
 
-   useEffect(() => {
-     calcNumCols();
+  useEffect(() => {
+    calcNumCols();
   }, [orientation]);
 
-   const calcNumCols = useCallback(() => {
-     if (isMountedRef.current) {
-       setNumCols(Calc.numCols(props.type));
-     }
-   }, [orientation]);
+  const calcNumCols = useCallback(() => {
+    if (isMountedRef.current) {
+      setNumCols(Calc.numCols(props.type));
+    }
+  }, [orientation]);
 
-   const loadData = useCallback(async () => {
+  const loadData = useCallback(async () => {
     if (isMountedRef.current) {
       setError(null);
       setIsRefreshing(true);
 
       try {
-        if(props.loadData)
-            await dispatch(props.loadData);
+        if (props.loadData) await dispatch(props.loadData);
       } catch (err) {
-          console.log(err);
+        console.log(err);
         setError(err.message);
       }
       setIsRefreshing(false);
     }
-  }, [dispatch, setIsLoading, setError]); 
+  }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -74,7 +82,11 @@ const Cardlist = (props) => {
     return (
       <View style={styles.centered}>
         <Text>Ein Fehler ist aufgetreten</Text>
-        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
+        <Button
+          title="Erneut versuchen"
+          onPress={loadData}
+          color={Colors.primary}
+        />
       </View>
     );
   }
@@ -93,14 +105,15 @@ const Cardlist = (props) => {
         <Text>Keine Daten gefunden</Text>
       </View>
     );
-  }
-  
+  }
+
   if (!isLoading || orientation !== "undefined") {
     return (
-        <View style={styles.wrapper}>
+      <View style={styles.wrapper}>
+        <ImageBackground source={image} style={styles.image}>
           <FlatList
             onRefresh={loadData}
-            columnWrapperStyle={numCols > 1 ? styles.list : null} 
+            columnWrapperStyle={numCols > 1 ? styles.list : null}
             refreshing={isRefreshing}
             data={props.data}
             key={orientation * numCols}
@@ -108,21 +121,29 @@ const Cardlist = (props) => {
             numColumns={numCols}
             renderItem={props.renderGridItem}
           />
-        </View>
-      );
-  
+        </ImageBackground>
+      </View>
+    );
   }
 };
 
 const styles = StyleSheet.create({
-    wrapper: {
-      backgroundColor: Colors.background,
-      height: "100%",
-     
-    },
-    list: { flex: 1, display: "flex", justifyContent: "center"},
-  
-    centered: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: Colors.background, },
-  });
+  wrapper: {
+    backgroundColor: Colors.background,
+    height: "100%",
+  },
+  list: { flex: 1, display: "flex", justifyContent: "center" },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.background,
+  },
+});
 
 export default Cardlist;
