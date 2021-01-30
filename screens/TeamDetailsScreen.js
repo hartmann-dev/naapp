@@ -94,7 +94,16 @@ const TeamDetailsScreen = (props) => {
   const handlSocialClick = (url) => {
     if (url != "about:blank") {
       webview.stopLoading();
-      Linking.openURL(url);
+      Linking.canOpenURL(url)
+        .then((supported) => {
+          if (!supported) {
+            console.log("Can't handle url: " + url);
+          } else {
+            return Linking.openURL(url);
+          }
+        })
+        .catch((err) => console.error("An error occurred", err));
+      //Linking.openURL(url);
     }
   };
 
@@ -125,6 +134,14 @@ const TeamDetailsScreen = (props) => {
               size={48}
               color={Colors.accent}
               onPress={() => handlSocialClick(member.links.facebook)}
+            />
+          )}
+          {member.links.telegram && (
+            <FontAwesome5
+              name="telegram-plane"
+              size={48}
+              color={Colors.accent}
+              onPress={() => handlSocialClick(member.links.telegram)}
             />
           )}
           {member.links.mailto && (
