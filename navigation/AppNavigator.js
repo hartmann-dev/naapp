@@ -30,6 +30,7 @@ import TeamDetailsScreen, {
 import GuestsScreem from "../screens/GuestsScreen";
 import AppointmentScreen from "../screens/AppointmentScreen";
 import FAQScreen from "../screens/FAQScreen";
+import ContactScreen from "../screens/ContactScreen";
 import LegalNoticeScreen from "../screens/LegalNoticeScreen";
 import PrivacyScreen from "../screens/PrivacyScreen";
 import ShopScreen from "../screens/ShopScreen";
@@ -102,6 +103,11 @@ const AppStackNavigator = () => {
         name="Appointments"
         component={AppointmentScreen}
         options={{ title: "Termine" }}
+      />
+      <StackNav.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{ title: "Kontakt" }}
       />
       {/* <StackNav.Screen name="FAQ" component={FAQScreen} /> */}
       <StackNav.Screen
@@ -253,7 +259,7 @@ const AppNavigator = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
-                    props.navigation.navigate("NoArts!", { screen: "Gome" })
+                    props.navigation.navigate("NoArts!", { screen: "Contact" })
                   }
                 >
                   <View style={styles.item}>
