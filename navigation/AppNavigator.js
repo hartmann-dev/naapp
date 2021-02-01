@@ -14,6 +14,8 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import * as Linking from "expo-linking";
+import * as Application from "expo-application";
+import * as IntentLauncher from "expo-intent-launcher";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -275,6 +277,33 @@ const AppNavigator = () => {
                 </TouchableOpacity>
               </SafeAreaView>
               <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (Platform.OS === "ios") {
+                      Linking.openURL(`app-settings:`);
+                    } else {
+                      const bundleIdentifier = Application.applicationId;
+                      IntentLauncher.startActivityAsync(
+                        IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        {
+                          data: `package:${bundleIdentifier}`,
+                        }
+                      );
+                    }
+                  }}
+                >
+                  <View style={styles.item}>
+                    <View style={styles.iconContainer}>
+                      <FontAwesome5
+                        name="cog"
+                        size={24}
+                        color={Colors.primary}
+                      />
+                    </View>
+                    <Text style={styles.label}>Einstellungen</Text>
+                  </View>
+                </TouchableOpacity>
+
                 <TouchableOpacity
                   onPress={() =>
                     props.navigation.navigate("NoArts!", { screen: "Privacy" })
