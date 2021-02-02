@@ -32,6 +32,8 @@ import TeamDetailsScreen, {
 import GuestsScreem from "../screens/GuestsScreen";
 import AppointmentScreen from "../screens/AppointmentScreen";
 import FAQScreen from "../screens/FAQScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+
 import ContactScreen from "../screens/ContactScreen";
 import LegalNoticeScreen from "../screens/LegalNoticeScreen";
 import PrivacyScreen from "../screens/PrivacyScreen";
@@ -107,6 +109,11 @@ const AppStackNavigator = () => {
         name="Appointments"
         component={AppointmentScreen}
         options={{ title: "Termine" }}
+      />
+      <StackNav.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ title: "Einstellungen" }}
       />
       <StackNav.Screen
         name="Contact"
@@ -292,6 +299,9 @@ const AppNavigator = () => {
                         }
                       );
                     }
+                    // props.navigation.navigate("NoArts!", {
+                    //   screen: "Settings",
+                    // });
                   }}
                 >
                   <View style={styles.item}>
