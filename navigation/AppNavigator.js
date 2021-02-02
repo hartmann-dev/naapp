@@ -7,7 +7,7 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
@@ -44,7 +44,13 @@ import GalleryTabNavigator from "./GalleryTabNavigator";
 import Versionhint from "../components/Versionhint";
 
 import Colors from "../constants/Colors";
-
+const NoArtsTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: Colors.background,
+  },
+};
 const StackNav = createStackNavigator();
 
 const AppStackNavigator = () => {
@@ -139,7 +145,7 @@ const AppStackNavigator = () => {
 const Drawer = createDrawerNavigator();
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={NoArtsTheme}>
       <Drawer.Navigator
         drawerContent={(props) => {
           return (
