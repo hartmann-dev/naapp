@@ -39,6 +39,8 @@ import ShopScreen from "../screens/ShopScreen";
 
 import GalleryTabNavigator from "./GalleryTabNavigator";
 
+import Versionhint from "../components/Versionhint";
+
 import Colors from "../constants/Colors";
 
 const StackNav = createStackNavigator();
@@ -339,7 +341,7 @@ const AppNavigator = () => {
                   </View>
                 </TouchableOpacity>
                 <View style={styles.item}>
-                  <Text style={styles.labelSmall}>v0.5.3</Text>
+                  <Versionhint />
                 </View>
               </View>
             </ScrollView>
