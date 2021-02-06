@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from "react-native";
+import React from "react";
+import { useSelector } from "react-redux";
 
-import * as artistActions from "../store/actions/artist";
-import Cardlist from "../components/cardlist/cardlist"
+import Cardlist from "../components/cardlist/cardlist";
+import { getArtists } from "../store/ducks/artist";
 
 import MemberItem from "../components/team/MemberItem";
 
 const TeamScreen = (props) => {
-  const member = useSelector((state) => state.artist.availableMembers);
- 
+  const member = useSelector((state) => state.artist.artists);
+
   const selectItemHandler = (id, name) => {
     props.navigation.navigate("TeamDetails", {
       memberId: id,
@@ -19,23 +18,20 @@ const TeamScreen = (props) => {
 
   return (
     <Cardlist
-        type="team"
-        loadData={artistActions.fetchMember()}
-        data={member}
-        renderGridItem={(itemData) => (
-          <MemberItem
-            image={itemData.item.image}
-            name={itemData.item.name}
-            onViewDetail={() => {
-              selectItemHandler(itemData.item.id, itemData.item.name);
-            }}
-          />
-        )}
-      />
+      type="team"
+      loadData={getArtists()}
+      data={member}
+      renderGridItem={(itemData) => (
+        <MemberItem
+          image={itemData.item.image}
+          name={itemData.item.name}
+          onViewDetail={() => {
+            selectItemHandler(itemData.item.id, itemData.item.name);
+          }}
+        />
+      )}
+    />
   );
-
 };
-
-
 
 export default TeamScreen;
