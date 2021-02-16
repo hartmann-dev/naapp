@@ -25,7 +25,10 @@ const HomeScreen = (props) => {
             if (itemData.item.extern) {
               Linking.openURL(itemData.item.target);
             } else {
-              props.navigation.navigate(itemData.item.target);
+              props.navigation.navigate(
+                itemData.item.target,
+                itemData.item.params
+              );
             }
           }}
         >

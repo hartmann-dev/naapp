@@ -7,7 +7,9 @@ import { getArtists } from "../store/ducks/artist";
 import MemberItem from "../components/team/MemberItem";
 
 const TeamScreen = (props) => {
-  const member = useSelector((state) => state.artist.artists);
+  const member = useSelector((state) =>
+    state.artist.artists.filter((artist2) => artist2.type === "Team")
+  );
 
   const selectItemHandler = (id, name) => {
     props.navigation.navigate("TeamDetails", {

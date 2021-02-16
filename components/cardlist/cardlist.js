@@ -10,10 +10,11 @@ import {
   ImageBackground,
 } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
-
 import Colors from "../../constants/Colors";
 import Calc from "../../utils/calc";
 import { useIsMountedRef } from "../../utils/hooks";
+
+import BackgroundView from "../BackgroundView";
 
 const Cardlist = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +25,6 @@ const Cardlist = (props) => {
 
   const isMountedRef = useIsMountedRef();
   const dispatch = useDispatch();
-  const image = require("../../assets/bg/Background01.jpg");
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -110,7 +110,7 @@ const Cardlist = (props) => {
   if (!isLoading || orientation !== "undefined") {
     return (
       <View style={styles.wrapper}>
-        <ImageBackground source={image} style={styles.image}>
+        <BackgroundView>
           <FlatList
             onRefresh={loadData}
             columnWrapperStyle={numCols > 1 ? styles.list : null}
@@ -121,7 +121,7 @@ const Cardlist = (props) => {
             numColumns={numCols}
             renderItem={props.renderGridItem}
           />
-        </ImageBackground>
+        </BackgroundView>
       </View>
     );
   }
@@ -133,11 +133,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   list: { flex: 1, display: "flex", justifyContent: "center" },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
+
   centered: {
     flex: 1,
     justifyContent: "center",

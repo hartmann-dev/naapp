@@ -3,7 +3,6 @@ import { artistService } from "../../services/";
 export const LOAD_ARTIST = "LOAD_ARTIST";
 export const ERROR_ARTIST = "ERROR_ARTIST";
 export const GET_ALL_ARTISTS = "GET_ALL_ARTISTS";
-
 //Initial State
 const initialState = {
   artists: [],

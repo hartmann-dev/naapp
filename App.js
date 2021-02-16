@@ -3,7 +3,6 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Provider } from "react-redux";
 import { enableScreens } from "react-native-screens";
-import ReduxThunk from "redux-thunk";
 import * as Notifications from "expo-notifications";
 
 import store from "./store/store";
@@ -24,6 +23,9 @@ const fetchFonts = () => {
   return Font.loadAsync({
     alien: require("./assets/fonts/alien.ttf"),
     alienbold: require("./assets/fonts/alienbold.ttf"),
+    Courier: require("./assets/fonts/Courier.ttf"),
+    // Arial ist nicht frei verfügbar, überschreiben damit react-native-markup-view keinen Fehler wirft
+    Arial: require("./assets/fonts/LiberationSans-Regular.ttf"),
   });
 };
 

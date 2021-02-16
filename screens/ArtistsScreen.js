@@ -1,14 +1,26 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
+import Cardlist from "../components/cardlist/cardlist";
 import { getArtists } from "../store/ducks/artist";
 
 import MemberItem from "../components/team/MemberItem";
-import Cardlist from "../components/cardlist/cardlist";
 
-const GuestsScreen = (props) => {
-  const guests = useSelector((state) =>
-    state.artist.artists.filter((artist2) => artist2.type === "Guest")
+const ArtistsScreen = (props) => {
+  const [titleParams, onChangeText] = React.useState(props.route.params.title);
+
+  React.useLayoutEffect(() => {
+    props.navigation.setOptions({
+      title: titleParams === "" ? "" : titleParams,
+    });
+  }, [props.navigation, titleParams]);
+
+  const member = useSelector((state) =>
+    state.artist.artists.filter(
+      (artist2) => artist2.type === props.route.params.type
+    )
   );
+
   const selectItemHandler = (id, name) => {
     props.navigation.navigate("TeamDetails", {
       memberId: id,
@@ -20,7 +32,7 @@ const GuestsScreen = (props) => {
     <Cardlist
       type="team"
       loadData={getArtists()}
-      data={guests}
+      data={member}
       renderGridItem={(itemData) => (
         <MemberItem
           image={itemData.item.image}
@@ -34,4 +46,4 @@ const GuestsScreen = (props) => {
   );
 };
 
-export default GuestsScreen;
+export default ArtistsScreen;

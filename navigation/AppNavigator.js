@@ -30,6 +30,7 @@ import TeamDetailsScreen, {
   screenOptions as TeamDetailsScreenOptions,
 } from "../screens/TeamDetailsScreen";
 import GuestsScreem from "../screens/GuestsScreen";
+import ArtistsScreen from "../screens/ArtistsScreen";
 import AppointmentScreen from "../screens/AppointmentScreen";
 import FAQScreen from "../screens/FAQScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -44,6 +45,7 @@ import GalleryTabNavigator from "./GalleryTabNavigator";
 import Versionhint from "../components/Versionhint";
 
 import Colors from "../constants/Colors";
+import Artist from "../models/artist";
 const NoArtsTheme = {
   ...DefaultTheme,
   colors: {
@@ -111,6 +113,7 @@ const AppStackNavigator = () => {
         component={GuestsScreem}
         options={{ title: "Gäste" }}
       />
+      <StackNav.Screen name="Artist" component={ArtistsScreen} />
       <StackNav.Screen
         name="Appointments"
         component={AppointmentScreen}
