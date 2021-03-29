@@ -7,7 +7,6 @@ import {
   FlatList,
   ActivityIndicator,
   Button,
-  ImageBackground,
 } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Colors from "../../constants/Colors";
@@ -98,11 +97,15 @@ const Cardlist = (props) => {
       </View>
     );
   }
-
-  if (!isLoading && props.data.length === 0) {
+  if ((!isLoading && props.data == null) || props.data?.length === 0) {
     return (
       <View style={styles.centered}>
         <Text>Keine Daten gefunden</Text>
+        <Button
+          title="Erneut versuchen"
+          onPress={loadData}
+          color={Colors.primary}
+        />
       </View>
     );
   }

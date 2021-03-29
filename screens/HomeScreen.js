@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, Pressable, Image } from "react-native";
 
-import Cardlist from "../components/cardlist/cardlist";
+import Cardlist from "../components/card/list";
 import { useSelector } from "react-redux";
 import Colors from "../constants/Colors";
 import Calc from "../utils/calc";
@@ -19,7 +19,7 @@ const HomeScreen = (props) => {
           ...{ backgroundColor: itemData.item.bgColor },
         }}
       >
-        <TouchableOpacity
+        <Pressable
           style={{ flex: 1 }}
           onPress={() => {
             if (itemData.item.extern) {
@@ -35,7 +35,6 @@ const HomeScreen = (props) => {
           <View style={styles.itemCard}>
             <Image
               style={styles.itemIcon}
-              // imageStyle={{ resizeMode: "contain" }}
               source={{
                 uri:
                   "https://www.noarts.de/wp-content/uploads/" +
@@ -43,8 +42,7 @@ const HomeScreen = (props) => {
               }}
             />
           </View>
-          {/* <Text style={styles.itemText}>{itemData.item.title}</Text> */}
-        </TouchableOpacity>
+        </Pressable>
       </View>
     );
   };

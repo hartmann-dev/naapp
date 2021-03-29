@@ -1,33 +1,45 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 
 import Colors from "../../constants/Colors";
 import Calc from "../../utils/calc";
 
-const NewsItem = (props) => {
+const placeholderImg = require("../../assets/bg/card.jpg");
+
+const Carditem = (props) => {
   return (
-    <TouchableOpacity  onPress={props.onViewDetail}>
-      <View style={styles.newsitem}>
+    <Pressable onPress={props.onViewDetail}>
+      <View style={styles.carditem}>
         <ImageBackground
-          source={{ uri: props.image }}
+          source={
+            props.image !== undefined ? { uri: props.image } : placeholderImg
+          }
           style={styles.image}
-          imageStyle={{ width: "100%", height: "auto", position: "absolute", bottom: 0 }}
+          imageStyle={{
+            resizeMode: "cover",
+            justifyContent: "flex-start",
+          }}
         >
           <Text style={styles.title}>{props.title}</Text>
         </ImageBackground>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
-const size = Calc.cardSize('news');
-
+const size = Calc.cardSize("card");
 
 const styles = StyleSheet.create({
-  newsitem: {
+  carditem: {
     margin: size.margin,
     height: size.height,
-    width:size.width,
+    width: size.width,
 
     borderColor: Colors.primary,
     borderWidth: 1,
@@ -52,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsItem;
+export default Carditem;

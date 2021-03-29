@@ -1,0 +1,75 @@
+{
+  "main": [
+    {
+      "id": 0,
+      "title": "NoArts!",
+      "image": "/2020/07/Ausrufezeichen.png",
+      "screen": "Home"
+    },
+    {
+      "id": 1,
+      "title": "News",
+      "image": "/2020/07/Ausrufezeichen.png",
+      "screen": "CardList",
+      "type": "News"
+    },
+    {
+      "id": 2,
+      "title": "Galerie",
+      "image": "/2020/07/Kamera.png",
+      "screen": "CardList",
+      "type": "galleries"
+    },
+    {
+      "id": 3,
+      "title": "Team",
+      "image": "/2020/06/Team.png",
+      "screen": "CardList",
+      "type": "Team"
+    },
+    {
+      "id": 4,
+      "title": "Gäste",
+      "image": "/2020/06/Gaeste.png",
+      "screen": "CardList",
+      "type": "Guest"
+    },
+    {
+      "id": 5,
+      "title": "Termine",
+      "image": "/2020/07/Kalender.png",
+      "screen": "Article",
+      "type": "appointment"
+    },
+    {
+      "id": 6,
+      "title": "Shop",
+      "image": "/2020/06/Shop.png",
+      "screen": "Article",
+      "type": "shop"
+    },
+    {
+      "id": 7,
+      "title": "Konakt",
+      "image": "/2020/07/Kalender.png",
+      "screen": "Article",
+      "type": "contact"
+    }
+  ],
+  "second": [
+    {
+      "id": 1,
+      "title": "Datenschutz",
+      "image": "/2020/07/Kalender.png",
+      "screen": "Article",
+      "type": "privacy"
+    },
+    {
+      "id": 2,
+      "title": "Impressum",
+      "image": "/2020/07/Kalender.png",
+      "screen": "Article",
+      "type": "imprint"
+    }
+  ]
+}

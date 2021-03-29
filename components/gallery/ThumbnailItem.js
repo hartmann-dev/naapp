@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, Pressable } from "react-native";
 
 import Colors from "../../constants/Colors";
 import Calc from "../../utils/calc";
@@ -7,22 +7,21 @@ import Calc from "../../utils/calc";
 const ThumbnailItem = (props) => {
   return (
     <View style={styles.tnItem}>
-      <TouchableOpacity style={{ flex: 1 }} onPress={props.onViewDetail}>
+      <Pressable style={{ flex: 1 }} onPress={props.onViewDetail}>
         <View style={styles.tnCard}>
           <Image style={styles.thumbnail} source={{ uri: props.uri }} />
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
 
-const size = Calc.cardSize('gallery');
+const size = Calc.cardSize("gallery");
 
- 
 const styles = StyleSheet.create({
   tnItem: {
     margin: size.margin,
-    height: size.height, 
+    height: size.height,
     width: size.width,
   },
   thumbnail: {
