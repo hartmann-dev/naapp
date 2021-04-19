@@ -4,14 +4,32 @@ import Cardlist from "../components/card/list";
 import Carditem from "../components/card/item";
 
 import { getArticles } from "../store/ducks/articles";
+import { getGalleries } from "../store/ducks/galleries";
 
 const CardListScreen = (props) => {
   const type = props.route.params.type;
-  const data = useSelector((state) => state.articles.articles).filter(
-    (article) => article.type == type
-  );
+
+  const dispatchers = {
+    getArticles: getArticles(),
+    getGalleries: getGalleries(),
+  };
+
+  const dispatcher = props.route.params.dispatcher;
+
+  let data;
+  switch (dispatcher) {
+    case "getArticles":
+      data = useSelector((state) => state.articles.articles).filter(
+        (article) => article.type == type
+      );
+      break;
+    case "getGalleries":
+      data = useSelector((state) => state.galleries.galleries);
+      break;
+  }
+
   const selectItemHandler = (slug, title) => {
-    props.navigation.navigate("Article", {
+    props.navigation.navigate(props.route.params.subScreen, {
       slug,
       title,
     });
@@ -19,7 +37,7 @@ const CardListScreen = (props) => {
   return (
     <Cardlist
       type={"card"}
-      loadData={getArticles()}
+      loadData={dispatchers[dispatcher]}
       data={data}
       renderGridItem={(itemData) => (
         <Carditem

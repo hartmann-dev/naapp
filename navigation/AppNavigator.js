@@ -107,7 +107,12 @@ const AppNavigator = () => {
                       onPress={() =>
                         props.navigation.navigate("NoArts!", {
                           screen: item.screen,
-                          params: { title: item.title, type: item.type },
+                          params: {
+                            title: item.title,
+                            type: item.type,
+                            subScreen: item.subScreen,
+                            dispatcher: item.dispatcher,
+                          },
                         })
                       }
                       key={item.id}
@@ -134,6 +139,8 @@ const AppNavigator = () => {
                         props.navigation.navigate("NoArts!", {
                           screen: item.screen,
                           title: item.title,
+                          subScreen: item.subSCreen,
+                          dispatcher: item.dispatcher,
                         })
                       }
                       key={item.id}

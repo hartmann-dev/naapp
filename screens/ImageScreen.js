@@ -12,14 +12,17 @@ import GallerySwiper from "react-native-gallery-swiper";
 import Colors from "../constants/Colors";
 
 const ImageScreen = (props) => {
-  const imageId = props.route.params.imageId;
-  const galleryId = props.route.params.galleryId;
+  const imageId = props.route.params.id;
+  const slug = props.route.params.slug;
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [position, setPostion] = useState(0);
 
-  const images = useSelector((state) => state.gallery.images);
+  const images = useSelector((state) => state.galleries.galleries).find(
+    (gallery) => gallery.slug == slug
+  ).content;
+
   const dispatch = useDispatch();
   const loadImages = useCallback(async () => {
     setError(null);

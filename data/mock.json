@@ -11,28 +11,36 @@
       "title": "News",
       "image": "/2020/07/Ausrufezeichen.png",
       "screen": "CardList",
-      "type": "News"
+      "type": "News",
+      "subScreen": "Article",
+      "dispatcher": "getArticles"
     },
     {
       "id": 2,
       "title": "Galerie",
       "image": "/2020/07/Kamera.png",
       "screen": "CardList",
-      "type": "galleries"
+      "type": "Galleries",
+      "subScreen": "Gallery",
+      "dispatcher": "getGalleries"
     },
     {
       "id": 3,
       "title": "Team",
       "image": "/2020/06/Team.png",
       "screen": "CardList",
-      "type": "Team"
+      "type": "Team",
+      "subScreen": "Article",
+      "dispatcher": "getArticles"
     },
     {
       "id": 4,
       "title": "Gäste",
       "image": "/2020/06/Gaeste.png",
       "screen": "CardList",
-      "type": "Guest"
+      "type": "Guest",
+      "subScreen": "Article",
+      "dispatcher": "getArticles"
     },
     {
       "id": 5,

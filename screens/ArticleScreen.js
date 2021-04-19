@@ -10,7 +10,6 @@ const ArticleScreen = (props) => {
   const data = useSelector((state) => state.articles.articles).find(
     (article) => article.slug == slug
   );
-
   return <Article loadData={getArticles()} data={data} />;
 };
 

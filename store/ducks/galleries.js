@@ -1,35 +1,35 @@
-import Article from "../../models/article";
+import Gallery from "../../models/gallery";
 import Image from "../../models/image";
 import axios from "../../services/axios";
 
-const SET_ARTICLES = "SET_ARTICLES";
+const SET_GALLERIES = "SET_GALLERIES";
 
-const articlesCache = {};
+const galleriesCache = {};
 
 const initialState = {
-  articles: [],
+  galleries: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_ARTICLES:
+    case SET_GALLERIES:
       return {
         ...state,
-        articles: action.payload,
+        galleries: action.payload,
       };
   }
 
   return state;
 };
 
-export const getArticles = () => {
+export const getGalleries = () => {
   return async (dispatch) => {
-    let loadedArticles = [];
-    if (articlesCache.length > 0) {
-      dispatch({ type: SET_ARTICLES, payload: articlesCache });
+    let loadedGalleries = [];
+    if (galleriesCache.length > 0) {
+      dispatch({ type: SET_GALLERIES, payload: galleriesCache });
     } else {
       axios
-        .get("articles")
+        .get("galleries")
         .then((response) => {
           const resData = response.data;
           for (const key in resData) {
@@ -44,21 +44,26 @@ export const getArticles = () => {
               });
             }
 
-            loadedArticles.push(
-              new Article({
+            loadedGalleries.push(
+              new Gallery({
                 id: resData[key].id,
                 title: resData[key].title,
                 image: img,
-                date: resData[key].date,
-                content: resData[key].content,
-                social: resData[key].social,
-                type: resData[key].type,
+                content: resData[key].content.map(
+                  (item) =>
+                    new Image({
+                      id: item.id,
+                      url: item.url,
+                      width: item.width,
+                      height: item.height,
+                    })
+                ),
                 slug: resData[key].slug,
               })
             );
           }
-          //articlesCache = loadedArticles;
-          dispatch({ type: SET_ARTICLES, payload: loadedArticles });
+          //galleriesCache = loadedArticles;
+          dispatch({ type: SET_GALLERIES, payload: loadedGalleries });
         })
         .catch((error) => {
           console.log(error);

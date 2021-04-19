@@ -18,7 +18,9 @@ const Carditem = (props) => {
       <View style={styles.carditem}>
         <ImageBackground
           source={
-            props.image !== undefined ? { uri: props.image } : placeholderImg
+            props.image !== undefined
+              ? { uri: props.image.url }
+              : placeholderImg
           }
           style={styles.image}
           imageStyle={{

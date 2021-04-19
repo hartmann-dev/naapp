@@ -48,11 +48,24 @@ const Article = ({ data, load }) => {
       });
     }
   }, [dispatch, loadData]);
+  let imageStyle = { width: winDim.width };
+  if (data.image) {
+    const ratio = winDim.width / data.image.dimensions.width;
+    imageStyle.height = data.image.dimensions.height * ratio;
+  }
 
-  const ratio = winDim.width / member.image_width;
-  const imageStyle = {
-    width: winDim.width,
-    height: member.image_height * ratio,
+  const handlSocialClick = (url) => {
+    if (url != "about:blank") {
+      Linking.canOpenURL(url)
+        .then((supported) => {
+          if (!supported) {
+            console.log("Can't handle URL: " + url);
+          } else {
+            return Linking.openURL(url);
+          }
+        })
+        .catch((err) => console.error("Ein Fehler ist aufgetreten", err));
+    }
   };
 
   if (error) {
@@ -91,7 +104,6 @@ const Article = ({ data, load }) => {
       </View>
     );
   }
-  console.log(data);
   if (!isLoading) {
     return (
       <ScrollView style={styles.wrapper}>
@@ -100,13 +112,13 @@ const Article = ({ data, load }) => {
             <Image
               resizeMode={"cover"}
               style={imageStyle}
-              source={{ uri: data.image }}
+              source={{ uri: data.image.url }}
             />
           )}
           {data.social.length > 0 && (
             <View style={styles.socialwall}>
               {data.social.map((s) => (
-                <View style={styles.socialitem}>
+                <View style={styles.socialitem} key={s.link}>
                   <FontAwesome5
                     name={s.appIcon}
                     size={48}

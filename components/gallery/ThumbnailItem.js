@@ -9,7 +9,7 @@ const ThumbnailItem = (props) => {
     <View style={styles.tnItem}>
       <Pressable style={{ flex: 1 }} onPress={props.onViewDetail}>
         <View style={styles.tnCard}>
-          <Image style={styles.thumbnail} source={{ uri: props.uri }} />
+          <Image style={styles.thumbnail} source={{ uri: props.url }} />
         </View>
       </Pressable>
     </View>

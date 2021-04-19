@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
+    minHeight: "100%",
+    height: "100%",
+    width: "100%",
   },
 });
 
