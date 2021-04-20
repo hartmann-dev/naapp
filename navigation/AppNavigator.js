@@ -112,6 +112,7 @@ const AppNavigator = () => {
                             type: item.type,
                             subScreen: item.subScreen,
                             dispatcher: item.dispatcher,
+                            slug: item.slug,
                           },
                         })
                       }
@@ -141,6 +142,7 @@ const AppNavigator = () => {
                           title: item.title,
                           subScreen: item.subSCreen,
                           dispatcher: item.dispatcher,
+                          slug: item.slug,
                         })
                       }
                       key={item.id}

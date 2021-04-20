@@ -47,21 +47,24 @@
       "title": "Termine",
       "image": "/2020/07/Kalender.png",
       "screen": "Article",
-      "type": "appointment"
+      "type": "Single",
+      "slug": "single-appointment"
     },
     {
       "id": 6,
       "title": "Shop",
       "image": "/2020/06/Shop.png",
       "screen": "Article",
-      "type": "shop"
+      "type": "Single",
+      "slug": "single-shop"
     },
     {
       "id": 7,
       "title": "Konakt",
       "image": "/2020/07/Kalender.png",
       "screen": "Article",
-      "type": "contact"
+      "type": "Single",
+      "slug": "single-contact"
     }
   ],
   "second": [
@@ -70,14 +73,16 @@
       "title": "Datenschutz",
       "image": "/2020/07/Kalender.png",
       "screen": "Article",
-      "type": "privacy"
+      "type": "Single",
+      "slug": "single-privacy"
     },
     {
       "id": 2,
       "title": "Impressum",
       "image": "/2020/07/Kalender.png",
       "screen": "Article",
-      "type": "imprint"
+      "type": "imprint",
+      "slug": "single-imprint"
     }
   ]
 }
