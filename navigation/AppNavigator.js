@@ -59,7 +59,7 @@ const AppStackNavigator = () => {
         },
       })}
     >
-      <StackNav.Screen name="Home" component={HomeScreen} />
+      <StackNav.Screen name="NoArts!" component={HomeScreen} />
       <StackNav.Screen
         name="Article"
         component={ArticleScreen}

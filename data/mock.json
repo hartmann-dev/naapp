@@ -3,65 +3,77 @@
     {
       "id": 0,
       "title": "NoArts!",
-      "image": "/2020/07/Ausrufezeichen.png",
+      "icon": "home",
       "screen": "Home"
     },
     {
       "id": 1,
       "title": "News",
-      "image": "/2020/07/Ausrufezeichen.png",
+      "icon": "home",
       "screen": "CardList",
       "type": "News",
       "subScreen": "Article",
-      "dispatcher": "getArticles"
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Ausrufezeichen.png"
     },
     {
       "id": 2,
       "title": "Galerie",
-      "image": "/2020/07/Kamera.png",
+      "icon": "home",
       "screen": "CardList",
       "type": "Galleries",
       "subScreen": "Gallery",
-      "dispatcher": "getGalleries"
+      "dispatcher": "getGalleries",
+      "homeCard": true,
+      "image": "/static/Kamera.png"
     },
     {
       "id": 3,
       "title": "Team",
-      "image": "/2020/06/Team.png",
+      "icon": "home",
       "screen": "CardList",
       "type": "Team",
       "subScreen": "Article",
-      "dispatcher": "getArticles"
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Team.png"
     },
     {
       "id": 4,
       "title": "Gäste",
-      "image": "/2020/06/Gaeste.png",
+      "icon": "home",
       "screen": "CardList",
       "type": "Guest",
       "subScreen": "Article",
-      "dispatcher": "getArticles"
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Gaeste.png"
     },
     {
       "id": 5,
       "title": "Termine",
-      "image": "/2020/07/Kalender.png",
+      "icon": "home",
       "screen": "Article",
       "type": "Single",
-      "slug": "single-appointment"
+      "slug": "single-appointment",
+      "homeCard": true,
+      "image": "/static/Kalender.png"
     },
     {
       "id": 6,
       "title": "Shop",
-      "image": "/2020/06/Shop.png",
+      "icon": "home",
       "screen": "Article",
       "type": "Single",
-      "slug": "single-shop"
+      "slug": "single-shop",
+      "homeCard": true,
+      "image": "/static/Shop.png"
     },
     {
       "id": 7,
       "title": "Konakt",
-      "image": "/2020/07/Kalender.png",
+      "icon": "home",
       "screen": "Article",
       "type": "Single",
       "slug": "single-contact"
@@ -71,7 +83,7 @@
     {
       "id": 1,
       "title": "Datenschutz",
-      "image": "/2020/07/Kalender.png",
+      "icon": "home",
       "screen": "Article",
       "type": "Single",
       "slug": "single-privacy"
@@ -79,7 +91,7 @@
     {
       "id": 2,
       "title": "Impressum",
-      "image": "/2020/07/Kalender.png",
+      "icon": "home",
       "screen": "Article",
       "type": "imprint",
       "slug": "single-imprint"
