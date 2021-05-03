@@ -15,6 +15,7 @@ const GalleryScreen = (props) => {
     props.navigation.navigate("Image", {
       id,
       slug,
+      title: data.title,
     });
   };
 
@@ -29,7 +30,7 @@ const GalleryScreen = (props) => {
             item={itemData}
             url={itemData.item.url}
             onViewDetail={(slug) => {
-              selectItemHandler(itemData.item.id);
+              selectItemHandler(itemData.item.id, itemData.item.title);
             }}
           />
         )}
