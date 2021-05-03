@@ -107,35 +107,37 @@ const Article = ({ data, load }) => {
   if (!isLoading) {
     return (
       <ScrollView style={styles.wrapper}>
-        <BackgroundView>
-          {data.image && (
-            <Image
-              resizeMode={"cover"}
-              style={imageStyle}
-              source={{ uri: data.image.url }}
-            />
-          )}
-          {data.social.length > 0 && (
-            <View style={styles.socialwall}>
-              {data.social.map((s) => (
-                <View style={styles.socialitem} key={s.link}>
-                  <FontAwesome5
-                    name={s.appIcon}
-                    size={48}
-                    color={Colors.accent}
-                    onPress={() => handlSocialClick(s.link)}
-                  />
-                </View>
-              ))}
-            </View>
-          )}
-          {data.date && (
-            <View style={styles.date}>
-              <Text style={styles.datetext}>{data.date}</Text>
-            </View>
-          )}
-          {data.content && <MarkdownView>{data.content}</MarkdownView>}
-        </BackgroundView>
+        <View style={{ flex: 1 }}>
+          <BackgroundView>
+            {data.image && (
+              <Image
+                resizeMode={"cover"}
+                style={imageStyle}
+                source={{ uri: data.image.url }}
+              />
+            )}
+            {data.social.length > 0 && (
+              <View style={styles.socialwall}>
+                {data.social.map((s) => (
+                  <View style={styles.socialitem} key={s.link}>
+                    <FontAwesome5
+                      name={s.appIcon}
+                      size={48}
+                      color={Colors.accent}
+                      onPress={() => handlSocialClick(s.link)}
+                    />
+                  </View>
+                ))}
+              </View>
+            )}
+            {data.date && (
+              <View style={styles.date}>
+                <Text style={styles.datetext}>{data.date}</Text>
+              </View>
+            )}
+            {data.content && <MarkdownView>{data.content}</MarkdownView>}
+          </BackgroundView>
+        </View>
       </ScrollView>
     );
   }
@@ -146,6 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     flex: 1,
     height: "100%",
+    minHeight: "100%",
   },
   list: { flex: 1, display: "flex", justifyContent: "center" },
 

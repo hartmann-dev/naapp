@@ -1,6 +1,8 @@
 import React from "react";
 
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, Dimensions } from "react-native";
+const winDim = Dimensions.get("window");
+const height = winDim.height;
 
 const BackgroundView = ({ children }) => {
   const image = require("../assets/bg/Background01.jpg");
@@ -14,10 +16,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
-    minHeight: "100%",
-    height: "100%",
-    width: "100%",
+    minHeight: height,
   },
 });
 
