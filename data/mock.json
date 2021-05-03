@@ -56,7 +56,8 @@
       "icon": "home",
       "screen": "Article",
       "type": "Single",
-      "slug": "single-appointment",
+      "slug": "de-single-appointment",
+      "dispatcher": "getArticles",
       "homeCard": true,
       "image": "/static/Kalender.png"
     },
@@ -66,7 +67,8 @@
       "icon": "home",
       "screen": "Article",
       "type": "Single",
-      "slug": "single-shop",
+      "slug": "de-single-shop",
+      "dispatcher": "getArticles",
       "homeCard": true,
       "image": "/static/Shop.png"
     },
@@ -75,8 +77,9 @@
       "title": "Konakt",
       "icon": "home",
       "screen": "Article",
+      "dispatcher": "getArticles",
       "type": "Single",
-      "slug": "single-contact"
+      "slug": "de-single-contact"
     }
   ],
   "second": [
@@ -85,16 +88,18 @@
       "title": "Datenschutz",
       "icon": "home",
       "screen": "Article",
+      "dispatcher": "getArticles",
       "type": "Single",
-      "slug": "single-privacy"
+      "slug": "de-single-privacy"
     },
     {
       "id": 2,
       "title": "Impressum",
       "icon": "home",
       "screen": "Article",
+      "dispatcher": "getArticles",
       "type": "imprint",
-      "slug": "single-imprint"
+      "slug": "de-single-imprint"
     }
   ]
 }

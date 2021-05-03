@@ -29,7 +29,7 @@ export const getGalleries = () => {
       dispatch({ type: SET_GALLERIES, payload: galleriesCache });
     } else {
       axios
-        .get("galleries")
+        .get("galleries?_locale=de")
         .then((response) => {
           const resData = response.data;
           for (const key in resData) {

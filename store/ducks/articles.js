@@ -29,7 +29,7 @@ export const getArticles = () => {
       dispatch({ type: SET_ARTICLES, payload: articlesCache });
     } else {
       axios
-        .get("articles")
+        .get("articles/?_locale=de")
         .then((response) => {
           const resData = response.data;
           for (const key in resData) {
