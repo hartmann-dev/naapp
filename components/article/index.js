@@ -129,6 +129,11 @@ const Article = ({ data, load }) => {
               ))}
             </View>
           )}
+          {data.date && (
+            <View style={styles.date}>
+              <Text style={styles.datetext}>{data.date}</Text>
+            </View>
+          )}
           {data.content && <MarkdownView>{data.content}</MarkdownView>}
         </BackgroundView>
       </ScrollView>
@@ -156,6 +161,17 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 10,
+  },
+  date: {
+    backgroundColor: Colors.primary,
+    color: Colors.accent,
+    padding: 5,
+  },
+  datetext: {
+    color: Colors.accent,
+    padding: 5,
+    fontSize: 25,
+    fontFamily: "alien",
   },
   socialwall: {
     display: "flex",

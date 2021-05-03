@@ -49,7 +49,9 @@ export const getArticles = () => {
                 id: resData[key].id,
                 title: resData[key].title,
                 image: img,
-                date: resData[key].date,
+                date: resData[key].showDate
+                  ? convertDate(resData[key].createdAt)
+                  : null,
                 content: resData[key].content,
                 social: resData[key].social,
                 type: resData[key].type,
@@ -66,4 +68,14 @@ export const getArticles = () => {
         });
     }
   };
+};
+const convertDate = (date) => {
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    // hour: "2-digit",
+    // minute: "2-digit",
+  };
+  return new Date(date).toLocaleDateString("de", options);
 };
