@@ -9,7 +9,7 @@
     {
       "id": 1,
       "title": "News",
-      "icon": "home",
+      "icon": "exclamation",
       "screen": "CardList",
       "type": "News",
       "subScreen": "Article",
@@ -20,7 +20,7 @@
     {
       "id": 2,
       "title": "Galerie",
-      "icon": "home",
+      "icon": "camera-retro",
       "screen": "CardList",
       "type": "Galleries",
       "subScreen": "Gallery",
@@ -31,7 +31,7 @@
     {
       "id": 3,
       "title": "Team",
-      "icon": "home",
+      "icon": "users",
       "screen": "CardList",
       "type": "Team",
       "subScreen": "Article",
@@ -42,7 +42,7 @@
     {
       "id": 4,
       "title": "Gäste",
-      "icon": "home",
+      "icon": "suitcase-rolling",
       "screen": "CardList",
       "type": "Guest",
       "subScreen": "Article",
@@ -53,7 +53,7 @@
     {
       "id": 5,
       "title": "Termine",
-      "icon": "home",
+      "icon": "calendar-check",
       "screen": "Article",
       "type": "Single",
       "slug": "de-single-appointment",
@@ -64,7 +64,7 @@
     {
       "id": 6,
       "title": "Shop",
-      "icon": "home",
+      "icon": "tint",
       "screen": "Article",
       "type": "Single",
       "slug": "de-single-shop",
@@ -75,7 +75,7 @@
     {
       "id": 7,
       "title": "Konakt",
-      "icon": "home",
+      "icon": "envelope-open-text",
       "screen": "Article",
       "dispatcher": "getArticles",
       "type": "Single",
@@ -86,7 +86,7 @@
     {
       "id": 1,
       "title": "Datenschutz",
-      "icon": "home",
+      "icon": "shield-alt",
       "screen": "Article",
       "dispatcher": "getArticles",
       "type": "Single",
@@ -95,7 +95,7 @@
     {
       "id": 2,
       "title": "Impressum",
-      "icon": "home",
+      "icon": "gavel",
       "screen": "Article",
       "dispatcher": "getArticles",
       "type": "imprint",

@@ -121,7 +121,7 @@ const AppNavigator = () => {
                       <View style={styles.item}>
                         <View style={styles.iconContainer}>
                           <FontAwesome5
-                            name="home"
+                            name={item.icon}
                             size={24}
                             color={Colors.primary}
                           />
@@ -150,7 +150,7 @@ const AppNavigator = () => {
                       <View style={styles.item}>
                         <View style={styles.iconContainer}>
                           <FontAwesome5
-                            name="home"
+                            name={item.icon}
                             size={24}
                             color={Colors.primary}
                           />
