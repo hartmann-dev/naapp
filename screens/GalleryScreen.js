@@ -1,22 +1,42 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from "react-native";
-import GalleryTabNavigator from "../navigation/GalleryTabNavigator";
+import React from "react";
+import { useSelector } from "react-redux";
+import Cardlist from "../components/card/list";
+import ThumbnailItem from "../components/gallery/ThumbnailItem";
 
-import * as artistActions from "../store/actions/artist";
-
-import Colors from "../constants/Colors";
+import { getGalleries } from "../store/ducks/galleries";
 
 const GalleryScreen = (props) => {
-  return <GalleryTabNavigator />
-};
+  const slug = props.route.params.slug;
+  const data = useSelector((state) => state.galleries.galleries).find(
+    (gallery) => gallery.slug == slug
+  );
 
-const styles = StyleSheet.create({
-  gallery: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center",  backgroundColor: Colors.background},
-});
+  const selectItemHandler = (id) => {
+    props.navigation.navigate("Image", {
+      id,
+      slug,
+      title: data.title,
+    });
+  };
+
+  return (
+    <>
+      <Cardlist
+        type={"gallery"}
+        loadData={getGalleries}
+        data={data.content}
+        renderGridItem={(itemData) => (
+          <ThumbnailItem
+            item={itemData}
+            url={itemData.item.url}
+            onViewDetail={(slug) => {
+              selectItemHandler(itemData.item.id, itemData.item.title);
+            }}
+          />
+        )}
+      />
+    </>
+  );
+};
 
 export default GalleryScreen;

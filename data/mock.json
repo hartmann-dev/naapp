@@ -1,0 +1,105 @@
+{
+  "main": [
+    {
+      "id": 0,
+      "title": "NoArts!",
+      "icon": "home",
+      "screen": "NoArts!"
+    },
+    {
+      "id": 1,
+      "title": "News",
+      "icon": "exclamation",
+      "screen": "CardList",
+      "type": "News",
+      "subScreen": "Article",
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Ausrufezeichen.png"
+    },
+    {
+      "id": 2,
+      "title": "Galerie",
+      "icon": "camera-retro",
+      "screen": "CardList",
+      "type": "Galleries",
+      "subScreen": "Gallery",
+      "dispatcher": "getGalleries",
+      "homeCard": true,
+      "image": "/static/Kamera.png"
+    },
+    {
+      "id": 3,
+      "title": "Team",
+      "icon": "users",
+      "screen": "CardList",
+      "type": "Team",
+      "subScreen": "Article",
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Team.png"
+    },
+    {
+      "id": 4,
+      "title": "Gäste",
+      "icon": "suitcase-rolling",
+      "screen": "CardList",
+      "type": "Guest",
+      "subScreen": "Article",
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Gaeste.png"
+    },
+    {
+      "id": 5,
+      "title": "Termine",
+      "icon": "calendar-check",
+      "screen": "Article",
+      "type": "Single",
+      "slug": "de-single-appointment",
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Kalender.png"
+    },
+    {
+      "id": 6,
+      "title": "Shop",
+      "icon": "tint",
+      "screen": "Article",
+      "type": "Single",
+      "slug": "de-single-shop",
+      "dispatcher": "getArticles",
+      "homeCard": true,
+      "image": "/static/Shop.png"
+    },
+    {
+      "id": 7,
+      "title": "Konakt",
+      "icon": "envelope-open-text",
+      "screen": "Article",
+      "dispatcher": "getArticles",
+      "type": "Single",
+      "slug": "de-single-contact"
+    }
+  ],
+  "second": [
+    {
+      "id": 1,
+      "title": "Datenschutz",
+      "icon": "shield-alt",
+      "screen": "Article",
+      "dispatcher": "getArticles",
+      "type": "Single",
+      "slug": "de-single-privacy"
+    },
+    {
+      "id": 2,
+      "title": "Impressum",
+      "icon": "gavel",
+      "screen": "Article",
+      "dispatcher": "getArticles",
+      "type": "imprint",
+      "slug": "de-single-imprint"
+    }
+  ]
+}

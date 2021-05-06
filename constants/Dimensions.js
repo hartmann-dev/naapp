@@ -35,12 +35,7 @@ const sizes = {
     width: 100 * factor,
     margin: 15,
   },
-  news: {
-    height: 200 * factor,
-    width: stretchOneItem(150 * factor, 15),
-    margin: 15,
-  },
-  team: {
+  card: {
     height: 200 * factor,
     width: stretchOneItem(150 * factor, 15),
     margin: 15,
@@ -51,7 +46,5 @@ const sizes = {
     margin: 15,
   },
 };
-//console.log("sizes.home:");
-//console.log(sizes.home);
-//console.log(" --- ")
+
 export default sizes;

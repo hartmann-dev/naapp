@@ -1,49 +1,60 @@
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-
-const PUSH_ENDPOINT = "https://www.noarts.de/wp-json/app_api/v1/push_token"; 
+import axios from "./services/axios";
 
 const registerForPushNotifications = async () => {
   let token;
   if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    const {
+      status: existingStatus,
+    } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
     if (finalStatus !== "granted") {
-      //alert("Failed to get push token for push notification!");
+      alert("Failed to get push token for push notification!");
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
   } else {
-    // alert("Must use physical device for Push Notifications");
+    //alert("Must use physical device for Push Notifications");
   }
 
   if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("news", {
-      name: "Neuigkeiten",
+    Notifications.setNotificationChannelAsync("default", {
+      name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
     });
-  }
-  //console.log("token: " + token);
-   fetch(PUSH_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        
-          token: token,
-        
-      }),
+    Notifications.setNotificationChannelAsync("tesst2", {
+      name: "test222",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
     });
-    return token;
+
+    axios
+      .get(`push-tokens/token/${token}`)
+      //.then((data) => console.log(data))
+      .catch((e) => {
+        if (e.response.status === 404) {
+          axios
+            .post("push-tokens", { token: token })
+            .then(function (response) {
+              //console.log(response);
+            })
+            .catch(function (error) {
+              //console.error(error);
+            });
+        }
+      });
+  }
+
+  return token;
 };
 
 export default registerForPushNotifications;

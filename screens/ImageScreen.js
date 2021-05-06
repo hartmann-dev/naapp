@@ -9,26 +9,27 @@ import {
 } from "react-native";
 import GallerySwiper from "react-native-gallery-swiper";
 
-import * as galleryActions from "../store/actions/gallery";
-
 import Colors from "../constants/Colors";
 
-const GalleryDetailsScreen = (props) => {
-  const imageId = props.route.params.imageId;
-  const galleryId = props.route.params.galleryId;
+const ImageScreen = (props) => {
+  const imageId = props.route.params.id;
+  const slug = props.route.params.slug;
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [position, setPostion] = useState(0);
 
-  const images = useSelector((state) => state.gallery.images);
+  const images = useSelector((state) => state.galleries.galleries).find(
+    (gallery) => gallery.slug == slug
+  ).content;
+
   const dispatch = useDispatch();
   const loadImages = useCallback(async () => {
     setError(null);
     setIsLoading(true);
 
     try {
-      await dispatch(galleryActions.fetchImages(galleryId));
+      //await dispatch(galleryActions.fetchImages(galleryId));
     } catch (err) {
       setError(err.message);
     }
@@ -88,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GalleryDetailsScreen;
+export default ImageScreen;

@@ -1,47 +1,45 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, Pressable, Image } from "react-native";
 
-import Cardlist from "../components/cardlist/cardlist";
-import { useSelector } from "react-redux";
+import Cardlist from "../components/card/list";
 import Colors from "../constants/Colors";
 import Calc from "../utils/calc";
+import Config from "../constants/Config";
 
-import * as Linking from "expo-linking";
+import navMock from "../data/mock.json";
 
 const HomeScreen = (props) => {
-  const nav = useSelector((state) => state.navigation.availableNav);
-
+  const URL = Config.api_url;
+  const nav = navMock.main.filter((e) => e.homeCard);
   const renderGridItem = (itemData) => {
     return (
       <View
         style={{
           ...styles.navitem,
-          ...{ backgroundColor: itemData.item.bgColor },
         }}
       >
-        <TouchableOpacity
+        <Pressable
           style={{ flex: 1 }}
-          onPress={() => {
-            if (itemData.item.extern) {
-              Linking.openURL(itemData.item.target);
-            } else {
-              props.navigation.navigate(itemData.item.target);
-            }
-          }}
+          onPress={() =>
+            props.navigation.navigate(itemData.item.screen, {
+              title: itemData.item.title,
+              type: itemData.item.type,
+              subScreen: itemData.item.subScreen,
+              dispatcher: itemData.item.dispatcher,
+              slug: itemData.item.slug,
+            })
+          }
+          key={itemData.item.id}
         >
           <View style={styles.itemCard}>
             <Image
               style={styles.itemIcon}
-              // imageStyle={{ resizeMode: "contain" }}
               source={{
-                uri:
-                  "https://www.noarts.de/wp-content/uploads/" +
-                  itemData.item.icon,
+                uri: URL + itemData.item.image,
               }}
             />
           </View>
-          {/* <Text style={styles.itemText}>{itemData.item.title}</Text> */}
-        </TouchableOpacity>
+        </Pressable>
       </View>
     );
   };

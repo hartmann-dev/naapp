@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { enableScreens } from "react-native-screens";
-import ReduxThunk from "redux-thunk";
 import * as Notifications from "expo-notifications";
 
-import navigationReducer from "./store/reducers/navigation";
-import newsReducer from "./store/reducers/news";
-import galleryReducer from "./store/reducers/gallery";
-import artistReducer from "./store/reducers/artist";
+import store from "./store/store";
 
 import AppNavigator from "./navigation/AppNavigator";
 import registerForPushNotifications from "./registerForPushNotifications";
@@ -21,6 +16,7 @@ Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
+    shouldSetBadge: true,
   }),
 });
 
@@ -28,44 +24,51 @@ const fetchFonts = () => {
   return Font.loadAsync({
     alien: require("./assets/fonts/alien.ttf"),
     alienbold: require("./assets/fonts/alienbold.ttf"),
+    Courier: require("./assets/fonts/Courier.ttf"),
+    // Arial ist nicht frei verfügbar, überschreiben damit react-native-markup-view keinen Fehler wirft
+    Arial: require("./assets/fonts/LiberationSans-Regular.ttf"),
   });
 };
-
-const rootReducer = combineReducers({
-  navigation: navigationReducer,
-  news: newsReducer,
-  gallery: galleryReducer,
-  artist: artistReducer,
-});
-
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
-  // useEffect(() => {
-  //   registerForPushNotifications().then((token) => setExpoPushToken(token));
-  //   Notifications.addNotificationReceivedListener((notification) => {
-  //     setNotification(notification);
-  //   });
+  useEffect(() => {
+    registerForPushNotifications().then((token) => setExpoPushToken(token));
 
-  //   Notifications.addNotificationResponseReceivedListener((response) => {
-  //     //
-  //   });
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
 
-  //   return () => {
-  //     Notifications.removeAllNotificationListeners();
-  //   };
-  // }, []);
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        // response verarbeiten für deep link
+        console.log(response);
+      }
+    );
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   if (!fontLoaded) {
     return (
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setFontLoaded(true)}
-        onError={console.warn}
+        onError={(error) => console.warn("splash errir", error)}
       />
     );
   }
