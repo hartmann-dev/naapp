@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Provider } from "react-redux";
@@ -16,6 +16,7 @@ Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
+    shouldSetBadge: true,
   }),
 });
 
@@ -33,28 +34,41 @@ export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
-  // useEffect(() => {
-  //   registerForPushNotifications().then((token) => setExpoPushToken(token));
-  //   Notifications.addNotificationReceivedListener((notification) => {
-  //     setNotification(notification);
-  //   });
+  useEffect(() => {
+    registerForPushNotifications().then((token) => setExpoPushToken(token));
 
-  //   Notifications.addNotificationResponseReceivedListener((response) => {
-  //     //
-  //   });
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
 
-  //   return () => {
-  //     Notifications.removeAllNotificationListeners();
-  //   };
-  // }, []);
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        // response verarbeiten für deep link
+        console.log(response);
+      }
+    );
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   if (!fontLoaded) {
     return (
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setFontLoaded(true)}
-        onError={console.warn}
+        onError={(error) => console.warn("splash errir", error)}
       />
     );
   }

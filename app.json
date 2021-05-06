@@ -33,8 +33,8 @@
     },
     "description": "",
     "extra": {
-      "apiUrlDev": "http://noarts.tripoint.app",
-      "apiUrlProd": "b"
+      "apiUrlDev": "http://192.168.178.44:1337",
+      "apiUrlProd": "https://noarts.tripoint.app"
     }
   }
 }
