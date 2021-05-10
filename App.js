@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { enableScreens } from "react-native-screens";
 import * as Notifications from "expo-notifications";
 
@@ -9,6 +9,7 @@ import store from "./store/store";
 
 import AppNavigator from "./navigation/AppNavigator";
 import registerForPushNotifications from "./registerForPushNotifications";
+import { getArticles } from "./store/ducks/articles";
 
 enableScreens();
 
@@ -30,7 +31,15 @@ const fetchFonts = () => {
   });
 };
 
-export default function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getArticles());
+  }, [dispatch]);
+  return <AppNavigator />;
+};
+
+export default (props) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
@@ -47,19 +56,10 @@ export default function App() {
       }
     );
 
-    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        // response verarbeiten für deep link
-        console.log(response);
-      }
-    );
-
     return () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current
       );
-      Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
@@ -74,7 +74,7 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <App />
     </Provider>
   );
-}
+};

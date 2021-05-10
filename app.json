@@ -2,6 +2,7 @@
   "expo": {
     "name": "NoArts!",
     "slug": "noarts-app",
+    "scheme": "noarts",
     "privacy": "unlisted",
     "platforms": ["ios", "android"],
     "version": "0.6.0",

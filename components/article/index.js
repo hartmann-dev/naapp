@@ -27,6 +27,8 @@ const Article = ({ data, load }) => {
   const isMountedRef = useIsMountedRef();
   const dispatch = useDispatch();
 
+  //if (data !== undefined) loadData();
+
   const loadData = useCallback(async () => {
     if (isMountedRef.current) {
       setError(null);
@@ -49,7 +51,7 @@ const Article = ({ data, load }) => {
     }
   }, [dispatch, loadData]);
   let imageStyle = { width: winDim.width };
-  if (data.image) {
+  if (data?.image) {
     const ratio = winDim.width / data.image.dimensions.width;
     imageStyle.height = data.image.dimensions.height * ratio;
   }
@@ -104,7 +106,7 @@ const Article = ({ data, load }) => {
       </View>
     );
   }
-  if (!isLoading) {
+  if (!isLoading && data) {
     return (
       <ScrollView style={styles.wrapper}>
         <View style={{ flex: 1 }}>
