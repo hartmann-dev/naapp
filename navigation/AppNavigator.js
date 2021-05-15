@@ -10,6 +10,8 @@ import {
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import * as Linking from "expo-linking";
+import * as Notifications from "expo-notifications";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -37,7 +39,7 @@ const StackNav = createStackNavigator();
 const AppStackNavigator = () => {
   return (
     <StackNav.Navigator
-      initialRouteName="Home"
+      initialRouteName="NoArts!"
       screenOptions={({ navigation }) => ({
         headerStyle: {
           backgroundColor: Colors.primary,
@@ -86,8 +88,47 @@ const AppStackNavigator = () => {
 
 const Drawer = createDrawerNavigator();
 const AppNavigator = () => {
+  const prefix = Linking.createURL("/");
+
   return (
-    <NavigationContainer theme={NoArtsTheme}>
+    <NavigationContainer
+      theme={NoArtsTheme}
+      linking={{
+        prefixes: [prefix],
+        config: {
+          screens: {
+            Drawer: { screens: { Article: "article/:slug/:title" } },
+          },
+        },
+        subscribe(listener) {
+          const onReceiveURL = ({ url }) => listener(url);
+          // const onReceiveURL = (event) => {
+          //   console.log(event);
+          //   listener(event.url);
+          // };
+
+          // Listen to incoming links from deep linking
+          Linking.addEventListener("url", onReceiveURL);
+
+          // Listen to expo push notifications
+          const subscription = Notifications.addNotificationResponseReceivedListener(
+            (response) => {
+              const slug = response.notification.request.content.data.slug;
+              const title = response.notification.request.content.data.title;
+
+              const url = `/article/${slug}/${title}`;
+              listener(Linking.createURL(url));
+            }
+          );
+
+          return () => {
+            // Clean up the event listeners
+            Linking.removeEventListener("url", onReceiveURL);
+            subscription.remove();
+          };
+        },
+      }}
+    >
       <Drawer.Navigator
         drawerContent={(props) => {
           return (
@@ -105,7 +146,7 @@ const AppNavigator = () => {
                   return (
                     <Pressable
                       onPress={() =>
-                        props.navigation.navigate("NoArts!", {
+                        props.navigation.navigate("Drawer", {
                           screen: item.screen,
                           params: {
                             title: item.title,
@@ -137,7 +178,7 @@ const AppNavigator = () => {
                   return (
                     <Pressable
                       onPress={() =>
-                        props.navigation.navigate("NoArts!", {
+                        props.navigation.navigate("Drawer", {
                           screen: item.screen,
                           title: item.title,
                           subScreen: item.subSCreen,
@@ -173,7 +214,7 @@ const AppNavigator = () => {
         }}
       >
         <Drawer.Screen
-          name="NoArts!"
+          name="Drawer"
           component={AppStackNavigator}
           options={{
             drawerIcon: (props) => (

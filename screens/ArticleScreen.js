@@ -13,10 +13,4 @@ const ArticleScreen = (props) => {
   return <Article loadData={getArticles()} data={data} />;
 };
 
-export const screenOptions = (navData) => {
-  return {
-    headerTitle: navData.route.params.title,
-  };
-};
-
 export default ArticleScreen;
