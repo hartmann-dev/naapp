@@ -181,10 +181,13 @@ const AppNavigator = () => {
                       onPress={() =>
                         props.navigation.navigate("Drawer", {
                           screen: item.screen,
-                          title: item.title,
-                          subScreen: item.subSCreen,
-                          dispatcher: item.dispatcher,
-                          slug: item.slug,
+                          params: {
+                            title: item.title,
+                            type: item.type,
+                            subScreen: item.subScreen,
+                            dispatcher: item.dispatcher,
+                            slug: item.slug,
+                          },
                         })
                       }
                       key={item.id}
