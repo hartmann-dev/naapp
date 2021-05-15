@@ -1,16 +1,18 @@
 import React from "react";
 import { StyleSheet, View, Pressable, Image } from "react-native";
+import { useSelector } from "react-redux";
 
 import Cardlist from "../components/card/list";
 import Colors from "../constants/Colors";
 import Calc from "../utils/calc";
 import Config from "../constants/Config";
 
-import navMock from "../data/mock.json";
-
 const HomeScreen = (props) => {
   const URL = Config.api_url;
-  const nav = navMock.main.filter((e) => e.homeCard);
+
+  const nav = useSelector((state) => state.config.navigation);
+
+  const navHome = nav.main?.filter((e) => e.homeCard);
   const renderGridItem = (itemData) => {
     return (
       <View
@@ -43,7 +45,9 @@ const HomeScreen = (props) => {
       </View>
     );
   };
-  return <Cardlist type="home" data={nav} renderGridItem={renderGridItem} />;
+  return (
+    <Cardlist type="home" data={navHome} renderGridItem={renderGridItem} />
+  );
 };
 
 const size = Calc.cardSize("home");

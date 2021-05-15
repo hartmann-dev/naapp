@@ -10,6 +10,7 @@ import store from "./store/store";
 import AppNavigator from "./navigation/AppNavigator";
 import registerForPushNotifications from "./registerForPushNotifications";
 import { getArticles } from "./store/ducks/articles";
+import { getConfig } from "./store/ducks/config";
 
 enableScreens();
 
@@ -35,6 +36,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getArticles());
+    dispatch(getConfig());
   }, [dispatch]);
   return <AppNavigator />;
 };

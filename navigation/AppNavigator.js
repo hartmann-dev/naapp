@@ -12,6 +12,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import * as Linking from "expo-linking";
 import * as Notifications from "expo-notifications";
+import { useSelector } from "react-redux";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -24,8 +25,6 @@ import ImageScreen from "../screens/ImageScreen";
 import Versionhint from "../components/Versionhint";
 
 import Colors from "../constants/Colors";
-
-import nav from "../data/mock.json";
 
 const NoArtsTheme = {
   ...DefaultTheme,
@@ -88,6 +87,8 @@ const AppStackNavigator = () => {
 
 const Drawer = createDrawerNavigator();
 const AppNavigator = () => {
+  const nav = useSelector((state) => state.config.navigation);
+
   const prefix = Linking.createURL("/");
 
   return (
@@ -142,7 +143,7 @@ const AppNavigator = () => {
               }}
             >
               <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
-                {nav.main.map((item) => {
+                {nav.main?.map((item) => {
                   return (
                     <Pressable
                       onPress={() =>
@@ -174,7 +175,7 @@ const AppNavigator = () => {
                 })}
               </SafeAreaView>
               <View>
-                {nav.second.map((item) => {
+                {nav.second?.map((item) => {
                   return (
                     <Pressable
                       onPress={() =>
