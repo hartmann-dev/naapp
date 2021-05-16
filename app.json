@@ -5,7 +5,7 @@
     "scheme": "noarts",
     "privacy": "unlisted",
     "platforms": ["ios", "android"],
-    "version": "0.7.2",
+    "version": "0.7.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -20,14 +20,14 @@
     "android": {
       "useNextNotificationsApi": true,
       "package": "net.hartmann_dev.naapp",
-      "versionCode": 507,
+      "versionCode": 508,
       "permissions": ["NOTIFICATIONS"],
       "googleServicesFile": "./google-services.json"
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.hartmann-dev.naapp",
-      "buildNumber": "507",
+      "buildNumber": "508",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": "No"
       }

@@ -1,5 +1,5 @@
 import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
+import * as Device from "expo-device";
 import Constants from "expo-constants";
 import axios from "./services/axios";
 
@@ -30,12 +30,6 @@ const registerForPushNotifications = async () => {
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
     });
-    Notifications.setNotificationChannelAsync("tesst2", {
-      name: "test222",
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-    });
 
     axios
       .get(`push-tokens/token/${token}`)
@@ -43,7 +37,7 @@ const registerForPushNotifications = async () => {
       .catch((e) => {
         if (e.response.status === 404) {
           axios
-            .post("push-tokens", { token: token })
+            .post("push-tokens", { token: token, device: Device.modelName })
             .then(function (response) {
               //console.log(response);
             })
