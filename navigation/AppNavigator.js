@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  ScrollView,
-  SafeAreaView,
-  Pressable,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, ScrollView, SafeAreaView, Pressable, Text, StyleSheet } from "react-native";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -50,10 +43,7 @@ const AppStackNavigator = () => {
         },
         headerRight: () => {
           return (
-            <Pressable
-              style={{ paddingRight: 20 }}
-              onPress={() => navigation.toggleDrawer()}
-            >
+            <Pressable style={{ paddingRight: 20 }} onPress={() => navigation.toggleDrawer()}>
               <FontAwesome5 name="bars" size={18} color={Colors.accent} />
             </Pressable>
           );
@@ -76,11 +66,7 @@ const AppStackNavigator = () => {
         component={GalleryScreen}
         options={({ route }) => ({ title: route.params.title })}
       />
-      <StackNav.Screen
-        name="Image"
-        component={ImageScreen}
-        options={({ route }) => ({ title: route.params.title })}
-      />
+      <StackNav.Screen name="Image" component={ImageScreen} options={({ route }) => ({ title: route.params.title })} />
     </StackNav.Navigator>
   );
 };
@@ -112,15 +98,13 @@ const AppNavigator = () => {
           Linking.addEventListener("url", onReceiveURL);
 
           // Listen to expo push notifications
-          const subscription = Notifications.addNotificationResponseReceivedListener(
-            (response) => {
-              const slug = response.notification.request.content.data.slug;
-              const title = response.notification.request.content.data.title;
+          const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+            const slug = response.notification.request.content.data.slug;
+            const title = response.notification.request.content.data.title;
 
-              const url = `/article/${slug}/${title}`;
-              listener(Linking.createURL(url));
-            }
-          );
+            const url = `/article/${slug}/${title}`;
+            listener(Linking.createURL(url));
+          });
 
           return () => {
             // Clean up the event listeners
@@ -155,6 +139,7 @@ const AppNavigator = () => {
                             subScreen: item.subScreen,
                             dispatcher: item.dispatcher,
                             slug: item.slug,
+                            sort: item.sort,
                           },
                         })
                       }
@@ -162,11 +147,7 @@ const AppNavigator = () => {
                     >
                       <View style={styles.item}>
                         <View style={styles.iconContainer}>
-                          <FontAwesome5
-                            name={item.icon}
-                            size={24}
-                            color={Colors.primary}
-                          />
+                          <FontAwesome5 name={item.icon} size={24} color={Colors.primary} />
                         </View>
                         <Text style={styles.label}>{item.title}</Text>
                       </View>
@@ -187,6 +168,7 @@ const AppNavigator = () => {
                             subScreen: item.subScreen,
                             dispatcher: item.dispatcher,
                             slug: item.slug,
+                            sort: item.sort,
                           },
                         })
                       }
@@ -194,11 +176,7 @@ const AppNavigator = () => {
                     >
                       <View style={styles.item}>
                         <View style={styles.iconContainer}>
-                          <FontAwesome5
-                            name={item.icon}
-                            size={24}
-                            color={Colors.primary}
-                          />
+                          <FontAwesome5 name={item.icon} size={24} color={Colors.primary} />
                         </View>
                         <Text style={styles.label}>{item.title}</Text>
                       </View>
@@ -221,9 +199,7 @@ const AppNavigator = () => {
           name="Drawer"
           component={AppStackNavigator}
           options={{
-            drawerIcon: (props) => (
-              <FontAwesome5 name="home" size={24} color={Colors.primary} />
-            ),
+            drawerIcon: (props) => <FontAwesome5 name="home" size={24} color={Colors.primary} />,
           }}
         />
       </Drawer.Navigator>

@@ -29,6 +29,7 @@ const HomeScreen = (props) => {
               subScreen: itemData.item.subScreen,
               dispatcher: itemData.item.dispatcher,
               slug: itemData.item.slug,
+              sort: itemData.item.sort,
             })
           }
           key={itemData.item.id}
@@ -45,9 +46,7 @@ const HomeScreen = (props) => {
       </View>
     );
   };
-  return (
-    <Cardlist type="home" data={navHome} renderGridItem={renderGridItem} />
-  );
+  return <Cardlist type="home" data={navHome} renderGridItem={renderGridItem} />;
 };
 
 const size = Calc.cardSize("home");

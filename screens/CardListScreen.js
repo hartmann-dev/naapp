@@ -15,17 +15,20 @@ const CardListScreen = (props) => {
   };
 
   const dispatcher = props.route.params.dispatcher;
+  const sort = props.route.params.sort;
 
   let data;
   switch (dispatcher) {
     case "getArticles":
-      data = useSelector((state) => state.articles.articles).filter(
-        (article) => article.type == type
-      );
+      data = useSelector((state) => state.articles.articles).filter((article) => article.type == type);
       break;
     case "getGalleries":
       data = useSelector((state) => state.galleries.galleries);
       break;
+  }
+
+  if (sort && sort == "desc") {
+    data.reverse();
   }
 
   const selectItemHandler = (slug, title) => {
