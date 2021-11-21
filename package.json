@@ -44,7 +44,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "expo-linking": "~2.4.2",
-    "expo-device": "~4.0.3"
+    "expo-device": "~4.0.3",
+    "expo-splash-screen": "~0.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
