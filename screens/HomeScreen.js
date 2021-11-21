@@ -1,11 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Pressable, Image } from "react-native";
+import { StyleSheet, View, Pressable, ImageBackground, Text } from "react-native";
 import { useSelector } from "react-redux";
 
 import Cardlist from "../components/card/list";
 import Colors from "../constants/Colors";
 import Calc from "../utils/calc";
 import Config from "../constants/Config";
+const size = Calc.cardSize("home");
 
 const HomeScreen = (props) => {
   const URL = Config.api_url;
@@ -35,12 +36,18 @@ const HomeScreen = (props) => {
           key={itemData.item.id}
         >
           <View style={styles.itemCard}>
-            <Image
+            <ImageBackground
               style={styles.itemIcon}
               source={{
                 uri: URL + itemData.item.image,
               }}
-            />
+              imageStyle={{
+                height: size.height, // the image height
+                top: -10,
+              }}
+            >
+              <Text style={styles.itemText}>{itemData.item.title}</Text>
+            </ImageBackground>
           </View>
         </Pressable>
       </View>
@@ -48,8 +55,6 @@ const HomeScreen = (props) => {
   };
   return <Cardlist type="home" data={navHome} renderGridItem={renderGridItem} />;
 };
-
-const size = Calc.cardSize("home");
 
 const styles = StyleSheet.create({
   navitem: {
@@ -60,21 +65,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   itemIcon: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    flex: 1,
+    width: "100%",
+    justifyContent: "flex-end",
+    overflow: "hidden", // prevent image overflow the container
   },
   itemText: {
     fontFamily: "alien",
-    //color: Colors.accent,
-    color: "black",
-    fontSize: 28,
-    padding: 10,
-    // textShadowColor: "rgba(0, 0, 0, 0.95)",
-    // textShadowOffset: { width: -1, height: 1 },
-    // textShadowRadius: 10,
+    color: Colors.primary,
+    fontSize: 16,
+    lineHeight: 18,
+    padding: 5,
+    textShadowColor: "rgba(0, 0, 0, 0.95)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+    color: Colors.accent,
+    backgroundColor: Colors.primary,
   },
   itemCard: {
     flex: 1,
