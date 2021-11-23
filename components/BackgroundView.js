@@ -2,7 +2,7 @@ import React from "react";
 
 import { StyleSheet, ImageBackground, Dimensions } from "react-native";
 const winDim = Dimensions.get("window");
-const height = winDim.height;
+const height = winDim.height - 100;
 
 const BackgroundView = ({ children }) => {
   const image = require("../assets/bg/Background01.jpg");
