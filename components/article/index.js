@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-  Button,
-  Image,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Button, Image, Dimensions } from "react-native";
 import Colors from "../../constants/Colors";
 import { useIsMountedRef } from "../../utils/hooks";
 import MarkdownView from "../../components/MarkdownView";
@@ -45,6 +36,7 @@ const Article = ({ data, load }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       setIsLoading(true);
+
       loadData().then(() => {
         setIsLoading(false);
       });
@@ -74,11 +66,7 @@ const Article = ({ data, load }) => {
     return (
       <View style={styles.centered}>
         <Text>Ein Fehler ist aufgetreten</Text>
-        <Button
-          title="Erneut versuchen"
-          onPress={loadData}
-          color={Colors.primary}
-        />
+        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
@@ -98,11 +86,7 @@ const Article = ({ data, load }) => {
     return (
       <View style={styles.centered}>
         <Text>Keine Daten gefunden</Text>
-        <Button
-          title="Erneut versuchen"
-          onPress={loadData}
-          color={Colors.primary}
-        />
+        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
@@ -111,13 +95,7 @@ const Article = ({ data, load }) => {
       <ScrollView style={styles.wrapper}>
         <View style={{ flex: 1 }}>
           <BackgroundView>
-            {data.image && (
-              <Image
-                resizeMode={"cover"}
-                style={imageStyle}
-                source={{ uri: data.image.url }}
-              />
-            )}
+            {data.image && <Image resizeMode={"cover"} style={imageStyle} source={{ uri: data.image.url }} />}
             {data.social.length > 0 && (
               <View style={styles.socialwall}>
                 {data.social.map((s) => (
