@@ -9,7 +9,7 @@ import Calc from "../../utils/calc";
 const placeholderImg = require("../../assets/bg/card.jpg");
 
 const size = Calc.cardSize("home");
-const ImageInput = () => {
+const ImageInput = ({ setFile }) => {
   const [image, setImage] = useState(null);
 
   const addImage = async () => {
@@ -23,11 +23,13 @@ const ImageInput = () => {
 
     if (!_image.cancelled) {
       setImage(_image.uri);
+      setFile(_image);
     }
   };
 
   const deleteImage = () => {
     setImage(null);
+    setFile(null);
   };
   /*
   if (!image) {

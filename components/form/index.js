@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View, TextInput, Button, Pressable, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, View, TextInput, Switch, Pressable, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
 import ImageInput from "./ImageInput";
@@ -87,19 +87,78 @@ const Form = ({ scrollToTop }) => {
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm();
-  const onSubmit = (data, e) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log(data);
-        resolve();
-      }, 2000);
-    });
+  const onSubmit = (fData) => {
+    const data = new FormData();
+
+    for (const key in fData) {
+      if (key === "field") {
+        data.append(key, fData[key][1]);
+      } else {
+        data.append(key, fData[key]);
+      }
+    }
+    if (img1 != null) {
+      let { uri } = img1;
+      let nameParts = uri.split(".");
+      let fileType = nameParts[nameParts.length - 1];
+      data.append("img1", {
+        name: "Image 1",
+        uri: uri,
+        type: "application/" + fileType,
+      });
+    }
+
+    if (img2 != null) {
+      let { uri } = img2;
+      let nameParts = uri.split(".");
+      let fileType = nameParts[nameParts.length - 1];
+      data.append("img2", {
+        name: "Image 2",
+        uri: uri,
+        type: "application/" + fileType,
+      });
+    }
+    if (img3 != null) {
+      let { uri } = img3;
+      let nameParts = uri.split(".");
+      let fileType = nameParts[nameParts.length - 1];
+      data.append("img3", {
+        name: "Image 3",
+        uri: uri,
+        type: "application/" + fileType,
+      });
+    }
+
+    if (img4 != null) {
+      console.log(img1);
+      let { uri } = img4;
+      let nameParts = uri.split(".");
+      let fileType = nameParts[nameParts.length - 1];
+      data.append("img4", {
+        name: "Image 4",
+        uri: uri,
+        type: "application/" + fileType,
+      });
+    }
+
+    console.log(data);
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     console.log(data);
+    //     resolve();
+    //   }, 2000);
+    // });
   };
   const onError = (errors, e) => {
     //console.log(errors, e);
     // TODO soll hochscorllen nach einem Fehler
     //scrollToTop();
   };
+
+  const [img1, setImg1] = useState();
+  const [img2, setImg2] = useState();
+  const [img3, setImg3] = useState();
+  const [img4, setImg4] = useState();
 
   let buttonText = "absenden";
   if (isSubmitting) {
@@ -142,11 +201,35 @@ const Form = ({ scrollToTop }) => {
         );
       })}
       <View style={styles.imageContainer}>
-        <ImageInput />
-        <ImageInput />
-        <ImageInput />
-        <ImageInput />
+        <ImageInput setFile={setImg1} />
+        <ImageInput setFile={setImg2} />
+        <ImageInput setFile={setImg3} />
+        <ImageInput setFile={setImg4} />
       </View>
+
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View style={styles.switchContainer}>
+            <Switch
+              trackColor={{ false: Colors.accent, true: Colors.accent }}
+              thumbColor={value ? Colors.primary : "#999"}
+              ios_backgroundColor={Colors.accent}
+              onValueChange={onChange}
+              value={value}
+            />
+            <Text style={styles.label}>
+              Ich habe die Datenschutzbestimmungen gelesen und akzeptiert.<Text style={styles.error}>*</Text>
+            </Text>
+            {errors["datenschutz"] && <Text style={styles.error}>Datenschutzbestimmungen muss akzeptiert werden</Text>}
+          </View>
+        )}
+        name="datenschutz"
+      />
+
       {isSubmitting || isSubmitSuccessful ? (
         <Pressable style={styles.buttonDisabled}>
           <Text style={styles.buttontext}>{buttonText}</Text>
@@ -177,6 +260,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
   },
+  switchContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+
+    marginBottom: 20,
+    alignItems: "center",
+  },
   textarea: {
     minHeight: 80,
     textAlignVertical: "top",
@@ -185,11 +277,13 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     fontSize: 15,
     lineHeight: 17,
+    maxWidth: "85%",
   },
   error: {
     color: "#ff0000",
     fontSize: 13,
     lineHeight: 14,
+    maxWidth: "85%",
   },
   button: {
     backgroundColor: Colors.primary,
