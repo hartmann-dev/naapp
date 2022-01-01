@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Switch, Pressable, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
+import { postAppointment } from "../../services/appointment";
+
 import ImageInput from "./ImageInput";
 import Colors from "../../constants/Colors";
 
@@ -62,7 +64,7 @@ const Form = ({ scrollToTop }) => {
       },
     },
     {
-      id: "place",
+      id: "bodypart",
       type: "input",
       value: null,
       label: "Körperstelle",
@@ -90,18 +92,12 @@ const Form = ({ scrollToTop }) => {
   const onSubmit = (fData) => {
     const data = new FormData();
 
-    for (const key in fData) {
-      if (key === "field") {
-        data.append(key, fData[key][1]);
-      } else {
-        data.append(key, fData[key]);
-      }
-    }
+    data.append("data", JSON.stringify(fData));
     if (img1 != null) {
       let { uri } = img1;
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
-      data.append("img1", {
+      data.append("files.image1", {
         name: "Image 1",
         uri: uri,
         type: "application/" + fileType,
@@ -112,7 +108,7 @@ const Form = ({ scrollToTop }) => {
       let { uri } = img2;
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
-      data.append("img2", {
+      data.append("files.image2", {
         name: "Image 2",
         uri: uri,
         type: "application/" + fileType,
@@ -122,7 +118,7 @@ const Form = ({ scrollToTop }) => {
       let { uri } = img3;
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
-      data.append("img3", {
+      data.append("files.image3", {
         name: "Image 3",
         uri: uri,
         type: "application/" + fileType,
@@ -134,14 +130,14 @@ const Form = ({ scrollToTop }) => {
       let { uri } = img4;
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
-      data.append("img4", {
+      data.append("files.image4", {
         name: "Image 4",
         uri: uri,
         type: "application/" + fileType,
       });
     }
 
-    console.log(data);
+    postAppointment(data);
     // return new Promise((resolve) => {
     //   setTimeout(() => {
     //     console.log(data);
