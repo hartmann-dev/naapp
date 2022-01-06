@@ -47,7 +47,9 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "expo-image-picker": "~11.0.3"
+    "expo-image-picker": "~11.0.3",
+    "expo-image-manipulator": "~10.1.2",
+    "expo-file-system": "~13.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

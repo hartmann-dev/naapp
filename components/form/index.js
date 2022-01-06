@@ -89,12 +89,14 @@ const Form = ({ scrollToTop }) => {
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm();
-  const onSubmit = (fData) => {
+  const onSubmit = async (fData) => {
     const data = new FormData();
 
-    data.append("data", JSON.stringify(fData));
     if (img1 != null) {
-      let { uri } = img1;
+      let { base64 } = img1;
+      fData["image1_base64"] = base64;
+      // Erstmal wird das Bild per base64 gesendet.
+      /*
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
       data.append("files.image1", {
@@ -102,10 +104,14 @@ const Form = ({ scrollToTop }) => {
         uri: uri,
         type: "application/" + fileType,
       });
+      */
     }
 
     if (img2 != null) {
-      let { uri } = img2;
+      let { base64 } = img2;
+      fData["image2_base64"] = base64;
+      // Erstmal wird das Bild per base64 gesendet.
+      /*
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
       data.append("files.image2", {
@@ -113,9 +119,13 @@ const Form = ({ scrollToTop }) => {
         uri: uri,
         type: "application/" + fileType,
       });
+      */
     }
     if (img3 != null) {
-      let { uri } = img3;
+      let { base64 } = img3;
+      fData["image3_base64"] = base64;
+      // Erstmal wird das Bild per base64 gesendet.
+      /*
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
       data.append("files.image3", {
@@ -123,11 +133,14 @@ const Form = ({ scrollToTop }) => {
         uri: uri,
         type: "application/" + fileType,
       });
+      */
     }
 
     if (img4 != null) {
-      console.log(img1);
-      let { uri } = img4;
+      let { base64 } = img4;
+      fData["image4_base64"] = base64;
+      // Erstmal wird das Bild per base64 gesendet.
+      /*
       let nameParts = uri.split(".");
       let fileType = nameParts[nameParts.length - 1];
       data.append("files.image4", {
@@ -135,7 +148,9 @@ const Form = ({ scrollToTop }) => {
         uri: uri,
         type: "application/" + fileType,
       });
+      */
     }
+    data.append("data", JSON.stringify(fData));
 
     postAppointment(data);
     // return new Promise((resolve) => {
@@ -226,7 +241,7 @@ const Form = ({ scrollToTop }) => {
         name="datenschutz"
       />
 
-      {isSubmitting || isSubmitSuccessful ? (
+      {isSubmitting || (false && isSubmitSuccessful) ? (
         <Pressable style={styles.buttonDisabled}>
           <Text style={styles.buttontext}>{buttonText}</Text>
         </Pressable>

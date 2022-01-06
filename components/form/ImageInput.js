@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { ImageBackground, View, Pressable, StyleSheet, Text } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { manipulateAsync } from "expo-image-manipulator";
 
 import Colors from "../../constants/Colors";
 import Calc from "../../utils/calc";
 
 const placeholderImg = require("../../assets/bg/card.jpg");
-
+const MAX_BYTE__SIZ = 4 * 1024 * 1024;
 const size = Calc.cardSize("home");
 const ImageInput = ({ setFile }) => {
   const [image, setImage] = useState(null);
@@ -16,14 +18,26 @@ const ImageInput = ({ setFile }) => {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
+      base64: true,
       quality: 1,
     });
 
-    console.log(JSON.stringify(_image));
-
     if (!_image.cancelled) {
-      setImage(_image.uri);
-      setFile(_image);
+      const info = await FileSystem.getInfoAsync(_image.uri, { size: true });
+      if (info.size < MAX_BYTE__SIZ) {
+        setImage(_image.uri);
+        setFile(_image);
+      } else {
+        const reduce = Math.ceil(info.size / MAX_BYTE__SIZ);
+        const newHeight = Math.round(_image.height / reduce);
+        const newWidth = Math.round(_image.width / reduce);
+        const image = await manipulateAsync(_image.uri, [{ resize: { height: newHeight, width: newWidth } }], {
+          base64: true,
+        });
+        setImage(image.uri);
+        setFile(image);
+        const tmpo = await FileSystem.getInfoAsync(image.uri, { size: true });
+      }
     }
   };
 
