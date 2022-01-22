@@ -16,7 +16,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Name",
       rules: {
-        required: { value: false, message: "Name darf nicht leer sein" },
+        required: { value: true, message: "Name darf nicht leer sein" },
       },
     },
     {
@@ -25,7 +25,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Gebutsdatum",
       rules: {
-        required: { value: false, message: "Gebutsdatum darf nicht leer sein" },
+        required: { value: true, message: "Gebutsdatum darf nicht leer sein" },
       },
     },
     {
@@ -34,7 +34,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Straße / Nr.",
       rules: {
-        required: { value: false, message: "Straße / Nr. darf nicht leer sein" },
+        required: { value: true, message: "Straße / Nr. darf nicht leer sein" },
       },
     },
     {
@@ -43,7 +43,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "PLZ / Ort",
       rules: {
-        required: { value: false, message: "PLZ / Ort darf nicht leer sein" },
+        required: { value: true, message: "PLZ / Ort darf nicht leer sein" },
       },
     },
     {
@@ -52,7 +52,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Telefon",
       rules: {
-        required: { value: false, message: "Telefon darf nicht leer sein" },
+        required: { value: true, message: "Telefon darf nicht leer sein" },
       },
     },
     {
@@ -61,11 +61,11 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "E-Mail Adresse",
       rules: {
-        required: { value: false, message: "E-Mail Adresse darf nicht leer sein" },
-        /* pattern: {
+        required: { value: true, message: "E-Mail Adresse darf nicht leer sein" },
+        pattern: {
           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
           message: "E-Mail Adresse ist nicht gültig",
-        }, */
+        },
       },
     },
     {
@@ -74,7 +74,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Körperstelle",
       rules: {
-        required: { value: false, message: "Körperstelle darf nicht leer sein" },
+        required: { value: true, message: "Körperstelle darf nicht leer sein" },
       },
     },
     {
@@ -89,10 +89,12 @@ const Form = ({ scrollToTop }) => {
     },
   ];
   const [buttonText, setButtonText] = useState("absenden");
+  const [gesendet, setGesendet] = useState(false);
+  const [sendet, setSendet] = useState(false);
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors },
   } = useForm();
   const onSubmit = async (fData) => {
     const data = new FormData();
@@ -156,7 +158,7 @@ const Form = ({ scrollToTop }) => {
       */
     }
     data.append("data", JSON.stringify(fData));
-
+    setSendet(true);
     postAppointment(data)
       .then(function () {
         let toast = Toast.show("Anfrage erfolgreich versendet", {
@@ -166,10 +168,11 @@ const Form = ({ scrollToTop }) => {
           textColor: "#fff",
           opacity: 1,
         });
-
         setButtonText("erfolgreich vesendet");
+        setGesendet(true);
+        setSendet(false);
       })
-      .catch(function () {
+      .catch(function (e) {
         let toast = Toast.show("Ein Fehler ist aufgetreten.\nBitte versuche es später noch einmal.", {
           duration: Toast.durations.LONG,
           position: 100,
@@ -177,7 +180,7 @@ const Form = ({ scrollToTop }) => {
           textColor: "#fff",
           opacity: 1,
         });
-        throw new Error("something is wrong");
+        setSendet(false);
       });
 
     // return new Promise((resolve) => {
@@ -207,7 +210,34 @@ const Form = ({ scrollToTop }) => {
   const [img2, setImg2] = useState();
   const [img3, setImg3] = useState();
   const [img4, setImg4] = useState();
-  console.log(isSubmitting, isSubmitSuccessful);
+
+  if (gesendet)
+    return (
+      <View>
+        <Text style={styles.thx}>Vielen Dank für deine Terminanfrage.</Text>
+        <Text>Wir melden uns in Kürze bei dir um den Termin zu bestätigen und/oder weitere Fragen zu klären. </Text>
+        <Text></Text>
+        <Text>Infos zur Terminanfrage:</Text>
+        <Text></Text>
+
+        <Text>- Wegen der großen Nachfrage können wir momentan keine Wunschtermine berücksichtigen </Text>
+        <Text>- Anfragen kann jeder, der am Termin das 18. Lebensjahr vollendet hat</Text>
+        <Text>- Ohne eine Anzahlung kann bei uns leider kein Termin reserviert werden</Text>
+        <Text>- Die Bearbeitungszeit der angefragten Termine dauert in der Regel wenige Wochen</Text>
+        <Text>
+          - Bei Terminanfragen für Ralf ist zu beachten, dass nur Black and Grey Tätowierungen angefragt werden können -
+          Bestimmte Motive (Uhren, Federn, Kompass ... usw.) fallen nicht in den Bereich von Ralf. Bitte habt
+          Verständnis dafür, falls euer Motiv abgelehnt wird.
+        </Text>
+        <Text>- Es werden nur korrekt ausgefüllte Formulare berücksichtigt. </Text>
+        <Text>- Das Ausfüllen und Abschicken des Formulars bedeutet keine Termingarantie. </Text>
+        <Text>
+          - Sollten wir uns nicht innerhalb von wenigen Wochen bei Euch gemeldet haben, dann nicht enttäuscht sein und
+          es einfach beim nächsten Mal nochmals probieren.
+        </Text>
+      </View>
+    );
+
   return (
     <View>
       {formFields.map((field) => {
@@ -220,7 +250,7 @@ const Form = ({ scrollToTop }) => {
               <>
                 <Text style={styles.label}>
                   {field.label}
-                  {field.rules.required == true && <Text style={styles.error}>*</Text>}
+                  {field.rules.required.value == true && <Text style={styles.error}>*</Text>}
                 </Text>
                 {errors[field.id] && <Text style={styles.error}>{errors[field.id].message}</Text>}
                 {field.multiline ? (
@@ -246,7 +276,6 @@ const Form = ({ scrollToTop }) => {
         <ImageInput setFile={setImg3} />
         <ImageInput setFile={setImg4} />
       </View>
-
       <Controller
         control={control}
         rules={{
@@ -269,10 +298,9 @@ const Form = ({ scrollToTop }) => {
         )}
         name="datenschutz"
       />
-
-      {isSubmitting || isSubmitSuccessful === true ? (
+      {sendet ? (
         <Pressable style={styles.buttonDisabled}>
-          <Text style={styles.buttontext}>{buttonText}</Text>
+          <Text style={styles.buttontext}>sendet...</Text>
         </Pressable>
       ) : (
         <Pressable style={styles.button} onPress={handleSubmit(onSubmit, onError)}>
@@ -342,6 +370,13 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
     textAlign: "center",
+  },
+  thx: {
+    fontFamily: "alien",
+    fontSize: 20,
+    lineHeight: 22,
+    textAlign: "center",
+    marginBottom: 10,
   },
 });
 
