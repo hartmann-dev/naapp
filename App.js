@@ -4,6 +4,7 @@ import AppLoading from "expo-app-loading";
 import { Provider, useDispatch } from "react-redux";
 import { enableScreens } from "react-native-screens";
 import * as Notifications from "expo-notifications";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 import store from "./store/store";
 
@@ -52,16 +53,12 @@ export default (props) => {
     registerForPushNotifications().then((token) => setExpoPushToken(token));
 
     // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
-      }
-    );
+    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+      setNotification(notification);
+    });
 
     return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
+      Notifications.removeNotificationSubscription(notificationListener.current);
     };
   }, []);
 
@@ -76,7 +73,9 @@ export default (props) => {
   }
   return (
     <Provider store={store}>
-      <App />
+      <RootSiblingParent>
+        <App />
+      </RootSiblingParent>
     </Provider>
   );
 };

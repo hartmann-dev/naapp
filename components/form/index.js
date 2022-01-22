@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, Switch, Pressable, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import Toast from "react-native-root-toast";
 
 import { postAppointment } from "../../services/appointment";
 
@@ -15,7 +16,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Name",
       rules: {
-        required: true,
+        required: { value: false, message: "Name darf nicht leer sein" },
       },
     },
     {
@@ -24,7 +25,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Gebutsdatum",
       rules: {
-        required: true,
+        required: { value: false, message: "Gebutsdatum darf nicht leer sein" },
       },
     },
     {
@@ -33,7 +34,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Straße / Nr.",
       rules: {
-        required: true,
+        required: { value: false, message: "Straße / Nr. darf nicht leer sein" },
       },
     },
     {
@@ -42,7 +43,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "PLZ / Ort",
       rules: {
-        required: true,
+        required: { value: false, message: "PLZ / Ort darf nicht leer sein" },
       },
     },
     {
@@ -51,7 +52,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Telefon",
       rules: {
-        required: true,
+        required: { value: false, message: "Telefon darf nicht leer sein" },
       },
     },
     {
@@ -60,7 +61,11 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "E-Mail Adresse",
       rules: {
-        required: true,
+        required: { value: false, message: "E-Mail Adresse darf nicht leer sein" },
+        /* pattern: {
+          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+          message: "E-Mail Adresse ist nicht gültig",
+        }, */
       },
     },
     {
@@ -69,7 +74,7 @@ const Form = ({ scrollToTop }) => {
       value: null,
       label: "Körperstelle",
       rules: {
-        required: true,
+        required: { value: false, message: "Körperstelle darf nicht leer sein" },
       },
     },
     {
@@ -83,7 +88,7 @@ const Form = ({ scrollToTop }) => {
       },
     },
   ];
-
+  const [buttonText, setButtonText] = useState("absenden");
   const {
     control,
     handleSubmit,
@@ -152,7 +157,29 @@ const Form = ({ scrollToTop }) => {
     }
     data.append("data", JSON.stringify(fData));
 
-    postAppointment(data);
+    postAppointment(data)
+      .then(function () {
+        let toast = Toast.show("Anfrage erfolgreich versendet", {
+          duration: Toast.durations.LONG,
+          position: 100,
+          backgroundColor: Colors.primary,
+          textColor: "#fff",
+          opacity: 1,
+        });
+
+        setButtonText("erfolgreich vesendet");
+      })
+      .catch(function () {
+        let toast = Toast.show("Ein Fehler ist aufgetreten.\nBitte versuche es später noch einmal.", {
+          duration: Toast.durations.LONG,
+          position: 100,
+          backgroundColor: "#ff0000",
+          textColor: "#fff",
+          opacity: 1,
+        });
+        throw new Error("something is wrong");
+      });
+
     // return new Promise((resolve) => {
     //   setTimeout(() => {
     //     console.log(data);
@@ -161,24 +188,26 @@ const Form = ({ scrollToTop }) => {
     // });
   };
   const onError = (errors, e) => {
-    //console.log(errors, e);
     // TODO soll hochscorllen nach einem Fehler
     //scrollToTop();
+    let errorMsg = "Anfrage konnte nicht gesendet werden:";
+    for (let error in errors) {
+      errorMsg += `\n\n${errors[error].message}`;
+    }
+    let toast = Toast.show(errorMsg, {
+      duration: Toast.durations.LONG,
+      position: 100,
+      backgroundColor: "#ff0000",
+      textColor: "#fff",
+      opacity: 1,
+    });
   };
 
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
   const [img3, setImg3] = useState();
   const [img4, setImg4] = useState();
-
-  let buttonText = "absenden";
-  if (isSubmitting) {
-    buttonText = "sendet ...";
-  }
-  if (isSubmitSuccessful) {
-    buttonText = "erfolgreich vesendet";
-  }
-
+  console.log(isSubmitting, isSubmitSuccessful);
   return (
     <View>
       {formFields.map((field) => {
@@ -193,7 +222,7 @@ const Form = ({ scrollToTop }) => {
                   {field.label}
                   {field.rules.required == true && <Text style={styles.error}>*</Text>}
                 </Text>
-                {errors[field.id] && <Text style={styles.error}>darf nicht leer sein</Text>}
+                {errors[field.id] && <Text style={styles.error}>{errors[field.id].message}</Text>}
                 {field.multiline ? (
                   <TextInput
                     style={[styles.textarea, styles.input]}
@@ -221,7 +250,7 @@ const Form = ({ scrollToTop }) => {
       <Controller
         control={control}
         rules={{
-          required: true,
+          required: { value: true, message: "Datenschutzbestimmungen muss gelesen und akzeptiert werden" },
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.switchContainer}>
@@ -241,7 +270,7 @@ const Form = ({ scrollToTop }) => {
         name="datenschutz"
       />
 
-      {isSubmitting || (false && isSubmitSuccessful) ? (
+      {isSubmitting || isSubmitSuccessful === true ? (
         <Pressable style={styles.buttonDisabled}>
           <Text style={styles.buttontext}>{buttonText}</Text>
         </Pressable>
