@@ -49,9 +49,7 @@ export const getArticles = () => {
                 id: resData[key].id,
                 title: resData[key].title,
                 image: img,
-                date: resData[key].showDate
-                  ? convertDate(resData[key].createdAt)
-                  : null,
+                date: resData[key].showDate ? convertDate(resData[key].createdAt) : null,
                 content: resData[key].content,
                 social: resData[key].social,
                 type: resData[key].type,

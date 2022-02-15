@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Button, Image, Dimensions } from "react-native";
+import Toast from "react-native-root-toast";
+
 import Colors from "../../constants/Colors";
 import { useIsMountedRef } from "../../utils/hooks";
 import MarkdownView from "../../components/MarkdownView";
@@ -9,7 +11,7 @@ import * as Linking from "expo-linking";
 
 import BackgroundView from "../BackgroundView";
 
-const Article = ({ data, load }) => {
+const Article = ({ data, load, navigation }) => {
   const winDim = Dimensions.get("window");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +20,9 @@ const Article = ({ data, load }) => {
   const isMountedRef = useIsMountedRef();
   const dispatch = useDispatch();
 
-  //if (data !== undefined) loadData();
+  useEffect(() => {
+    if (data !== undefined) loadData();
+  }, []);
 
   const loadData = useCallback(async () => {
     if (isMountedRef.current) {
@@ -26,6 +30,9 @@ const Article = ({ data, load }) => {
 
       try {
         if (load) await dispatch(load);
+        if (load) {
+          await dispatch(load);
+        }
       } catch (err) {
         console.log(err);
         setError(err.message);
@@ -50,10 +57,20 @@ const Article = ({ data, load }) => {
 
   const handlSocialClick = (url) => {
     if (url != "about:blank") {
+      if (url.indexOf("@") > 0) {
+        url = "mailto:" + url;
+      }
       Linking.canOpenURL(url)
         .then((supported) => {
           if (!supported) {
             console.log("Can't handle URL: " + url);
+            let toast = Toast.show("Ein Fehler ist aufgetreten.\nKeine App für\n" + url + "\ngefunden.", {
+              duration: Toast.durations.LONG,
+              position: 100,
+              backgroundColor: "#ff0000",
+              textColor: "#fff",
+              opacity: 1,
+            });
           } else {
             return Linking.openURL(url);
           }
@@ -92,8 +109,8 @@ const Article = ({ data, load }) => {
   }
   if (!isLoading && data) {
     return (
-      <ScrollView style={styles.wrapper}>
-        <View style={{ flex: 1 }}>
+      <View style={styles.wrapper}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <BackgroundView>
             {data.image && <Image resizeMode={"cover"} style={imageStyle} source={{ uri: data.image.url }} />}
             {data.social.length > 0 && (
@@ -115,10 +132,10 @@ const Article = ({ data, load }) => {
                 <Text style={styles.datetext}>{data.date}</Text>
               </View>
             )}
-            {data.content && <MarkdownView>{data.content}</MarkdownView>}
+            {data.content && <MarkdownView navigation={navigation}>{data.content}</MarkdownView>}
           </BackgroundView>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 };
@@ -129,6 +146,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     minHeight: "100%",
+    width: "100%",
+    minWidth: "100%",
   },
   list: { flex: 1, display: "flex", justifyContent: "center" },
 

@@ -7,10 +7,8 @@ import { getArticles } from "../store/ducks/articles";
 
 const ArticleScreen = (props) => {
   const slug = props.route.params.slug;
-  const data = useSelector((state) => state.articles.articles).find(
-    (article) => article.slug == slug
-  );
-  return <Article loadData={getArticles()} data={data} />;
+  const data = useSelector((state) => state.articles.articles).find((article) => article.slug == slug);
+  return <Article navigation={props.navigation} load={getArticles()} data={data} />;
 };
 
 export default ArticleScreen;

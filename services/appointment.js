@@ -7,7 +7,7 @@ let headers = {};
 export const postAppointment = (data) => {
   return axios({
     method: "post",
-    url: URL + "/appointmentss/",
+    url: URL + "/appointments/",
     data: data,
     headers: headers,
   });

@@ -8,7 +8,7 @@ import { postAppointment } from "../../services/appointment";
 import ImageInput from "./ImageInput";
 import Colors from "../../constants/Colors";
 
-const Form = ({ scrollToTop }) => {
+const Form = ({ navigation }) => {
   const formFields = [
     {
       id: "name",
@@ -279,7 +279,7 @@ const Form = ({ scrollToTop }) => {
       <Controller
         control={control}
         rules={{
-          required: { value: true, message: "Datenschutzbestimmungen muss gelesen und akzeptiert werden" },
+          required: { value: true, message: "Datenschutzbestimmungen müssen gelesen und akzeptiert werden" },
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.switchContainer}>
@@ -291,7 +291,22 @@ const Form = ({ scrollToTop }) => {
               value={value}
             />
             <Text style={styles.label}>
-              Ich habe die Datenschutzbestimmungen gelesen und akzeptiert.<Text style={styles.error}>*</Text>
+              Ich habe die{" "}
+              <Text
+                style={styles.link}
+                onPress={() => {
+                  navigation.push("Article", {
+                    title: "Datenschutz",
+                    type: "Single",
+                    dispatcher: "getArticles",
+                    slug: "de-single-privacy",
+                  });
+                }}
+              >
+                Datenschutzbestimmungen
+              </Text>{" "}
+              gelesen und akzeptiert.
+              <Text style={styles.error}>*</Text>
             </Text>
             {errors["datenschutz"] && <Text style={styles.error}>Datenschutzbestimmungen muss akzeptiert werden</Text>}
           </View>
@@ -377,6 +392,9 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     textAlign: "center",
     marginBottom: 10,
+  },
+  link: {
+    textDecorationLine: "underline",
   },
 });
 

@@ -6,9 +6,7 @@ import axios from "./services/axios";
 const registerForPushNotifications = async () => {
   let token;
   if (Constants.isDevice) {
-    const {
-      status: existingStatus,
-    } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
@@ -35,9 +33,25 @@ const registerForPushNotifications = async () => {
       .get(`push-tokens/token/${token}`)
       //.then((data) => console.log(data))
       .catch((e) => {
+        console.log(e);
         if (e.response.status === 404) {
           axios
-            .post("push-tokens", { token: token, device: Device.modelName })
+            .post("push-tokens", {
+              token: token,
+              device:
+                "Device Name: " +
+                Device.deviceName +
+                " | Brand: " +
+                Device.brand +
+                " | Model Name: " +
+                Device.modelName +
+                " | Model Id: " +
+                Device.modelId +
+                " | Model Id: " +
+                Device.osVersion +
+                " | Year Class: " +
+                Device.deviceYearClass,
+            })
             .then(function (response) {
               //console.log(response);
             })

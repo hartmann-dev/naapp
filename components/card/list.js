@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Colors from "../../constants/Colors";
 import Calc from "../../utils/calc";
@@ -31,11 +24,9 @@ const Cardlist = (props) => {
         setOrientation(info);
       });
 
-      const subscription = ScreenOrientation.addOrientationChangeListener(
-        (evt) => {
-          setOrientation(evt.orientationInfo.orientation);
-        }
-      );
+      const subscription = ScreenOrientation.addOrientationChangeListener((evt) => {
+        setOrientation(evt.orientationInfo.orientation);
+      });
 
       return () => {
         ScreenOrientation.removeOrientationChangeListener(subscription);
@@ -81,11 +72,7 @@ const Cardlist = (props) => {
     return (
       <View style={styles.centered}>
         <Text>Ein Fehler ist aufgetreten</Text>
-        <Button
-          title="Erneut versuchen"
-          onPress={loadData}
-          color={Colors.primary}
-        />
+        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
@@ -101,11 +88,7 @@ const Cardlist = (props) => {
     return (
       <View style={styles.centered}>
         <Text>Keine Daten gefunden</Text>
-        <Button
-          title="Erneut versuchen"
-          onPress={loadData}
-          color={Colors.primary}
-        />
+        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
@@ -123,6 +106,7 @@ const Cardlist = (props) => {
             keyExtractor={(item, index) => index.toString()}
             numColumns={numCols}
             renderItem={props.renderGridItem}
+            showsVerticalScrollIndicator={false}
           />
         </BackgroundView>
       </View>

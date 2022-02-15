@@ -1,25 +1,18 @@
 import React, { useRef } from "react";
-import { StyleSheet, ScrollView, SafeAreaView, Button } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView, View } from "react-native";
 
 import { MarkdownView as RNMDView } from "react-native-markdown-view";
 import { Linking } from "react-native";
 import Colors from "../constants/Colors";
 import Form from "./form/";
 
-const MarkdownView = ({ children }) => {
-  let scrollRef = useRef(null);
-
-  const scrollTop = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({ y: 0, x: 0, animated: true });
-    }
-  };
+const MarkdownView = ({ children, navigation }) => {
   const reg = new RegExp(/\[Form\]/, "gm");
   const withForm = children.search(reg) >= 0;
   if (withForm) children = children.replace(reg, "");
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.content} ref={(ref) => (scrollRef = ref)}>
+    <SafeAreaView>
+      <View style={styles.content}>
         <RNMDView
           onLinkPress={(url) => {
             Linking.openURL(url).catch((error) => console.warn("An error occurred: ", error));
@@ -50,8 +43,8 @@ const MarkdownView = ({ children }) => {
         >
           {children}
         </RNMDView>
-        {withForm && <Form scrollToTop={scrollTop} />}
-      </ScrollView>
+        {withForm && <Form navigation={navigation} />}
+      </View>
     </SafeAreaView>
   );
 };
