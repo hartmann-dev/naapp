@@ -215,7 +215,10 @@ const Form = ({ navigation }) => {
     return (
       <View>
         <Text style={styles.thx}>Vielen Dank für deine Terminanfrage.</Text>
-        <Text>Wir melden uns in Kürze bei dir um den Termin zu bestätigen und/oder weitere Fragen zu klären. </Text>
+        <Text>
+          Wir melden uns nach der nächsten Terminvergabe bei dir um den Termin zu bestätigen und/oder weitere Fragen zu
+          klären.
+        </Text>
         <Text></Text>
         <Text>Infos zur Terminanfrage:</Text>
         <Text></Text>
