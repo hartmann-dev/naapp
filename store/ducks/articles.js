@@ -1,8 +1,8 @@
-import Article from "../../models/article";
-import Image from "../../models/image";
-import axios from "../../services/axios";
+import Article from '../../models/article';
+import Image from '../../models/image';
+import axios from '../../services/axios';
 
-const SET_ARTICLES = "SET_ARTICLES";
+const SET_ARTICLES = 'SET_ARTICLES';
 
 const articlesCache = {};
 
@@ -29,31 +29,32 @@ export const getArticles = () => {
       dispatch({ type: SET_ARTICLES, payload: articlesCache });
     } else {
       axios
-        .get("articles/?_locale=de")
+        .get('api/articles/')
         .then((response) => {
-          const resData = response.data;
+          const resData = response.data.data;
           for (const key in resData) {
             let img = null;
-            if (resData[key].image) {
-              const resImage = resData[key].image;
+            if (resData[key].attributes.image.data) {
+              const resImage = resData[key].attributes.image.data;
+
               img = new Image({
                 id: resImage.id,
-                url: resImage.url,
-                width: resImage.width,
-                height: resImage.height,
+                url: resImage.attributes.url,
+                width: resImage.attributes.width,
+                height: resImage.attributes.height,
               });
             }
 
             loadedArticles.push(
               new Article({
                 id: resData[key].id,
-                title: resData[key].title,
+                title: resData[key].attributes.title,
                 image: img,
-                date: resData[key].showDate ? convertDate(resData[key].createdAt) : null,
-                content: resData[key].content,
-                social: resData[key].social,
-                type: resData[key].type,
-                slug: resData[key].slug,
+                date: resData[key].attributes.showDate ? convertDate(resData[key].attributes.createdAt) : null,
+                content: resData[key].attributes.content,
+                social: resData[key].attributes.social,
+                type: resData[key].attributes.type,
+                slug: resData[key].attributes.slug,
               })
             );
           }
@@ -69,11 +70,11 @@ export const getArticles = () => {
 };
 const convertDate = (date) => {
   const options = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
     // hour: "2-digit",
     // minute: "2-digit",
   };
-  return new Date(date).toLocaleDateString("de", options);
+  return new Date(date).toLocaleDateString('de', options);
 };

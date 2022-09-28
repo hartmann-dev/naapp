@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import { Provider, useDispatch } from "react-redux";
-import { enableScreens } from "react-native-screens";
-import * as Notifications from "expo-notifications";
-import { RootSiblingParent } from "react-native-root-siblings";
+import React, { useState, useEffect, useRef } from 'react';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Provider, useDispatch } from 'react-redux';
+import { enableScreens } from 'react-native-screens';
+import * as Notifications from 'expo-notifications';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
-import store from "./store/store";
+import store from './store/store';
 
-import AppNavigator from "./navigation/AppNavigator";
-import registerForPushNotifications from "./registerForPushNotifications";
-import { getArticles } from "./store/ducks/articles";
-import { getConfig } from "./store/ducks/config";
+import AppNavigator from './navigation/AppNavigator';
+import registerForPushNotifications from './registerForPushNotifications';
+import { getArticles } from './store/ducks/articles';
+import { getConfig } from './store/ducks/config';
 
 enableScreens();
 
@@ -25,26 +25,26 @@ Notifications.setNotificationHandler({
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    alien: require("./assets/fonts/alien.ttf"),
-    alienbold: require("./assets/fonts/alienbold.ttf"),
-    Courier: require("./assets/fonts/Courier.ttf"),
+    alien: require('./assets/fonts/alien.ttf'),
+    alienbold: require('./assets/fonts/alienbold.ttf'),
+    Courier: require('./assets/fonts/Courier.ttf'),
     // Arial ist nicht frei verfügbar, überschreiben damit react-native-markup-view keinen Fehler wirft
-    Arial: require("./assets/fonts/LiberationSans-Regular.ttf"),
+    Arial: require('./assets/fonts/LiberationSans-Regular.ttf'),
   });
 };
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getArticles());
     dispatch(getConfig());
+    dispatch(getArticles());
   }, [dispatch]);
   return <AppNavigator />;
 };
 
 export default (props) => {
   const [fontLoaded, setFontLoaded] = useState(false);
-  const [expoPushToken, setExpoPushToken] = useState("");
+  const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -67,7 +67,7 @@ export default (props) => {
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setFontLoaded(true)}
-        onError={(error) => console.warn("splash errir", error)}
+        onError={(error) => console.warn('splash errir', error)}
       />
     );
   }

@@ -1,8 +1,8 @@
-import Gallery from "../../models/gallery";
-import Image from "../../models/image";
-import axios from "../../services/axios";
+import Gallery from '../../models/gallery';
+import Image from '../../models/image';
+import axios from '../../services/axios';
 
-const SET_GALLERIES = "SET_GALLERIES";
+const SET_GALLERIES = 'SET_GALLERIES';
 
 const galleriesCache = {};
 
@@ -29,33 +29,33 @@ export const getGalleries = () => {
       dispatch({ type: SET_GALLERIES, payload: galleriesCache });
     } else {
       axios
-        .get("galleries?_locale=de")
+        .get('api/galleries')
         .then((response) => {
-          const resData = response.data;
+          const resData = response.data.data;
           for (const key in resData) {
             let img = null;
-            if (resData[key].image) {
-              const resImage = resData[key].image;
+            if (resData[key].attributes.image.data.attributes) {
+              const resImage = resData[key].attributes.image.data;
               img = new Image({
                 id: resImage.id,
-                url: resImage.url,
-                width: resImage.width,
-                height: resImage.height,
+                url: resImage.attributes.url,
+                width: resImage.attributes.width,
+                height: resImage.attributes.height,
               });
             }
 
             loadedGalleries.push(
               new Gallery({
                 id: resData[key].id,
-                title: resData[key].title,
+                title: resData[key].attributes.title,
                 image: img,
-                content: resData[key].content.map(
+                content: resData[key].attributes.content.data.map(
                   (item) =>
                     new Image({
                       id: item.id,
-                      url: item.url,
-                      width: item.width,
-                      height: item.height,
+                      url: item.attributes.url,
+                      width: item.attributes.width,
+                      height: item.attributes.height,
                     })
                 ),
                 slug: resData[key].slug,

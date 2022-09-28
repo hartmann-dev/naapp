@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { ImageBackground, View, Pressable, StyleSheet, Text } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
-import { manipulateAsync } from "expo-image-manipulator";
+import React, { useState } from 'react';
+import { ImageBackground, View, Pressable, StyleSheet, Text } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import { manipulateAsync } from 'expo-image-manipulator';
 
-import Colors from "../../constants/Colors";
-import Calc from "../../utils/calc";
+import Colors from '../../constants/Colors';
+import Calc from '../../utils/calc';
+import { getLocale } from '../../utils/locale';
 
-const placeholderImg = require("../../assets/bg/card.jpg");
+const placeholderImg = require('../../assets/bg/card.jpg');
 const MAX_BYTE__SIZ = 4 * 1024 * 1024;
-const size = Calc.cardSize("home");
+const size = Calc.cardSize('home');
 const ImageInput = ({ setFile }) => {
   const [image, setImage] = useState(null);
 
@@ -81,13 +82,13 @@ const ImageInput = ({ setFile }) => {
             <Text style={styles.imageButton}>
               {image ? (
                 <>
-                  <FontAwesome5 name="trash-alt" size={18} color="white" style={{ marginRight: 10 }} />
-                  <Text style={styles.imageText}> Bild löschen</Text>
+                  <FontAwesome5 name='trash-alt' size={18} color='white' style={{ marginRight: 10 }} />
+                  <Text style={styles.imageText}>{getLocale() == 'en' ? ' delete image' : ' Bild löschen'}</Text>
                 </>
               ) : (
                 <>
-                  <FontAwesome5 name="image" size={18} color="white" style={{ paddingRight: 10 }} />
-                  <Text style={styles.imageText}> Bild hinzufügen</Text>
+                  <FontAwesome5 name='image' size={18} color='white' style={{ paddingRight: 10 }} />
+                  <Text style={styles.imageText}>{getLocale() == 'en' ? ' add image' : ' Bild hinzufügen'}</Text>
                 </>
               )}
             </Text>
@@ -107,21 +108,21 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: "100%",
-    justifyContent: "flex-end",
-    overflow: "hidden", // prevent image overflow the container
+    width: '100%',
+    justifyContent: 'flex-end',
+    overflow: 'hidden', // prevent image overflow the container
   },
   imageButton: {
     padding: 5,
     backgroundColor: Colors.primary,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   imageText: {
-    fontFamily: "alien",
+    fontFamily: 'alien',
     color: Colors.accent,
     fontSize: 16,
     lineHeight: 18,
-    textShadowColor: "rgba(0, 0, 0, 0.95)",
+    textShadowColor: 'rgba(0, 0, 0, 0.95)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },

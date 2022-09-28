@@ -1,6 +1,6 @@
-import axios from "../../services/axios";
+import axios from '../../services/axios';
 
-const SET_CONFIG = "SET_CONFIG";
+const SET_CONFIG = 'SET_CONFIG';
 
 const configCache = {};
 
@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
     case SET_CONFIG:
       return {
         ...state,
-        navigation: action.payload.navigation,
+        navigation: action.payload,
       };
   }
 
@@ -26,9 +26,9 @@ export const getConfig = () => {
       dispatch({ type: SET_CONFIG, payload: configCache });
     } else {
       axios
-        .get("app-config")
+        .get('api/app-config')
         .then((response) => {
-          const resData = response.data;
+          const resData = response.data.data.attributes.navigation;
           //articlesCache = loadedArticles;
           dispatch({ type: SET_CONFIG, payload: resData });
         })

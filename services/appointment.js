@@ -1,14 +1,17 @@
-import axios from "axios";
-import Config from "../constants/Config";
+import axios from 'axios';
+import Config from '../constants/Config';
 
 const URL = Config.api_url;
-let headers = {};
+let headers = { 'Content-Type': 'multipart/form-data' };
 
 export const postAppointment = (data) => {
   return axios({
-    method: "post",
-    url: URL + "/appointments/",
+    method: 'post',
+    url: URL + '/api/appointments/',
     data: data,
+    params: {
+      populate: '*',
+    },
     headers: headers,
   });
 };
