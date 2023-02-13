@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from "react-native";
-import * as ScreenOrientation from "expo-screen-orientation";
-import Colors from "../../constants/Colors";
-import Calc from "../../utils/calc";
-import { useIsMountedRef } from "../../utils/hooks";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, Button } from 'react-native';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import Colors from '../../constants/Colors';
+import Calc from '../../utils/calc';
+import { useIsMountedRef } from '../../utils/hooks';
 
-import BackgroundView from "../BackgroundView";
+import BackgroundView from '../BackgroundView';
 
 const Cardlist = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -72,15 +72,15 @@ const Cardlist = (props) => {
     return (
       <View style={styles.centered}>
         <Text>Ein Fehler ist aufgetreten</Text>
-        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
+        <Button title='Try again' onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
 
-  if (isLoading || orientation === "undefined") {
+  if (isLoading || orientation === 'undefined') {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color={Colors.primary} />
+        <ActivityIndicator size='large' color={Colors.primary} />
       </View>
     );
   }
@@ -88,12 +88,12 @@ const Cardlist = (props) => {
     return (
       <View style={styles.centered}>
         <Text>Keine Daten gefunden</Text>
-        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
+        <Button title='Try again' onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
 
-  if (!isLoading || orientation !== "undefined") {
+  if (!isLoading || orientation !== 'undefined') {
     return (
       <View style={styles.wrapper}>
         <BackgroundView>
@@ -117,14 +117,14 @@ const Cardlist = (props) => {
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: Colors.background,
-    height: "100%",
+    height: '100%',
   },
-  list: { flex: 1, display: "flex", justifyContent: "center" },
+  list: { flex: 1, display: 'flex', justifyContent: 'center' },
 
   centered: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.background,
   },
 });

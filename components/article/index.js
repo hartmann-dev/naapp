@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Button, Image, Dimensions } from "react-native";
-import Toast from "react-native-root-toast";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Button, Image, Dimensions } from 'react-native';
+import Toast from 'react-native-root-toast';
 
-import Colors from "../../constants/Colors";
-import { useIsMountedRef } from "../../utils/hooks";
-import MarkdownView from "../../components/MarkdownView";
-import { FontAwesome5 } from "@expo/vector-icons";
-import * as Linking from "expo-linking";
+import Colors from '../../constants/Colors';
+import { useIsMountedRef } from '../../utils/hooks';
+import MarkdownView from '../../components/MarkdownView';
+import { FontAwesome5 } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
-import BackgroundView from "../BackgroundView";
+import BackgroundView from '../BackgroundView';
 
 const Article = ({ data, load, navigation }) => {
-  const winDim = Dimensions.get("window");
+  const winDim = Dimensions.get('window');
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
@@ -56,34 +56,34 @@ const Article = ({ data, load, navigation }) => {
   }
 
   const handlSocialClick = (url) => {
-    if (url != "about:blank") {
-      if (url.indexOf("@") > 0) {
-        url = "mailto:" + url;
+    if (url != 'about:blank') {
+      if (url.indexOf('@') > 0) {
+        url = 'mailto:' + url;
       }
       Linking.canOpenURL(url)
         .then((supported) => {
           if (!supported) {
             console.log("Can't handle URL: " + url);
-            let toast = Toast.show("Ein Fehler ist aufgetreten.\nKeine App für\n" + url + "\ngefunden.", {
+            let toast = Toast.show('An error has occurred.\nNo app found for\n' + url, {
               duration: Toast.durations.LONG,
               position: 100,
-              backgroundColor: "#ff0000",
-              textColor: "#fff",
+              backgroundColor: '#ff0000',
+              textColor: '#fff',
               opacity: 1,
             });
           } else {
             return Linking.openURL(url);
           }
         })
-        .catch((err) => console.error("Ein Fehler ist aufgetreten", err));
+        .catch((err) => console.error('An error has occurred', err));
     }
   };
 
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text>Ein Fehler ist aufgetreten</Text>
-        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
+        <Text>An error has occurred</Text>
+        <Button title='Try again' onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
@@ -93,7 +93,7 @@ const Article = ({ data, load, navigation }) => {
       <View style={styles.wrapper}>
         <BackgroundView>
           <View style={styles.centered}>
-            <ActivityIndicator size="large" color={Colors.primary} />
+            <ActivityIndicator size='large' color={Colors.primary} />
           </View>
         </BackgroundView>
       </View>
@@ -102,8 +102,8 @@ const Article = ({ data, load, navigation }) => {
   if (!isLoading && data == null) {
     return (
       <View style={styles.centered}>
-        <Text>Keine Daten gefunden</Text>
-        <Button title="Erneut versuchen" onPress={loadData} color={Colors.primary} />
+        <Text>No data found</Text>
+        <Button title='Try again' onPress={loadData} color={Colors.primary} />
       </View>
     );
   }
@@ -112,7 +112,7 @@ const Article = ({ data, load, navigation }) => {
       <View style={styles.wrapper}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <BackgroundView>
-            {data.image && <Image resizeMode={"cover"} style={imageStyle} source={{ uri: data.image.url }} />}
+            {data.image && <Image resizeMode={'cover'} style={imageStyle} source={{ uri: data.image.url }} />}
             {data.social.length > 0 && (
               <View style={styles.socialwall}>
                 {data.social.map((s) => (
@@ -144,17 +144,17 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: Colors.background,
     flex: 1,
-    height: "100%",
-    minHeight: "100%",
-    width: "100%",
-    minWidth: "100%",
+    height: '100%',
+    minHeight: '100%',
+    width: '100%',
+    minWidth: '100%',
   },
-  list: { flex: 1, display: "flex", justifyContent: "center" },
+  list: { flex: 1, display: 'flex', justifyContent: 'center' },
 
   centered: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.background,
   },
   details: {
@@ -173,16 +173,16 @@ const styles = StyleSheet.create({
     color: Colors.accent,
     padding: 5,
     fontSize: 25,
-    fontFamily: "alien",
+    fontFamily: 'alien',
   },
   socialwall: {
-    display: "flex",
+    display: 'flex',
     backgroundColor: Colors.primary,
     color: Colors.accent,
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 5,
-    flexWrap: "wrap",
-    justifyContent: "center",
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   socialitem: {
     marginHorizontal: 10,
@@ -190,8 +190,8 @@ const styles = StyleSheet.create({
   },
   centered: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.background,
   },
 });

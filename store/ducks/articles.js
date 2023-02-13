@@ -29,32 +29,32 @@ export const getArticles = () => {
       dispatch({ type: SET_ARTICLES, payload: articlesCache });
     } else {
       axios
-        .get('api/articles/')
+        .get('articles')
         .then((response) => {
-          const resData = response.data.data;
+          const resData = response.data;
           for (const key in resData) {
             let img = null;
-            if (resData[key].attributes.image.data) {
-              const resImage = resData[key].attributes.image.data;
+            if (resData[key].image) {
+              const resImage = resData[key].image;
 
               img = new Image({
                 id: resImage.id,
-                url: resImage.attributes.url,
-                width: resImage.attributes.width,
-                height: resImage.attributes.height,
+                url: resImage.url,
+                width: resImage.width,
+                height: resImage.height,
               });
             }
 
             loadedArticles.push(
               new Article({
                 id: resData[key].id,
-                title: resData[key].attributes.title,
+                title: resData[key].title,
                 image: img,
-                date: resData[key].attributes.showDate ? convertDate(resData[key].attributes.createdAt) : null,
-                content: resData[key].attributes.content,
-                social: resData[key].attributes.social,
-                type: resData[key].attributes.type,
-                slug: resData[key].attributes.slug,
+                date: resData[key].showDate ? convertDate(resData[key].createdAt) : null,
+                content: resData[key].content,
+                social: resData[key].social,
+                type: resData[key].type,
+                slug: resData[key].slug,
               })
             );
           }

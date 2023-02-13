@@ -10,10 +10,6 @@ let headers = {
 const instance = axios.create({
   baseURL: URL,
   headers,
-  params: {
-    locale: getLocale(),
-    populate: '*',
-  },
 });
 
 export default instance;

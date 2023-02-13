@@ -29,33 +29,33 @@ export const getGalleries = () => {
       dispatch({ type: SET_GALLERIES, payload: galleriesCache });
     } else {
       axios
-        .get('api/galleries')
+        .get('galleries')
         .then((response) => {
-          const resData = response.data.data;
+          const resData = response.data;
           for (const key in resData) {
             let img = null;
-            if (resData[key].attributes.image.data.attributes) {
-              const resImage = resData[key].attributes.image.data;
+            if (resData[key].image) {
+              const resImage = resData[key].image;
               img = new Image({
                 id: resImage.id,
-                url: resImage.attributes.url,
-                width: resImage.attributes.width,
-                height: resImage.attributes.height,
+                url: resImage.url,
+                width: resImage.width,
+                height: resImage.height,
               });
             }
 
             loadedGalleries.push(
               new Gallery({
                 id: resData[key].id,
-                title: resData[key].attributes.title,
+                title: resData[key].title,
                 image: img,
-                content: resData[key].attributes.content.data.map(
+                content: resData[key].content.map(
                   (item) =>
                     new Image({
                       id: item.id,
-                      url: item.attributes.url,
-                      width: item.attributes.width,
-                      height: item.attributes.height,
+                      url: item.url,
+                      width: item.width,
+                      height: item.height,
                     })
                 ),
                 slug: resData[key].slug,

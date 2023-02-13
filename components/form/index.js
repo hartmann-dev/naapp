@@ -23,7 +23,10 @@ const Form = ({ navigation }) => {
   const onSubmit = async (fData) => {
     const data = new FormData();
     if (img1 != null) {
-      let { uri } = img1;
+      let { base64 } = img1;
+      fData['image1_base64'] = base64;
+      /*
+      //      let { uri } = img1;
       let nameParts = uri.split('.');
       let fileType = nameParts[nameParts.length - 1];
       data.append('files.image1', {
@@ -31,9 +34,13 @@ const Form = ({ navigation }) => {
         uri: uri,
         type: 'application/' + fileType,
       });
+      */
     }
 
     if (img2 != null) {
+      let { base64 } = img2;
+      fData['image2_base64'] = base64;
+      /*
       let { uri } = img2;
       let nameParts = uri.split('.');
       let fileType = nameParts[nameParts.length - 1];
@@ -42,8 +49,12 @@ const Form = ({ navigation }) => {
         uri: uri,
         type: 'application/' + fileType,
       });
+      */
     }
     if (img3 != null) {
+      let { base64 } = img3;
+      fData['image3_base64'] = base64;
+      /*
       let { uri } = img3;
       let nameParts = uri.split('.');
       let fileType = nameParts[nameParts.length - 1];
@@ -52,9 +63,13 @@ const Form = ({ navigation }) => {
         uri: uri,
         type: 'application/' + fileType,
       });
+      */
     }
 
     if (img4 != null) {
+      let { base64 } = img4;
+      fData['image4_base64'] = base64;
+      /*
       let { uri } = img4;
       let nameParts = uri.split('.');
       let fileType = nameParts[nameParts.length - 1];
@@ -63,6 +78,7 @@ const Form = ({ navigation }) => {
         uri: uri,
         type: 'application/' + fileType,
       });
+      */
     }
     data.append('data', JSON.stringify(fData));
     setSendet(true);
@@ -233,7 +249,7 @@ const Form = ({ navigation }) => {
     );
   }
   let returnView;
-  if (false) {
+  if (gesendet) {
     returnView = sendView;
   } else {
     returnView = (

@@ -7,7 +7,7 @@ let headers = { 'Content-Type': 'multipart/form-data' };
 export const postAppointment = (data) => {
   return axios({
     method: 'post',
-    url: URL + '/api/appointments/',
+    url: URL + '/appointments/',
     data: data,
     params: {
       populate: '*',

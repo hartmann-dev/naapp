@@ -26,14 +26,15 @@ export const getConfig = () => {
       dispatch({ type: SET_CONFIG, payload: configCache });
     } else {
       axios
-        .get('api/app-config')
+        .get('app-config')
         .then((response) => {
-          const resData = response.data.data.attributes.navigation;
+          const resData = response.data.navigation;
           //articlesCache = loadedArticles;
           dispatch({ type: SET_CONFIG, payload: resData });
         })
         .catch((error) => {
-          console.log(error);
+          console.log('default', error);
+
           //throw new Error("Ein Fehler ist aufgetreten!");
         });
     }

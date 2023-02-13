@@ -1,12 +1,12 @@
-import React from "react";
-import Cardlist from "../card/list";
-import { useSelector } from "react-redux";
+import React from 'react';
+import Cardlist from '../card/list';
+import { useSelector } from 'react-redux';
 
-import ThumbnailItem from "../../components/gallery/ThumbnailItem";
+import ThumbnailItem from '../../components/gallery/ThumbnailItem';
 
 const GalleryOverview = (props) => {
-  //const thumbnails = useSelector((state) => state.gallery.thumbnails);
-
+  const thumbnails = useSelector((state) => state.gallery.thumbnails);
+  console.log('tn', thumbnails);
   // const selectItemHandler = (id, title) => {
   //   props.navigation.navigate("GalleryDetails", {
   //     imageId: id,
@@ -16,8 +16,8 @@ const GalleryOverview = (props) => {
 
   return (
     <Cardlist
-      type="gallery"
-      // loadData={galleryActions.fetchThumbnails(props.galleryId)}
+      type='gallery'
+      loadData={galleryActions.fetchThumbnails(props.galleryId)}
       data={thumbnails}
       renderGridItem={(itemData) => (
         <ThumbnailItem
